@@ -11,4 +11,5 @@ And the work will be planned within trello board:
 https://trello.com/b/dpKs1yGN/whistle
 
 here is the wireframe of the website:
+![Wireframe](images/wireframe.jpg)
 
