@@ -13,3 +13,8 @@ https://trello.com/b/dpKs1yGN/whistle
 here is the wireframe of the website:
 ![Wireframe](images/wireframe.jpg)
 
+
+## Entity Relationship Diagram
+
+you can find the entity relationship diagram in this link
+https://drive.google.com/file/d/1-h-jAQ3mj0MVmHR3wGJYnfXhH-LFmT5P/view
