@@ -1,0 +1,42 @@
+* {
+  box-sizing: border-box;
+}
+
+/* Header Start */
+
+header {
+  background-color: black;
+  height: 75px;
+  color: #fff;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 25px;
+}
+header h1 {
+  margin: 0 15px;
+}
+
+header a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 15px;
+}
+
+header a:hover {
+  background-color: blue;
+}
+
+/* Header End */
+
+/* Display */
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}

@@ -3,21 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../styles/reset.css" />
+    <link rel="stylesheet" href="../../styles/base.css" />
     <title>Whistle</title>
   </head>
   <body>
-    <header>
-      <nav>
-        <ul>
-          <li>Whistle</li>
-          <li>
-           <a href="/live">Live matches</a>
-          </li>
-          <li>
-            <a href="/sign">Sign in/up</a>
-          </li>
-        </ul>
-      </nav>
+    <header class="row">
+      <h1>Whistle</h1>
+      <a href="/live">Live matches</a>
+      <a href="/sign">Sign in/up</a>
     </header>
     <main>
       <section>
@@ -31,15 +25,15 @@
       </section>
       <section id="footballInfo">
         <h2>Football Information</h2>
-          <h3>Topics</h3>
-          <select name="searchTopic" id="searchTopic" onchange="showHiddenForm()">
-            <option value="matchesResults">matches results</option>
-            <option value="playersInfo">players info</option>
-            <option value="matchesDate">matches date</option>
-            <option value="bestPlayer">the best player</option>
-            <option value="expectations">expectations</option>
-            <option value="statistics">statistics</option>
-          </select>
+        <h3>Topics</h3>
+        <select name="searchTopic" id="searchTopic" onchange="showHiddenForm()">
+          <option value="matchesResults">matches results</option>
+          <option value="playersInfo">players info</option>
+          <option value="matchesDate">matches date</option>
+          <option value="bestPlayer">the best player</option>
+          <option value="expectations">expectations</option>
+          <option value="statistics">statistics</option>
+        </select>
         <form action="" class="hidden-form" id="matchesResults"></form>
         <form action="" class="hidden-form" id="playersInfo"></form>
         <form action="" class="hidden-form" id="matchesDate"></form>
@@ -57,8 +51,6 @@
         </form>
       </section>
     </main>
-    <script>
-        
-    </script>
+    <script></script>
   </body>
 </html>
