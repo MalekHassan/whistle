@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+      integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../../styles/reset.css" />
+    <link rel="stylesheet" href="../../styles/base.css" />
+    <title>Whistle</title>
+  </head>
+  <body>
+    <header class="row">
+      <h1>Whistle <i class="fas fa-flag-checkered"></i></h1>
+      <a href="/live">Live matches</a>
+      <a href="/sign">Sign in/up</a>
+    </header>
+    <main>
+      <section id="firstSection">
+        <!-- <div id="testDiv"></div> -->
+        <img src="../../images/background2.jpg" alt="background_image" />
+        <h2>Whistle <i class="fas fa-flag-checkered"></i></h2>
+        <div id="aTags" class="row">
+          <a href="#challenge">Challenge</a>
+          <a href="#newsSection">News</a>
+          <a href="#footballInfo"
+            >Football <br />
+            Information</a
+          >
+        </div>
+      </section>
+      <section id="newsSection">
+        <h2>News</h2>
+      </section>
+      <section id="footballInfo">
+        <h2>Football Information</h2>
+        <h3>Topics</h3>
+        <select name="searchTopic" id="searchTopic" onchange="showHiddenForm()">
+          <option value="matchesResults">matches results</option>
+          <option value="playersInfo">players info</option>
+          <option value="matchesDate">matches date</option>
+          <option value="bestPlayer">the best player</option>
+          <option value="expectations">expectations</option>
+          <option value="statistics">statistics</option>
+        </select>
+        <form action="" class="hidden-form" id="matchesResults"></form>
+        <form action="" class="hidden-form" id="playersInfo"></form>
+        <form action="" class="hidden-form" id="matchesDate"></form>
+        <form action="" class="hidden-form" id="expectations"></form>
+        <form action="" class="hidden-form" id="statistics"></form>
+      </section>
+      <section id="challenge">
+        <h2>Challenge yourself</h2>
+        <form action="/question">
+          <label>Number of question</label>
+          <input type="text" /><br />
+          <label>Difficulty</label>
+          <input type="text" />
+          <input type="submit" value="Submit" />
+        </form>
+      </section>
+    </main>
+    <script></script>
+  </body>
+</html>
