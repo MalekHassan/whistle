@@ -1,0 +1,28 @@
+{
+  "name": "whistle",
+  "version": "1.0.0",
+  "description": "Whistle project is a website that contains the news of the football, information about football players and a challenge to test your knowledge about sport.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TopDots/whistle.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TopDots/whistle/issues"
+  },
+  "homepage": "https://github.com/TopDots/whistle#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "pg": "^8.3.3",
+    "superagent": "^6.1.0"
+  }
+}
