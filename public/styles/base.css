@@ -151,12 +151,33 @@ header a:hover {
   border: black 1px solid;
 }
 
-#matches-container h2 {
-  background-color: black;
+#match_head {
+  width: 100%;
+  justify-content: space-around;
+  background-color: #000000;
   color: #fff;
+  padding: 5px;
+}
+
+#match_head h2 {
   font-size: 20px;
   text-align: center;
-  width: 100%;
+}
+
+#match_head select {
+  appearance: none;
+  -moz-appearance: button-arrow-down;
+  border: none;
+  background-color: #000000;
+  color: #fff;
+  padding: 5px;
+  font-size: 15px;
+}
+#match_head input[type='submit'] {
+  width: 60%;
+  background-color: black;
+  color: #fff;
+  border: 1px solid #fff;
 }
 
 .match-content {

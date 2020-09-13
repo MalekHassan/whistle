@@ -30,7 +30,7 @@ async function homePage(req, res) {
   const NEWS_API_KEY = process.env.NEWS_API_KEY;
   const todayDate = getTodayDate();
   const newsUrl = `https://newsapi.org/v2/everything?qInTitle="+soccer"&to=${todayDate}&pageSize=30&apiKey=${NEWS_API_KEY}`;
-  let liveMatches = await getLiveMatches();
+  let liveMatches = await getLiveMatches(req, res);
   superagent.get(newsUrl).then((data) => {
     let newsArray = data.body.articles.map((news) => {
       return new News(news);
@@ -65,12 +65,15 @@ function getData(req, res) {
 }
 
 async function getLiveMatches(req, res) {
+  const { league_id } = req.query;
   const SOCCER_API_KEY = process.env.SOCCER_API_KEY;
   const todayDate = getTodayDate();
-  const liveURL = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${todayDate}&APIkey=${SOCCER_API_KEY}`;
+  const liveURL = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${todayDate}&league_id=${
+    league_id || 148
+  }&APIkey=${SOCCER_API_KEY}`;
 
   return await superagent.get(liveURL).then((data) => {
-    return data.body.slice(0, 5).map((match) => {
+    return data.body.map((match) => {
       return new LiveMatch(match);
     });
   });

@@ -35,7 +35,19 @@
       </section>
       <section id="newsSection" class="row">
         <div id="matches-container" class="column">
-          <h2>Upcomming Matches</h2>
+          <div id="match_head" class="row">
+            <h2>Upcomming Matches</h2>
+            <form class="row" action="/" method="GET">
+              <select name="league_id" id="leagues-select">
+                <option value="195">Bundesliga</option>
+                <option value="148">Premier</option>
+                <option value="468">LaLiga</option>
+                <option value="262">Serie A</option>
+                <option value="176">Ligue 1</option>
+              </select>
+              <input type="submit" value="Get result" />
+            </form>
+          </div>
           <% matches.forEach(match=>{ %>
           <div class="match-content row">
             <div class="team-image column">
