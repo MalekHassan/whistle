@@ -34,7 +34,22 @@
         </div>
       </section>
       <section id="newsSection" class="row">
-        <div class="empty"></div>
+        <div id="matches-container" class="column">
+          <h2>Upcomming Matches</h2>
+          <% matches.forEach(match=>{ %>
+          <div class="match-content row">
+            <div class="team-image column">
+              <img src="<%= match.home_team_logo%>" alt="home_team" />
+              <small><%= match.home_team %> </small>
+            </div>
+            <p><%= match.time %></p>
+            <div class="team-image column">
+              <img src="<%= match.away_team_logo%>" alt="away_team" />
+              <small><%= match.away_team %> </small>
+            </div>
+          </div>
+          <% }) %>
+        </div>
         <div class="slide-show-container">
           <% news.forEach(item =>{ %>
           <div class="mySlides fade">

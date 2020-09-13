@@ -18,27 +18,37 @@ app.get('/live', getData);
 
 // Functions
 
+// Get Today date
+
+function getTodayDate() {
+  return new Date().toJSON().slice(0, 10).replace(/-/g, '/');
+}
+
 // Home page function
 
-function homePage(req, res) {
+async function homePage(req, res) {
   const NEWS_API_KEY = process.env.NEWS_API_KEY;
-  const todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
+  const todayDate = getTodayDate();
   const newsUrl = `https://newsapi.org/v2/everything?qInTitle="+soccer"&to=${todayDate}&pageSize=30&apiKey=${NEWS_API_KEY}`;
+  let liveMatches = await getLiveMatches();
   superagent.get(newsUrl).then((data) => {
     let newsArray = data.body.articles.map((news) => {
       return new News(news);
     });
-    res.render('pages/index', { news: newsArray });
+    res.render('pages/index', {
+      news: newsArray,
+      matches: liveMatches,
+    });
   });
 }
 
 // Get Live Soccer Matches From API
 function getData(req, res) {
+  const SOCCER_API_KEY = process.env.SOCCER_API_KEY;
+  const todayDate = getTodayDate();
+  const liveURL = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${todayDate}&APIkey=${SOCCER_API_KEY}`;
   superagent
-    .get(
-      'https://apiv2.apifootball.com/?action=get_events&from=2020-09-12&to=2020-09-12&APIkey=3feadcb8f9ec3881cd3da4ac84d420374cbd4cd83c8a2eef9f6a0d57faa29c44',
-      {}
-    )
+    .get(liveURL)
     .then((data) => {
       let array = data.body.filter((item) => {
         if (item.match_live === '1' && item.match_status !== 'Finished') {
@@ -52,6 +62,18 @@ function getData(req, res) {
         error: 'Somthing went bad',
       });
     });
+}
+
+async function getLiveMatches(req, res) {
+  const SOCCER_API_KEY = process.env.SOCCER_API_KEY;
+  const todayDate = getTodayDate();
+  const liveURL = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${todayDate}&APIkey=${SOCCER_API_KEY}`;
+
+  return await superagent.get(liveURL).then((data) => {
+    return data.body.slice(0, 5).map((match) => {
+      return new LiveMatch(match);
+    });
+  });
 }
 //Constructors
 
@@ -68,6 +90,16 @@ function News(newsData) {
   this.author = newsData.author;
   this.description = newsData.description;
 }
+
+// Main page Live constructor
+function LiveMatch(matchData) {
+  this.time = matchData.match_time;
+  this.home_team = matchData.match_hometeam_name;
+  this.away_team = matchData.match_awayteam_name;
+  this.home_team_logo = matchData.team_home_badge;
+  this.away_team_logo = matchData.team_away_badge;
+}
+
 // Listen To Server
 
 app.listen(PORT, () => {
