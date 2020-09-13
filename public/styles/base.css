@@ -146,8 +146,8 @@ header a:hover {
 /* News Section Matches Start */
 #matches-container {
   width: 20%;
-  min-height: 350px;
-  height: auto;
+  height: 350px;
+  overflow: scroll;
   justify-content: space-between;
   border: black 1px solid;
   position: relative;
