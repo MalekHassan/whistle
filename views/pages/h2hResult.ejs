@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+      integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../../styles/reset.css" />
+    <link rel="stylesheet" href="../../styles/base.css" />
+    <title>Whistle</title>
+  </head>
+  <body>
+    <header class="row">
+      <h1>Whistle <i class="fas fa-flag-checkered"></i></h1>
+      <a href="/live">Live matches</a>
+      <a href="/sign">Sign in/up</a>
+    </header>
+   <main>
+
+    <%h2hData.forEach(element => {%>
+            <h2>country name <%= element.country_name %></h2> 
+            <h2>league name <%= element.league_name %></h2>
+            <h2>match date <%= element.match_date %></h2>
+            <h2>match hometeam name <%= element.match_hometeam_name %></h2>
+            <h2>match hometeam score <%= element.match_hometeam_score %></h2>
+            <h2>match awayteam name <%= element.match_awayteam_name %></h2>
+            <h2>match awayteam score <%= element.match_awayteam_score %></h2>
+    <%});%>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    
+  </body>
+</html>

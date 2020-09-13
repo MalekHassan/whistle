@@ -15,6 +15,7 @@ app.use(express.static('./public'));
 // Routs
 app.get('/', homePage);
 app.get('/live', getData);
+app.get('/h2h', h2hFunction)
 
 // Functions
 
@@ -44,6 +45,34 @@ function getData(req, res) {
         error: 'Somthing went bad',
       });
     });
+}
+
+// get head to head information from API
+function h2hFunction(req, res) {
+  let { match_hometeam_name, match_awayteam_name } = req.body
+  let key = process.env.SOCCER_API_KEY;
+  const url = `https://apiv2.apifootball.com/?action=get_H2H&firstTeam=${match_hometeam_name}&secondTeam=${match_awayteam_name}&APIkey=${key}`
+  let h2hAgent = superagent.get(url).then(item => {
+    return item.body.filter(e => {
+      let matchResult = new H2hResult(e);
+      return matchResult;
+    })
+  })
+  res.redirect('pages/h2hResult', { h2hData: h2hAgent })
+
+}
+
+// constructor Function
+
+function H2hResult(data){
+  this.country_name = data.country_name;
+  this.league_name = data.league_name;
+  this.match_date = data.match_date;
+  this.match_hometeam_name = data.match_hometeam_name;
+  this.match_hometeam_score = data.match_hometeam_score;
+  this.match_awayteam_name = data.match_awayteam_name;
+  this.match_awayteam_score = data.match_awayteam_score;
+
 }
 
 // Listen To Server

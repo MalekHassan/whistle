@@ -40,6 +40,7 @@
         <h2>Football Information</h2>
         <h3>Topics</h3>
         <select name="searchTopic" id="searchTopic" onchange="showHiddenForm()">
+          <option value="">Search Topic</option>
           <option value="matchesResults">matches results</option>
           <option value="playersInfo">players info</option>
           <option value="matchesDate">matches date</option>
@@ -47,7 +48,12 @@
           <option value="expectations">expectations</option>
           <option value="statistics">statistics</option>
         </select>
-        <form action="" class="hidden-form" id="matchesResults"></form>
+        <form action="/h2h" class="hidden-form" id="matchesResults">
+          <input name="match_hometeam_name" required type="text" id="frstTeam"  placeholder="First Team">
+          <input name="match_awayteam_name" required type="text" id="secondTeam"  placeholder="Second Team">
+          <input type="submit" value="submit">
+
+        </form>
         <form action="" class="hidden-form" id="playersInfo"></form>
         <form action="" class="hidden-form" id="matchesDate"></form>
         <form action="" class="hidden-form" id="expectations"></form>
@@ -64,6 +70,17 @@
         </form>
       </section>
     </main>
-    <script></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script>
+      function showHiddenForm(){
+        console.log("hiii" , $('#searchTopic').val() )
+        $('.hidden-form').hide();
+        if ($('#searchTopic').val() === 'matchesResults' ){
+            $('#matchesResults').toggle()
+        
+        }
+      }
+    </script>
+    
   </body>
 </html>
