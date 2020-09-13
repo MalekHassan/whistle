@@ -43,11 +43,11 @@ async function homePage(req, res) {
 }
 
 // Get Live Soccer Matches From API
-function getLiveMatches(req, res) {
+async function getLiveMatches(req, res) {
   const SOCCER_API_KEY = process.env.SOCCER_API_KEY;
   const todayDate = getTodayDate();
   const liveURL = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${todayDate}&APIkey=${SOCCER_API_KEY}`;
-  superagent
+  await superagent
     .get(liveURL)
     .then((data) => {
       let liveMatchesArray = data.body
@@ -125,14 +125,18 @@ function UpCommingMatches(matchData) {
 
 function liveMatches(matchData) {
   this.match_id = matchData.match_id;
+  this.league_logo = matchData.league_logo;
   this.league_name = matchData.league_name;
   this.match_time = matchData.match_time;
   this.match_hometeam_name = matchData.match_hometeam_name;
   this.match_awayteam_name = matchData.match_awayteam_name;
-  this.team_home_badge = matchData.team_home_badge;
-  this.team_away_badge = matchData.team_away_badge;
-  this.match_hometeam_score = matchData.match_hometeam_score;
-  this.match_awayteam_score = matchData.match_awayteam_score;
+  this.team_home_badge = matchData.team_home_badge
+    ? matchData.team_home_badge
+    : 'https://apiv2.apifootball.com/badges/17691_hafnarfjordur-w.png';
+  this.team_away_badge = matchData.team_away_badge
+    ? matchData.team_away_badge
+    : 'https://apiv2.apifootball.com/badges/17691_hafnarfjordur-w.png';
+  this.score = `${matchData.match_hometeam_score} : ${matchData.match_awayteam_score}`;
 }
 
 // Listen To Server
