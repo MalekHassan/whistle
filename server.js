@@ -64,6 +64,7 @@ function getData(req, res) {
     });
 }
 
+// Get UpComming Matches From API
 async function getLiveMatches(req, res) {
   const { league_id } = req.query;
   const SOCCER_API_KEY = process.env.SOCCER_API_KEY;
@@ -72,12 +73,26 @@ async function getLiveMatches(req, res) {
     league_id || 148
   }&APIkey=${SOCCER_API_KEY}`;
 
-  return await superagent.get(liveURL).then((data) => {
-    return data.body.map((match) => {
-      return new LiveMatch(match);
-    });
+  let matchesArray = await superagent.get(liveURL).then((data) => {
+    if (data.body.length > 0) {
+      return data.body
+        .map((match) => {
+          return new LiveMatch(match);
+        })
+        .sort((a, b) => {
+          if (a.time < b.time) {
+            return -1;
+          } else if (a.time > b.time) {
+            return 1;
+          } else return 0;
+        });
+    } else {
+      return [];
+    }
   });
+  return matchesArray;
 }
+
 //Constructors
 
 //News Constructors - #1

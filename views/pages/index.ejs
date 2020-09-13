@@ -48,7 +48,7 @@
               <input type="submit" value="Get result" />
             </form>
           </div>
-          <% matches.forEach(match=>{ %>
+          <% if(matches.length > 0){ %> <% matches.forEach(match=>{ %>
           <div class="match-content row">
             <div class="team-image column">
               <img src="<%= match.home_team_logo%>" alt="home_team" />
@@ -60,7 +60,9 @@
               <small><%= match.away_team %> </small>
             </div>
           </div>
-          <% }) %>
+          <% }) %> <% }else{ %>
+          <h3>There is No Mathces today for this league</h3>
+          <% } %>
         </div>
         <div class="slide-show-container">
           <% news.forEach(item =>{ %>

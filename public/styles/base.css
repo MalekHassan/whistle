@@ -146,9 +146,21 @@ header a:hover {
 /* News Section Matches Start */
 #matches-container {
   width: 20%;
-  height: 350px;
+  min-height: 350px;
+  height: auto;
   justify-content: space-between;
   border: black 1px solid;
+  position: relative;
+}
+
+#matches-container h3 {
+  position: absolute;
+  bottom: 40%;
+  font-size: 20px;
+  color: red;
+  text-align: center;
+  margin: 5px;
+  padding: 5px;
 }
 
 #match_head {
