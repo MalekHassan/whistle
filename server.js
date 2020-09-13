@@ -21,16 +21,15 @@ app.get('/live', getData);
 // Home page function
 
 function homePage(req, res) {
-  const NEWS_API_KEY = process.env.NEWS_API_KEY
+  const NEWS_API_KEY = process.env.NEWS_API_KEY;
   const todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
-  const newsUrl = `https://newsapi.org/v2/everything?qInTitle="+soccer"&to=${todayDate}&apiKey=${NEWS_API_KEY}`
-  superagent.get(newsUrl)
-    .then(data => {
-      let newsArray = data.body.articles.map(news => {
-        return new News(news);
-      });
-      res.render('pages/index', { news: newsArray });
-    })
+  const newsUrl = `https://newsapi.org/v2/everything?qInTitle="+soccer"&to=${todayDate}&pageSize=30&apiKey=${NEWS_API_KEY}`;
+  superagent.get(newsUrl).then((data) => {
+    let newsArray = data.body.articles.map((news) => {
+      return new News(news);
+    });
+    res.render('pages/index', { news: newsArray });
+  });
 }
 
 // Get Live Soccer Matches From API
@@ -59,7 +58,12 @@ function getData(req, res) {
 //News Constructors - #1
 function News(newsData) {
   this.title = newsData.title;
-  this.image_url = newsData.urlToImage;
+  // this.image_url = newsData.urlToImage;
+  this.image_url = newsData.urlToImage
+    ? newsData.urlToImage.includes('rcom-default')
+      ? '/images/background.jpg'
+      : newsData.urlToImage
+    : '/images/background.jpg';
   this.url = newsData.url;
   this.author = newsData.author;
   this.description = newsData.description;

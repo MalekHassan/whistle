@@ -38,7 +38,9 @@
         <div class="slide-show-container">
           <% news.forEach(item =>{ %>
           <div class="mySlides fade">
-            <img src="<%= item.image_url %>" alt="" />
+            <a href="<%= item.url %>" target="_blank">
+              <img src="<%= item.image_url %>" alt=""
+            /></a>
             <p class="text"><%= item.title%></p>
           </div>
           <% }) %>
