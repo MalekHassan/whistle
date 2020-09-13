@@ -18,6 +18,8 @@ app.get('/live', getData);
 app.get('/h2h', h2hFunction);
 app.get('/player',playerInfo);
 app.get('/events' , eventsInfo);
+app.get('/bestOf' , bestPlayerInfo);
+
 
 // Functions
 
@@ -92,6 +94,23 @@ function eventsInfo(req,res){
       return new Date(e);
     })
     res.render('pages/dateInfo', {dateData:dateAgent})
+  })
+}
+
+// Get the best player from league id then from the teams of each league
+function bestPlayerInfo(req,res){
+  let {leagueName} = req.query;
+  let key = process.env.SOCCER_API_KEY;
+  // console.log('key',key);
+  const url = `https://apiv2.apifootball.com/?action=get_teams&league_id=${leagueName}&APIkey=${key}`
+  // console.log('url',url) 
+  superagent.get(url).then(item => {
+    // let malek = JSON.parse(item);
+    // console.log("url data",malek)
+    // let dateAgent = item.body.map(e => {
+    //   return new Date(e);
+    // })
+    // res.render('pages/dateInfo', {dateData:dateAgent})
   })
 }
 

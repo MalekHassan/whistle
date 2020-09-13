@@ -68,7 +68,17 @@
           <input type="date" name="toDate" id="date2">
           <input type="submit" value="submit">
         </form>
-        <form action="" class="hidden-form" id="expectations"></form>
+        <form action="/bestOf" class="hidden-form" id="bestPlayer">
+          <select name="leagueName" id="leagueName">
+            <option value="leagueName">League Name</option>
+            <option value="148">Premier League</option>
+            <option value="262">Serie A</option>
+            <option value="468">LaLiga</option>
+            <option value="195">Bundesliga</option>
+            <option value="167">Ligue 1</option>
+          </select>
+          <input type="submit" value="submit">
+        </form>
         <form action="" class="hidden-form" id="statistics"></form>
       </section>
       <section id="challenge">
@@ -87,7 +97,7 @@
       function showHiddenForm(){
         // console.log("hiii" , $('#searchTopic').val() )
         $('.hidden-form').hide();
-        let selectArray = ['matchesResults','playersInfo',"matchesDate","expectations","statistics"];
+        let selectArray = ['matchesResults','playersInfo',"matchesDate", "bestPlayer" , "expectations","statistics"];
         selectArray.forEach(element=>{
           if ($('#searchTopic').val() === element){
             $(`#${element}`).toggle()
