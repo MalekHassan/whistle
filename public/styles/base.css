@@ -77,10 +77,10 @@ header a:hover {
   margin: 0;
 }
 .empty {
-  width: 50%;
+  width: 20%;
 }
 .slide-show-container {
-  width: 50%;
+  width: 80%;
   position: relative;
 }
 
