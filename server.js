@@ -21,7 +21,16 @@ app.get('/live', getData);
 // Home page function
 
 function homePage(req, res) {
-  res.render('pages/index');
+  const NEWS_API_KEY = process.env.NEWS_API_KEY
+  const todayDate = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
+  const newsUrl = `https://newsapi.org/v2/everything?qInTitle="+soccer"&to=${todayDate}&apiKey=${NEWS_API_KEY}`
+  superagent.get(newsUrl)
+    .then(data => {
+      let newsArray = data.body.articles.map(news => {
+        return new News(news);
+      });
+      res.render('pages/index', { news: newsArray });
+    })
 }
 
 // Get Live Soccer Matches From API
@@ -45,7 +54,16 @@ function getData(req, res) {
       });
     });
 }
+//Constructors
 
+//News Constructors - #1
+function News(newsData) {
+  this.title = newsData.title;
+  this.image_url = newsData.urlToImage;
+  this.url = newsData.url;
+  this.author = newsData.author;
+  this.description = newsData.description;
+}
 // Listen To Server
 
 app.listen(PORT, () => {
