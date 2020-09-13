@@ -78,3 +78,31 @@ header a:hover {
   display: flex;
   flex-direction: column;
 }
+/* H2H resulrs */
+main div{
+  margin-top: 10px;
+}
+
+.item2{
+  padding-left: 10px;
+}
+.container{
+  justify-content: center;
+  display: grid;
+  grid-template-columns: 100px 100px 100px 100px 15px 30px 100px;
+  justify-items: center;
+}
+.container3{
+  justify-content: center;
+  display: grid;
+  grid-template-columns: 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px;
+  justify-items: center;
+}
+.container4{
+  justify-content: space-around;
+  display: grid;
+  grid-template-columns: 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px ;
+  justify-items: center;
+  text-align: center;
+
+}
