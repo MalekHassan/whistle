@@ -61,8 +61,8 @@ async function getLiveMatches(req, res) {
       // console.log(data.body);
       let liveMatchesArray = data.body
         .filter((item) => {
-          // item.match_live === '1'
-          if (item.match_status !== 'Finished') {
+          //item.match_status !== 'Finished'
+          if (item.match_live === '1') {
             return item;
           }
         })
@@ -332,7 +332,7 @@ function liveMatches(matchData) {
     : 'https://apiv2.apifootball.com/badges/17691_hafnarfjordur-w.png';
   this.score = `${matchData.match_hometeam_score} : ${matchData.match_awayteam_score}`;
 }
-
+ 
 // get live match deatail
 
 function MatchDetail(matchData) {
@@ -343,12 +343,19 @@ function MatchDetail(matchData) {
   this.match_hometeam_name = matchData.match_hometeam_name;
   this.match_awayteam_name = matchData.match_awayteam_name;
   this.match_stadium = matchData.match_stadium;
+  this.match_hometeam_halftime_score = matchData.match_hometeam_halftime_score;
+  this.match_awayteam_halftime_score = matchData.match_awayteam_halftime_score;
+  this.match_round = matchData.match_round;
+  this.match_referee =  matchData.match_referee;
   this.team_home_badge = matchData.team_home_badge;
   this.team_away_badge = matchData.team_away_badge;
   this.league_logo = matchData.league_logo;
   this.cards = matchData.cards; /*array*/
   this.substitutions = matchData.substitutions;
   this.score = `${matchData.match_hometeam_score} : ${matchData.match_awayteam_score}`;
+  this.goalscorer = matchData.goalscorer;
+  this.lineup = matchData.lineup;
+  this.statistics=matchData.statistics;
 }
 
 // get challenge Constructor
