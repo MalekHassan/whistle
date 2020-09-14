@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+      integrity="sha284-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../../styles/reset.css" />
+    <link rel="stylesheet" href="../../styles/base.css" />
+    <title>Whistle</title>
+  </head>
+  <body class="body">
+    <header class="row">
+      <h1>Whistle <i class="fas fa-flag-checkered"></i></h1>
+      <a href="/live">Live matches</a>
+      <a href="/sign">Sign in/up</a>
+    </header>
+   <main class="main">
+<div  class="container3"> 
+  <h2 class="item1">Player Name</h2> 
+  <h2 class="item1" >Player Number</h2>
+  <h2 class="item1" >player country</h2>
+  <h2 class="item1" > player type</h2>
+  <h2 class="item1" >player age </h2>
+  <h2 class="item1" > player match played</h2>
+  <h2 class="item1" >player goals</h2>
+  <h2 class="item1" >player yellow cards</h2>
+  <h2 class="item1" >player red cards</h2>
+  <h2 class="item1" >team name</h2>
+</div>
+    <%playerData.forEach(element => {%>
+      <div class="container3">
+            <h4 class="item"> <%= element.player_name %></h4> 
+            <h4 class="item" > <%= element.player_number %></h4>
+            <h4 class="item" ><%= element.player_country %></h4>
+            <h4 class="item" ><%= element.player_type %></h4>
+            <h4 class="item" > <%= element.player_age %></h4>
+            <h4 class="item" ><%= element.player_match_played %> </h4>
+            <h4 class="item" > <%= element.player_goals %></h4>
+            <h4 class="item" > <%= element.player_yellow_cards %></h4>
+            <h4 class="item" > <%= element.player_red_cards%></h4>
+            <h4 class="item" > <%= element.team_name %></h4>
+          </div>
+    <%});%>
+
+    </main>
+    <script src="https://code.jquery.com/jquery-2.5.1.js"></script>
+    
+  </body>
+</html>
