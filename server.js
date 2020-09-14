@@ -79,9 +79,8 @@ async function getUpCommingMatches(req, res) {
   const { league_id } = req.query;
   const SOCCER_API_KEY = process.env.SOCCER_API_KEY;
   const todayDate = getTodayDate();
-  const liveURL = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${todayDate}&league_id=${
-    league_id || 148
-  }&APIkey=${SOCCER_API_KEY}`;
+  const liveURL = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${todayDate}&league_id=${league_id || 148
+    }&APIkey=${SOCCER_API_KEY}`;
 
   let matchesArray = await superagent.get(liveURL).then((data) => {
     if (data.body.length > 0) {
@@ -125,7 +124,10 @@ function getQuestionsChall(req, res) {
   const questionURL = `https://opentdb.com/api.php?amount=${question}&category=21&difficulty=${diffculty}&type=multiple`;
   console.log(questionURL);
   superagent.get(questionURL).then((data) => {
-    console.log(data.body.results);
+    let qustionArray = data.body.results.map(question => {
+      return new challengeQuestion(question);
+    })
+    res.render('pages/questions', { questions: qustionArray })
   });
 }
 
@@ -187,6 +189,13 @@ function MatchDetail(matchData) {
   this.cards = matchData.cards; /*array*/
   this.substitutions = matchData.substitutions;
   this.score = `${matchData.match_hometeam_score} : ${matchData.match_awayteam_score}`;
+}
+
+// get challenge Constructor
+function challengeQuestion(question) {
+  this.question = question.question;
+  this.answers = question.incorrect_answers.concat(question.correct_answer);
+  this.correct_answer = question.correct_answer;
 }
 
 // Listen To Server
