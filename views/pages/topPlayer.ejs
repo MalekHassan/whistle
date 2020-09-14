@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+      integrity="sha284-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../../styles/reset.css" />
+    <link rel="stylesheet" href="../../styles/base.css" />
+    <title>Whistle</title>
+  </head>
+  <body class="body">
+    <header class="row">
+      <h1>Whistle <i class="fas fa-flag-checkered"></i></h1>
+      <a href="/live">Live matches</a>
+      <a href="/sign">Sign in/up</a>
+    </header>
+   <main class="main">
+<div  class="container5"> 
+  <h2 class="item1" >team name</h2>
+  <h2 class="item1" >team badge</h2>
+  <h2 class="item1" >player name</h2>
+  <h2 class="item1" >player goals</h2>
+  
+</div>
+<!-- <%console.log(TopPlayerData)%> -->
+    <%TopPlayerData.forEach(element => {%>
+      <div class="container5">
+        <h4 class="item"> <%= element.team_name %></h4> 
+        <img class="item" src=<%= element.team_badge%> alt="badge" >
+            <h4 class="item" ><%=element.player_name  %></h4>
+            <h4 class="item" > <%=element.player_goals %></h4>
+            
+          </div>
+    <%});%>
+    
+    </main>
+    <script src="https://code.jquery.com/jquery-2.5.1.js"></script>
+    
+  </body>
+</html>
+
