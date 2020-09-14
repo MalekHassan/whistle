@@ -185,7 +185,7 @@ header a:hover {
   padding: 5px;
   font-size: 15px;
 }
-#match_head input[type='submit'] {
+#match_head input[type="submit"] {
   width: 60%;
   background-color: black;
   color: #fff;
@@ -259,7 +259,7 @@ header a:hover {
   margin: 10px 0;
 }
 
-.live-match-content input[type='submit'] {
+.live-match-content input[type="submit"] {
   margin: 10px 0;
   background-color: black;
   color: white;
@@ -310,6 +310,10 @@ header a:hover {
 }
 
 /* Live Matches live.ejs End */
+
+/*match details start*/
+
+/*match details end*/
 
 /* Display */
 

@@ -4,21 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Match details</title>
+    <link rel="stylesheet" href="../../styles/reset.css" />
+    <link rel="stylesheet" href="../../styles/base.css" />
   </head>
   <body>
-    <% console.log(match) %>
-    <p><%= match.country_name %></p>
-    <p><%= match.league_name %></p>
-    <p><%= match.match_date %></p>
-    <p><%= match.match_time %></p>
-    <p><%= match.match_hometeam_name %></p>
-    <p><%= match.match_awayteam_name %></p>
-    <p><%= match.score %></p>
-    <p><%= match.match_stadium %></p>
-    <img src="<%= match.team_home_badge %>" />
-    <img src="<%= match.team_away_badge %>" />
-    <img src="<%= match.league_logo %>" />
-    <p><%= match.cards %></p>
-    <p><%= match.substitutions %></p>
+    <div class="container row">
+      <div class="live-match-content column">
+        <h2><%= match.league_name %></h2>
+        <img src="<%= match.league_logo %> " alt="<%- match.league_name %> " />
+        <div class="score row">
+          <div class="live-match-image column">
+            <img
+              src="<%= match.team_home_badge %> "
+              alt="<%= match.match_hometeam_name %> "
+            />
+            <small><%= match.match_hometeam_name %> </small>
+          </div>
+          <p><%= match.score %></p>
+          <div class="live-match-image column">
+            <img
+              src="<%= match.team_away_badge %> "
+              alt="<%= match.match_awayteam_name %> "
+            />
+            <small><%= match.match_awayteam_name %> </small>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
