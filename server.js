@@ -15,6 +15,7 @@ app.use(express.static('./public'));
 // Routs
 app.get('/', homePage);
 app.get('/live', getLiveMatches);
+app.get('/match_detail/:matchID', getLiveMatchDetails);
 
 // Functions
 
@@ -29,7 +30,7 @@ function getTodayDate() {
 async function homePage(req, res) {
   const NEWS_API_KEY = process.env.NEWS_API_KEY;
   const todayDate = getTodayDate();
-  const newsUrl = `https://newsapi.org/v2/everything?qInTitle="+soccer"&to=${todayDate}&pageSize=30&apiKey=${NEWS_API_KEY}`;
+  const newsUrl = `https://newsapi.org/v2/everything?qInTitle="+soccer"&from=${todayDate}&to=${todayDate}&pageSize=30&apiKey=${NEWS_API_KEY}`;
   let liveMatches = await getUpCommingMatches(req, res);
   superagent.get(newsUrl).then((data) => {
     let newsArray = data.body.articles.map((news) => {
@@ -47,18 +48,22 @@ async function getLiveMatches(req, res) {
   const SOCCER_API_KEY = process.env.SOCCER_API_KEY;
   const todayDate = getTodayDate();
   const liveURL = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${todayDate}&APIkey=${SOCCER_API_KEY}`;
+  console.log(liveURL);
   await superagent
     .get(liveURL)
     .then((data) => {
+      // console.log(data.body);
       let liveMatchesArray = data.body
         .filter((item) => {
-          if (item.match_live === '1' && item.match_status !== 'Finished') {
+          // item.match_live === '1'
+          if (item.match_status !== 'Finished') {
             return item;
           }
         })
         .map((match) => {
           return new liveMatches(match);
         });
+      console.log(liveMatchesArray);
       res.render('pages/live', { matchArray: liveMatchesArray });
     })
     .catch((err) => {
@@ -95,6 +100,15 @@ async function getUpCommingMatches(req, res) {
     }
   });
   return matchesArray;
+}
+
+// Get Live Match Details
+
+function getLiveMatchDetails(req, res) {
+  const matchID = req.params.matchID;
+  const todayDate = getTodayDate();
+  const SOCCER_API_KEY = process.env.SOCCER_API_KEY;
+  const matchResultUrl = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=$${todayDate}&match_id=${matchID}&APIkey=${SOCCER_API_KEY}`;
 }
 
 //Constructors
