@@ -33,6 +33,7 @@ header a:hover {
 
 #firstSection {
   position: relative;
+  height: 500px;
 }
 
 #firstSection img {
@@ -66,6 +67,253 @@ header a:hover {
 }
 
 /* Top Section Background image end */
+
+/*News section start*/
+
+#newsSection {
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-around;
+  margin: 0;
+}
+
+.slide-show-container {
+  width: 80%;
+  position: relative;
+}
+
+.slide-show-container img {
+  width: 100%;
+  height: 350px;
+  object-fit: fill;
+}
+
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: #000000;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+}
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+.text {
+  color: #000000;
+  font-size: 20px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
+  text-align: center;
+}
+.mySlides {
+  display: none;
+}
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/*News section end*/
+
+/* News Section Matches Start */
+#matches-container {
+  width: 20%;
+  height: 350px;
+  overflow: scroll;
+  justify-content: space-between;
+  border: black 1px solid;
+  position: relative;
+}
+
+#matches-container h3 {
+  position: absolute;
+  bottom: 40%;
+  font-size: 20px;
+  color: red;
+  text-align: center;
+  margin: 5px;
+  padding: 5px;
+}
+
+#match_head {
+  width: 100%;
+  justify-content: space-around;
+  background-color: #000000;
+  color: #fff;
+  padding: 5px;
+}
+
+#match_head h2 {
+  font-size: 20px;
+  text-align: center;
+}
+
+#match_head select {
+  appearance: none;
+  -moz-appearance: button-arrow-down;
+  border: none;
+  background-color: #000000;
+  color: #fff;
+  padding: 5px;
+  font-size: 15px;
+}
+#match_head input[type="submit"] {
+  width: 60%;
+  background-color: black;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.match-content {
+  justify-content: space-around;
+  height: 15%;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid rgb(99, 97, 97);
+}
+
+.match-content p {
+  background-color: #000000;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  border: 2px white solid;
+  border-radius: 5px;
+}
+
+.team-image {
+  height: 100%;
+  width: 40%;
+  align-items: center;
+}
+
+.team-image img {
+  width: 50%;
+  height: 50%;
+}
+
+.team-image small {
+  text-align: center;
+  font-size: 12px;
+}
+/* News Section Matches End */
+
+/* Live Matches live.ejs Start */
+
+.container {
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.live-match-content {
+  width: 30%;
+  border: 1px solid black;
+  background-color: bisque;
+  border-radius: 5px;
+  margin: 15px 0;
+}
+
+.live-match-content img {
+  width: 100%;
+  height: 200px;
+  object-fit: fill;
+  padding: 15px;
+}
+
+.live-match-content h2 {
+  font-size: 20px;
+  text-align: center;
+  width: 100%;
+  font-weight: bold;
+  padding: 10px 0;
+  margin: 10px 0;
+}
+
+.live-match-content input[type="submit"] {
+  margin: 10px 0;
+  background-color: black;
+  color: white;
+  width: 50%;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.live-match-content form {
+  justify-content: center;
+}
+
+.live-match-content .score {
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.live-match-content .score p {
+  font-size: 18px;
+  background-color: #000000;
+  color: #fff;
+  font-weight: bold;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px;
+}
+
+.live-match-content .live-match-image {
+  width: 40%;
+  margin: 10px 0;
+}
+
+.live-match-content .live-match-image img {
+  width: 100%;
+  height: 150px;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.live-match-content .live-match-image small {
+  text-align: center;
+}
+
+/* Live Matches live.ejs End */
+
+/*match details start*/
+
+/*match details end*/
 
 /* Display */
 

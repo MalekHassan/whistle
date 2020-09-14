@@ -33,8 +33,49 @@
           >
         </div>
       </section>
-      <section id="newsSection">
-        <h2>News</h2>
+      <section id="newsSection" class="row">
+        <div id="matches-container" class="column">
+          <div id="match_head" class="row">
+            <h2>Upcomming Matches</h2>
+            <form class="row" action="/" method="GET">
+              <select name="league_id" id="leagues-select">
+                <option value="195">Bundesliga</option>
+                <option value="148">Premier</option>
+                <option value="468">LaLiga</option>
+                <option value="262">Serie A</option>
+                <option value="176">Ligue 1</option>
+              </select>
+              <input type="submit" value="Get result" />
+            </form>
+          </div>
+          <% if(matches.length > 0){ %> <% matches.forEach(match=>{ %>
+          <div class="match-content row">
+            <div class="team-image column">
+              <img src="<%= match.home_team_logo%>" alt="home_team" />
+              <small><%= match.home_team %> </small>
+            </div>
+            <p><%= match.time %></p>
+            <div class="team-image column">
+              <img src="<%= match.away_team_logo%>" alt="away_team" />
+              <small><%= match.away_team %> </small>
+            </div>
+          </div>
+          <% }) %> <% }else{ %>
+          <h3>There is No Mathces today for this league</h3>
+          <% } %>
+        </div>
+        <div class="slide-show-container">
+          <% news.forEach(item =>{ %>
+          <div class="mySlides fade">
+            <a href="<%= item.url %>" target="_blank">
+              <img src="<%= item.image_url %>" alt=""
+            /></a>
+            <p class="text"><%= item.title%></p>
+          </div>
+          <% }) %>
+          <a onclick="plusSlides(-1)" class="prev">&#10094;</a>
+          <a onclick="plusSlides(1)" class="next">&#10095;</a>
+        </div>
       </section>
       <section id="footballInfo">
         <h2>Football Information</h2>
@@ -55,15 +96,18 @@
       </section>
       <section id="challenge">
         <h2>Challenge yourself</h2>
-        <form action="/question">
-          <label>Number of question</label>
-          <input type="text" /><br />
-          <label>Difficulty</label>
-          <input type="text" />
+        <form action="/question" method="get">
+          <label for="question">Number Of Questions</label>
+          <input type="number" name="question" id="question" />
+          <select name="diffculty" id="diffculty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
           <input type="submit" value="Submit" />
         </form>
       </section>
     </main>
-    <script></script>
+    <script src="../../js/app.js"></script>
   </body>
 </html>
