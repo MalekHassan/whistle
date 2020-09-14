@@ -96,11 +96,14 @@
       </section>
       <section id="challenge">
         <h2>Challenge yourself</h2>
-        <form action="/question">
-          <label>Number of question</label>
-          <input type="text" /><br />
-          <label>Difficulty</label>
-          <input type="text" />
+        <form action="/question" method="get">
+          <label for="question">Number Of Questions</label>
+          <input type="number" name="question" id="question" />
+          <select name="diffculty" id="diffculty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
           <input type="submit" value="Submit" />
         </form>
       </section>
