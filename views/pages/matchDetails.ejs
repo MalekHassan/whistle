@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Match details</title>
+  </head>
+  <body>
+    <% console.log(match) %>
+    <p><%= match.country_name %></p>
+    <p><%= match.league_name %></p>
+    <p><%= match.match_date %></p>
+    <p><%= match.match_time %></p>
+    <p><%= match.match_hometeam_name %></p>
+    <p><%= match.match_awayteam_name %></p>
+    <p><%= match.score %></p>
+    <p><%= match.match_stadium %></p>
+    <img src="<%= match.team_home_badge %>" />
+    <img src="<%= match.team_away_badge %>" />
+    <img src="<%= match.league_logo %>" />
+    <p><%= match.cards %></p>
+    <p><%= match.substitutions %></p>
+  </body>
+</html>

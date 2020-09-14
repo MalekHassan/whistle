@@ -1,28 +1,28 @@
-'use strict';
+"use strict";
 
 // Dependencies
 
-require('dotenv').config();
-const express = require('express');
+require("dotenv").config();
+const express = require("express");
 const PORT = process.env.PORT || 3030;
 const app = express();
-const superagent = require('superagent');
-app.set('view engine', 'ejs');
+const superagent = require("superagent");
+app.set("view engine", "ejs");
 
 // Using the public folder and sunFiles
-app.use(express.static('./public'));
+app.use(express.static("./public"));
 
 // Routs
-app.get('/', homePage);
-app.get('/live', getLiveMatches);
-app.get('/match_detail/:matchID', getLiveMatchDetails);
+app.get("/", homePage);
+app.get("/live", getLiveMatches);
+app.get("/match_detail/:matchID", getLiveMatchDetails);
 
 // Functions
 
 // Get Today date
 
 function getTodayDate() {
-  return new Date().toJSON().slice(0, 10).replace(/-/g, '/');
+  return new Date().toJSON().slice(0, 10).replace(/-/g, "/");
 }
 
 // Home page function
@@ -36,7 +36,7 @@ async function homePage(req, res) {
     let newsArray = data.body.articles.map((news) => {
       return new News(news);
     });
-    res.render('pages/index', {
+    res.render("pages/index", {
       news: newsArray,
       matches: liveMatches,
     });
@@ -48,7 +48,7 @@ async function getLiveMatches(req, res) {
   const SOCCER_API_KEY = process.env.SOCCER_API_KEY;
   const todayDate = getTodayDate();
   const liveURL = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${todayDate}&APIkey=${SOCCER_API_KEY}`;
-  console.log(liveURL);
+  // console.log(liveURL);
   await superagent
     .get(liveURL)
     .then((data) => {
@@ -56,19 +56,19 @@ async function getLiveMatches(req, res) {
       let liveMatchesArray = data.body
         .filter((item) => {
           // item.match_live === '1'
-          if (item.match_status !== 'Finished') {
+          if (item.match_status !== "Finished") {
             return item;
           }
         })
         .map((match) => {
           return new liveMatches(match);
         });
-      console.log(liveMatchesArray);
-      res.render('pages/live', { matchArray: liveMatchesArray });
+      // console.log(liveMatchesArray);
+      res.render("pages/live", { matchArray: liveMatchesArray });
     })
     .catch((err) => {
       res.status(500).json({
-        error: 'Somthing went bad',
+        error: "Somthing went bad",
       });
     });
 }
@@ -78,9 +78,8 @@ async function getUpCommingMatches(req, res) {
   const { league_id } = req.query;
   const SOCCER_API_KEY = process.env.SOCCER_API_KEY;
   const todayDate = getTodayDate();
-  const liveURL = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${todayDate}&league_id=${
-    league_id || 148
-  }&APIkey=${SOCCER_API_KEY}`;
+  const liveURL = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${todayDate}&league_id=${league_id || 148
+    }&APIkey=${SOCCER_API_KEY}`;
 
   let matchesArray = await superagent.get(liveURL).then((data) => {
     if (data.body.length > 0) {
@@ -108,7 +107,13 @@ function getLiveMatchDetails(req, res) {
   const matchID = req.params.matchID;
   const todayDate = getTodayDate();
   const SOCCER_API_KEY = process.env.SOCCER_API_KEY;
-  const matchResultUrl = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=$${todayDate}&match_id=${matchID}&APIkey=${SOCCER_API_KEY}`;
+  const matchResultUrl = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${todayDate}&match_id=${matchID}&APIkey=${SOCCER_API_KEY}`;
+  console.log("getLiveMatchDetails -> matchResultUrl", matchResultUrl)
+  return superagent.get(matchResultUrl)
+    .then(data => {
+      let matchDetail = new MatchDetail(data.body[0]);
+      res.render("pages/matchDetails", { match: matchDetail });
+    })
 }
 
 //Constructors
@@ -117,10 +122,10 @@ function getLiveMatchDetails(req, res) {
 function News(newsData) {
   this.title = newsData.title;
   this.image_url = newsData.urlToImage
-    ? newsData.urlToImage.includes('rcom-default')
-      ? '/images/background.jpg'
+    ? newsData.urlToImage.includes("rcom-default")
+      ? "/images/background.jpg"
       : newsData.urlToImage
-    : '/images/background.jpg';
+    : "/images/background.jpg";
   this.url = newsData.url;
   this.author = newsData.author;
   this.description = newsData.description;
@@ -146,11 +151,29 @@ function liveMatches(matchData) {
   this.match_awayteam_name = matchData.match_awayteam_name;
   this.team_home_badge = matchData.team_home_badge
     ? matchData.team_home_badge
-    : 'https://apiv2.apifootball.com/badges/17691_hafnarfjordur-w.png';
+    : "https://apiv2.apifootball.com/badges/17691_hafnarfjordur-w.png";
   this.team_away_badge = matchData.team_away_badge
     ? matchData.team_away_badge
-    : 'https://apiv2.apifootball.com/badges/17691_hafnarfjordur-w.png';
+    : "https://apiv2.apifootball.com/badges/17691_hafnarfjordur-w.png";
   this.score = `${matchData.match_hometeam_score} : ${matchData.match_awayteam_score}`;
+}
+
+// get live match deatail
+
+function MatchDetail(matchData) {
+  this.country_name = matchData.country_name;
+  this.league_name = matchData.league_name;
+  this.match_date = matchData.match_date;
+  this.match_time = matchData.match_time;
+  this.match_hometeam_name = matchData.match_hometeam_name;
+  this.match_awayteam_name = matchData.match_awayteam_name;
+  this.match_stadium = matchData.match_stadium;
+  this.team_home_badge = matchData.team_home_badge;
+  this.team_away_badge = matchData.team_away_badge;
+  this.league_logo = matchData.league_logo;
+  this.cards = matchData.cards; /*array*/
+  this.substitutions = matchData.substitutions;
+  this.score = `${matchData.match_hometeam_score} : ${matchData.match_awayteam_score}`
 }
 
 // Listen To Server
