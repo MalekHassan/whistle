@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Match details</title>
+    <link rel="stylesheet" href="../../styles/reset.css" />
+    <link rel="stylesheet" href="../../styles/base.css" />
+  </head>
+  <body>
+    <div class="container row">
+      <div class="live-match-content column">
+        <h2><%= match.league_name %></h2>
+        <img src="<%= match.league_logo %> " alt="<%- match.league_name %> " />
+        <div class="score row">
+          <div class="live-match-image column">
+            <img
+              src="<%= match.team_home_badge %> "
+              alt="<%= match.match_hometeam_name %> "
+            />
+            <small><%= match.match_hometeam_name %> </small>
+          </div>
+          <p><%= match.score %></p>
+          <div class="live-match-image column">
+            <img
+              src="<%= match.team_away_badge %> "
+              alt="<%= match.match_awayteam_name %> "
+            />
+            <small><%= match.match_awayteam_name %> </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
