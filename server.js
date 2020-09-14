@@ -2,7 +2,7 @@
 
 // Dependencies
 
-require('dotenv').config({ path: require('find-config')('.env') })
+require('dotenv').config({ path: require('find-config')('.env') });
 const express = require('express');
 const app = express();
 const superagent = require('superagent');
@@ -22,7 +22,6 @@ app.get('/bestOf', bestPlayerInfo);
 app.get('/live', getLiveMatches);
 app.get('/match_detail/:matchID', getLiveMatchDetails);
 app.get('/question', getQuestionsChall);
-
 
 // Functions
 
@@ -85,60 +84,60 @@ function h2hFunction(req, res) {
   let { match_hometeam_name, match_awayteam_name } = req.query;
   let key = process.env.SOCCER_API_KEY;
   // console.log('key',key);
-  const url = `https://apiv2.apifootball.com/?action=get_H2H&firstTeam=${match_hometeam_name}&secondTeam=${match_awayteam_name}&APIkey=${key}`
-  // console.log('url',url) 
-  superagent.get(url).then(item => {
+  const url = `https://apiv2.apifootball.com/?action=get_H2H&firstTeam=${match_hometeam_name}&secondTeam=${match_awayteam_name}&APIkey=${key}`;
+  // console.log('url',url)
+  superagent.get(url).then((item) => {
     // console.log("url data",item)
-    let h2hAgent = item.body.firstTeam_VS_secondTeam.map(e => {
+    let h2hAgent = item.body.firstTeam_VS_secondTeam.map((e) => {
       return new H2hResult(e);
-    })
-    res.render('pages/h2hResult', { h2hData: h2hAgent })
-  })
+    });
+    res.render('pages/h2hResult', { h2hData: h2hAgent });
+  });
 }
 // get the player information
 function playerInfo(req, res) {
   let { player_name } = req.query;
   let key = process.env.SOCCER_API_KEY;
   // console.log('key',key);
-  const url = `https://apiv2.apifootball.com/?action=get_players&player_name=${player_name}&APIkey=${key}`
-  // console.log('url',url) 
-  superagent.get(url).then(item => {
+  const url = `https://apiv2.apifootball.com/?action=get_players&player_name=${player_name}&APIkey=${key}`;
+  // console.log('url',url)
+  superagent.get(url).then((item) => {
     // console.log("url data", item)
-    let playerAgent = item.body.map(e => {
+    let playerAgent = item.body.map((e) => {
       return new Player(e);
-    })
-    res.render('pages/playerInfo', { playerData: playerAgent })
-  })
+    });
+    res.render('pages/playerInfo', { playerData: playerAgent });
+  });
 }
 // get the details for any match depending on the date
 function eventsInfo(req, res) {
   let { fromDate, toDate } = req.query;
   let key = process.env.SOCCER_API_KEY;
   // console.log('key',key);
-  const url = `https://apiv2.apifootball.com/?action=get_events&from=${fromDate}&to=${toDate}&APIkey=${key}`
-  // console.log('url',url) 
-  superagent.get(url).then(item => {
+  const url = `https://apiv2.apifootball.com/?action=get_events&from=${fromDate}&to=${toDate}&APIkey=${key}`;
+  // console.log('url',url)
+  superagent.get(url).then((item) => {
     // console.log("url data", item)
-    let dateAgent = item.body.map(e => {
-      return new Date(e);
-    })
-    res.render('pages/dateInfo', { dateData: dateAgent })
-  })
+    let dateAgent = item.body.map((e) => {
+      return new Date1(e);
+    });
+    res.render('pages/dateInfo', { dateData: dateAgent });
+  });
 }
 
 // Get the best player from league id then from the teams of each league
-let teamArr = []
+let teamArr = [];
 function bestPlayerInfo(req, res) {
   let { leagueName } = req.query;
   let key = process.env.SOCCER_API_KEY;
-  const url = `https://apiv2.apifootball.com/?action=get_teams&league_id=${leagueName}&APIkey=${key}`
-  superagent.get(url).then(item => {
-    item.body.map(e => {
-      e.players.forEach(el => {
+  const url = `https://apiv2.apifootball.com/?action=get_teams&league_id=${leagueName}&APIkey=${key}`;
+  superagent.get(url).then((item) => {
+    item.body.map((e) => {
+      e.players.forEach((el) => {
         if (el.player_goals > 1) {
           let obj1 = new Team(e);
           let Obj2 = new TopPlayer(el);
-          let object3 = {...obj1, ...Obj2 }
+          let object3 = { ...obj1, ...Obj2 };
           // console.log(object3.player_goals);
           teamArr.push(object3);
           teamArr.sort((a, b) => {
@@ -151,10 +150,10 @@ function bestPlayerInfo(req, res) {
           // console.log("teamArr",teamArr)
         }
       });
-    })
-    res.render('pages/topPlayer', { TopPlayerData: teamArr })
-    teamArr=[]
-  })
+    });
+    res.render('pages/topPlayer', { TopPlayerData: teamArr });
+    teamArr = [];
+  });
 }
 
 // constructor Function for match details
@@ -167,7 +166,6 @@ function H2hResult(data) {
   this.match_hometeam_score = data.match_hometeam_score;
   this.match_awayteam_name = data.match_awayteam_name;
   this.match_awayteam_score = data.match_awayteam_score;
-
 }
 
 // constructor Function for player details
@@ -184,9 +182,8 @@ function Player(data) {
   this.team_name = data.team_name;
 }
 
-
 // constructor function for the date
-function Date(data) {
+function Date1(data) {
   this.country_id = data.country_id;
   this.country_name = data.country_name;
   this.league_id = data.league_id;
@@ -210,7 +207,6 @@ function Date(data) {
   this.team_away_badge = data.team_away_badge;
 }
 
-
 // constructor function for top players
 function Team(data) {
   this.team_name = data.team_name;
@@ -219,8 +215,6 @@ function Team(data) {
   //   this.player_name = k.player_name;
   //   this.player_goals = k.player_goals;
   // })
-  
-
 }
 // let goalsArr = []
 // constructor function for top players
@@ -237,16 +231,16 @@ function TopPlayer(data) {
   // goalsArr.push(this.player_goals)
 }
 
-// to sort the goals 
-
+// to sort the goals
 
 // Get UpComming Matches From API
 async function getUpCommingMatches(req, res) {
   const { league_id } = req.query;
   const SOCCER_API_KEY = process.env.SOCCER_API_KEY;
   const todayDate = getTodayDate();
-  const liveURL = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${todayDate}&league_id=${league_id || 148
-    }&APIkey=${SOCCER_API_KEY}`;
+  const liveURL = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${todayDate}&league_id=${
+    league_id || 148
+  }&APIkey=${SOCCER_API_KEY}`;
 
   let matchesArray = await superagent.get(liveURL).then((data) => {
     if (data.body.length > 0) {
@@ -290,10 +284,10 @@ function getQuestionsChall(req, res) {
   const questionURL = `https://opentdb.com/api.php?amount=${question}&category=21&difficulty=${diffculty}&type=multiple`;
   console.log(questionURL);
   superagent.get(questionURL).then((data) => {
-    let qustionArray = data.body.results.map(question => {
+    let qustionArray = data.body.results.map((question) => {
       return new challengeQuestion(question);
-    })
-    res.render('pages/questions', { questions: qustionArray })
+    });
+    res.render('pages/questions', { questions: qustionArray });
   });
 }
 
@@ -363,7 +357,6 @@ function challengeQuestion(question) {
   this.answers = question.incorrect_answers.concat(question.correct_answer);
   this.correct_answer = question.correct_answer;
 }
-
 
 // Listen To Server
 
