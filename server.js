@@ -7,14 +7,26 @@ const express = require('express');
 const app = express();
 const superagent = require('superagent');
 const PORT = process.env.PORT || 3030;
-app.set('view engine', 'ejs');
+const cors = require('cors');
+const pg = require('pg');
+const methodOverride = require('method-override');
+const httpMsgs = require('http-msgs');
 
+app.set('view engine', 'ejs');
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 // Using the public folder and sunFiles
 app.use(express.static('./public'));
 
+// to manage our data base
+const client = new pg.Client(process.env.DATABASE_URL);
+
+
+
+
 // Routs
 app.get('/', homePage);
-
 app.get('/h2h', h2hFunction);
 app.get('/player', playerInfo);
 app.get('/events', eventsInfo);
@@ -22,6 +34,8 @@ app.get('/bestOf', bestPlayerInfo);
 app.get('/live', getLiveMatches);
 app.get('/match_detail/:matchID', getLiveMatchDetails);
 app.get('/question', getQuestionsChall);
+app.get('/signin',renderSignin);
+app.post('/signin',signinFun);
 
 // Functions
 
@@ -31,22 +45,35 @@ function getTodayDate() {
   return new Date().toJSON().slice(0, 10).replace(/-/g, '/');
 }
 
+// render sign in page
+
+function renderSignin(req,res){
+  res.render('pages/sign');
+}
+
+
 // Home page function
 
 async function homePage(req, res) {
+  let liveMatches = await getUpCommingMatches(req, res);
+  let newsArray = await getNewsData();
+  res.render('pages/index', {
+    news: newsArray,
+    matches: liveMatches,
+    data:'guest'
+  });
+}
+
+async function getNewsData(){
   const NEWS_API_KEY = process.env.NEWS_API_KEY;
   const todayDate = getTodayDate();
   const newsUrl = `https://newsapi.org/v2/everything?qInTitle="+soccer"&from=${todayDate}&to=${todayDate}&pageSize=30&apiKey=${NEWS_API_KEY}`;
-  let liveMatches = await getUpCommingMatches(req, res);
-  superagent.get(newsUrl).then((data) => {
-    let newsArray = data.body.articles.map((news) => {
+  let newsArray =  await superagent.get(newsUrl).then((data) => {
+    return data.body.articles.map((news) => {
       return new News(news);
     });
-    res.render('pages/index', {
-      news: newsArray,
-      matches: liveMatches,
-    });
   });
+  return newsArray;
 }
 
 // Get Live Soccer Matches From API
@@ -156,6 +183,38 @@ function bestPlayerInfo(req, res) {
   });
 }
 
+// sign in function
+var usernamedata = '';
+async function signinFun(req,res) {
+  usernamedata = '';
+  let {username,password} = req.body;
+  let SQL = 'SELECT * FROM  users WHERE username= $1 AND password=$2;';
+  let values = [username, password];
+  let liveMatches = await getUpCommingMatches(req,res);
+  let newsArray = await getNewsData();
+  console.log(newsArray);
+   client.query(SQL, values)
+      .then(results => {
+        // console.log('helloo');
+          console.log(results.rows);
+          if (results.rows.length) {
+              // console.log('username existed')
+              usernamedata = results.rows[0].username;
+              // console.log('usernamedata',usernamedata);
+              res.render('pages/index',{data:usernamedata,
+                news: newsArray,
+                matches: liveMatches
+              });
+            // res.render('pages/index');
+
+          } else {
+              console.log('username does NOT exist');
+          }
+      });
+}
+
+
+
 // constructor Function for match details
 
 function H2hResult(data) {
@@ -235,12 +294,13 @@ function TopPlayer(data) {
 
 // Get UpComming Matches From API
 async function getUpCommingMatches(req, res) {
-  const { league_id } = req.query;
+  const { league_id } = req.query ? req.query : '148';
   const SOCCER_API_KEY = process.env.SOCCER_API_KEY;
   const todayDate = getTodayDate();
   const liveURL = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${todayDate}&league_id=${
     league_id || 148
   }&APIkey=${SOCCER_API_KEY}`;
+  console.log(`News Url : ${liveURL}`);
 
   let matchesArray = await superagent.get(liveURL).then((data) => {
     if (data.body.length > 0) {
@@ -360,6 +420,9 @@ function challengeQuestion(question) {
 
 // Listen To Server
 
+client.connect()
+.then(()=>{
 app.listen(PORT, () => {
   console.log(`Listening on PORT ${PORT}`);
-});
+})
+})
