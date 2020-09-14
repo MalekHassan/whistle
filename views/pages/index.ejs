@@ -1,66 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
-      integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="../../styles/reset.css" />
-    <link rel="stylesheet" href="../../styles/base.css" />
-    <title>Whistle</title>
-  </head>
-  <body>
-    <header class="row">
-      <h1>Whistle <i class="fas fa-flag-checkered"></i></h1>
-      <a href="/live">Live matches</a>
-      <a href="/sign">Sign in/up</a>
-    </header>
-    <main>
-      <section id="firstSection">
-        <!-- <div id="testDiv"></div> -->
-        <img src="../../images/background2.jpg" alt="background_image" />
-        <h2>Whistle <i class="fas fa-flag-checkered"></i></h2>
-        <div id="aTags" class="row">
-          <a href="#challenge">Challenge</a>
-          <a href="#newsSection">News</a>
-          <a href="#footballInfo"
-            >Football <br />
-            Information</a
-          >
-        </div>
-      </section>
-      <section id="newsSection">
-        <h2>News</h2>
-      </section>
-      <section id="footballInfo">
-        <h2>Football Information</h2>
-        <h3>Topics</h3>
-        <select name="searchTopic" id="searchTopic" onchange="showHiddenForm()">
-          <option value="SearchTopic">Search Topic</option>
-          <option value="matchesResults">matches results</option>
-          <option value="playersInfo">players info</option>
-          <option value="matchesDate">matches date</option>
-          <option value="bestPlayer">the best player</option>
-          <option value="expectations">expectations</option>
-          <option value="statistics">statistics</option>
-        </select>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+    integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../../styles/reset.css" />
+  <link rel="stylesheet" href="../../styles/base.css" />
+  <title>Whistle</title>
+</head>
+
+<body>
+  <header class="row">
+    <h1>Whistle <i class="fas fa-flag-checkered"></i></h1>
+    <a href="/live">Live matches</a>
+    <a href="/sign">Sign in/up</a>
+  </header>
+  <main>
+    <section id="firstSection">
+      <!-- <div id="testDiv"></div> -->
+      <img src="../../images/background2.jpg" alt="background_image" />
+      <h2>Whistle <i class="fas fa-flag-checkered"></i></h2>
+      <div id="aTags" class="row">
+        <a href="#challenge">Challenge</a>
+        <a href="#newsSection">News</a>
+        <a href="#footballInfo">Football <br />
+          Information</a>
+      </div>
+    </section>
+    <section id="newsSection">
+      <h2>News</h2>
+    </section>
+    <section id="footballInfo">
+      <h2>Football Information</h2>
+      <h3>Topics</h3>
+      <select name="searchTopic" id="searchTopic" onchange="showHiddenForm()">
+        <option value="SearchTopic">Search Topic</option>
+        <option value="matchesResults">matches results</option>
+        <option value="playersInfo">players info</option>
+        <option value="matchesDate">matches date</option>
+        <option value="bestPlayer">the best player</option>
+      </select>
+      <section id="hideMe">
         <form action="/h2h" class="hidden-form" id="matchesResults">
+
           <label>Enter the first team</label>
-          <input name="match_hometeam_name" required type="text" id="frstTeam"  placeholder="First Team">
+          <input name="match_hometeam_name" required type="text" id="frstTeam" placeholder="First Team">
           <label>Enter the second team</label>
-          <input name="match_awayteam_name" required type="text" id="secondTeam"  placeholder="Second Team">
+          <input name="match_awayteam_name" required type="text" id="secondTeam" placeholder="Second Team">
           <input type="submit" value="submit">
 
         </form>
+      </section>
+      <section id="hideMe">
         <form action="/player" class="hidden-form" id="playersInfo">
           <label>Enter the player name</label>
           <input type="text" name="player_name" id="player_name">
           <input type="submit" value="submit">
         </form>
+      </section>
+      <section id="hideMe">
         <form action="/events" class="hidden-form" id="matchesDate">
           <label>display the matches from date </label>
           <input type="date" name="fromDate" id="date1">
@@ -68,6 +68,8 @@
           <input type="date" name="toDate" id="date2">
           <input type="submit" value="submit">
         </form>
+      </section>
+      <section id="hideMe">
         <form action="/bestOf" class="hidden-form" id="bestPlayer">
           <select name="leagueName" id="leagueName">
             <option value="leagueName">League Name</option>
@@ -75,14 +77,16 @@
             <option value="262">Serie A</option>
             <option value="468">LaLiga</option>
             <option value="195">Bundesliga</option>
-            <option value="167">Ligue 1</option>
+            <option value="176">Ligue 1</option>
           </select>
           <input type="submit" value="submit">
         </form>
-        <form action="" class="hidden-form" id="statistics"></form>
       </section>
-      <section id="challenge">
-        <h2>Challenge yourself</h2>
+
+    </section>
+    <section id="challenge">
+      <h2>Challenge yourself</h2>
+      <section id="hideMe">
         <form action="/question">
           <label>Number of question</label>
           <input type="text" /><br />
@@ -91,21 +95,28 @@
           <input type="submit" value="Submit" />
         </form>
       </section>
-    </main>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script>
-      function showHiddenForm(){
-        // console.log("hiii" , $('#searchTopic').val() )
-        $('.hidden-form').hide();
-        let selectArray = ['matchesResults','playersInfo',"matchesDate", "bestPlayer" , "expectations","statistics"];
-        selectArray.forEach(element=>{
-          if ($('#searchTopic').val() === element){
-            $(`#${element}`).toggle()
+    </section>
+  </main>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script>
+
+    let selectArray = ['matchesResults', 'playersInfo', "matchesDate", "bestPlayer"];
+    selectArray.forEach(element => {
+      $(`#${element}`).hide();
+
+    })
+    function showHiddenForm() {
+      selectArray.forEach(element => {
+        if ($('#searchTopic').val() === element) {
+          $(`#${element}`).toggle()
+        } else {
+          $(`#${element}`).hide();
         }
-        })
-        
-      }
-    </script>
-    
-  </body>
+
+      })
+    }
+  </script>
+
+</body>
+
 </html>

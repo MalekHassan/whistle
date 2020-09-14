@@ -16,9 +16,9 @@ app.use(express.static('./public'));
 app.get('/', homePage);
 app.get('/live', getData);
 app.get('/h2h', h2hFunction);
-app.get('/player',playerInfo);
-app.get('/events' , eventsInfo);
-app.get('/bestOf' , bestPlayerInfo);
+app.get('/player', playerInfo);
+app.get('/events', eventsInfo);
+app.get('/bestOf', bestPlayerInfo);
 
 
 // Functions
@@ -52,7 +52,7 @@ function getData(req, res) {
 }
 
 // get head to head information from API
- function h2hFunction(req, res) {
+function h2hFunction(req, res) {
   let { match_hometeam_name, match_awayteam_name } = req.query;
   let key = process.env.SOCCER_API_KEY;
   // console.log('key',key);
@@ -61,62 +61,76 @@ function getData(req, res) {
   superagent.get(url).then(item => {
     // console.log("url data",item)
     let h2hAgent = item.body.firstTeam_VS_secondTeam.map(e => {
-      return  new H2hResult(e);
+      return new H2hResult(e);
     })
-    res.render('pages/h2hResult', {h2hData:h2hAgent})
+    res.render('pages/h2hResult', { h2hData: h2hAgent })
   })
 }
 // get the player information
-function playerInfo(req,res){
+function playerInfo(req, res) {
   let { player_name } = req.query;
   let key = process.env.SOCCER_API_KEY;
   // console.log('key',key);
   const url = `https://apiv2.apifootball.com/?action=get_players&player_name=${player_name}&APIkey=${key}`
   // console.log('url',url) 
   superagent.get(url).then(item => {
-    console.log("url data",item)
+    // console.log("url data", item)
     let playerAgent = item.body.map(e => {
-      return  new Player(e);
+      return new Player(e);
     })
-    res.render('pages/playerInfo', {playerData:playerAgent})
+    res.render('pages/playerInfo', { playerData: playerAgent })
   })
 }
 // get the details for any match depending on the date
-function eventsInfo(req,res){
-  let { fromDate , toDate } = req.query;
+function eventsInfo(req, res) {
+  let { fromDate, toDate } = req.query;
   let key = process.env.SOCCER_API_KEY;
   // console.log('key',key);
   const url = `https://apiv2.apifootball.com/?action=get_events&from=${fromDate}&to=${toDate}&APIkey=${key}`
   // console.log('url',url) 
   superagent.get(url).then(item => {
-    console.log("url data",item)
+    // console.log("url data", item)
     let dateAgent = item.body.map(e => {
       return new Date(e);
     })
-    res.render('pages/dateInfo', {dateData:dateAgent})
+    res.render('pages/dateInfo', { dateData: dateAgent })
   })
 }
 
 // Get the best player from league id then from the teams of each league
-function bestPlayerInfo(req,res){
-  let {leagueName} = req.query;
+let teamArr = []
+function bestPlayerInfo(req, res) {
+  let { leagueName } = req.query;
   let key = process.env.SOCCER_API_KEY;
-  // console.log('key',key);
   const url = `https://apiv2.apifootball.com/?action=get_teams&league_id=${leagueName}&APIkey=${key}`
-  // console.log('url',url) 
   superagent.get(url).then(item => {
-    // let malek = JSON.parse(item);
-    // console.log("url data",malek)
-    // let dateAgent = item.body.map(e => {
-    //   return new Date(e);
-    // })
-    // res.render('pages/dateInfo', {dateData:dateAgent})
+    item.body.map(e => {
+      e.players.forEach(el => {
+        if (el.player_goals > 1) {
+          let obj1 = new Team(e);
+          let Obj2 = new TopPlayer(el);
+          let object3 = {...obj1, ...Obj2 }
+          // console.log(object3.player_goals);
+          teamArr.push(object3);
+          teamArr.sort((a, b) => {
+            if (Number(a.player_goals) > Number(b.player_goals)) {
+              return -1;
+            } else if (Number(a.player_goals) < Number(b.player_goals)) {
+              return 1;
+            } else return 0;
+          });
+          // console.log("teamArr",teamArr)
+        }
+      });
+    })
+    res.render('pages/topPlayer', { TopPlayerData: teamArr })
+    teamArr=[]
   })
 }
 
 // constructor Function for match details
 
-function H2hResult(data){
+function H2hResult(data) {
   this.country_name = data.country_name;
   this.league_name = data.league_name;
   this.match_date = data.match_date;
@@ -128,22 +142,22 @@ function H2hResult(data){
 }
 
 // constructor Function for player details
-function Player(data){
-this.player_name  = data.player_name ;
-this.player_number = data.player_number;
-this.player_country = data.player_country;
-this.player_type = data.player_type;
-this.player_age = data.player_age;
-this.player_match_played = data.player_match_played;
-this.player_goals = data.player_goals;
-this.player_yellow_cards = data.player_yellow_cards;
-this.player_red_cards = data.player_red_cards;
-this.team_name = data.team_name ;
+function Player(data) {
+  this.player_name = data.player_name;
+  this.player_number = data.player_number;
+  this.player_country = data.player_country;
+  this.player_type = data.player_type;
+  this.player_age = data.player_age;
+  this.player_match_played = data.player_match_played;
+  this.player_goals = data.player_goals;
+  this.player_yellow_cards = data.player_yellow_cards;
+  this.player_red_cards = data.player_red_cards;
+  this.team_name = data.team_name;
 }
 
 
 // constructor function for the date
-function Date(data){
+function Date(data) {
   this.country_id = data.country_id;
   this.country_name = data.country_name;
   this.league_id = data.league_id;
@@ -166,6 +180,37 @@ function Date(data){
   this.team_home_badge = data.team_home_badge;
   this.team_away_badge = data.team_away_badge;
 }
+
+
+// constructor function for top players
+function Team(data) {
+  this.team_name = data.team_name;
+  this.team_badge = data.team_badge;
+  // data.players.map(k=>{
+  //   this.player_name = k.player_name;
+  //   this.player_goals = k.player_goals;
+  // })
+  
+
+}
+// let goalsArr = []
+// constructor function for top players
+function TopPlayer(data) {
+  this.player_name = data.player_name;
+  // this.player_number = data.player_number;
+  // this.player_country = data.player_country;
+  // this.player_type = data.player_type;
+  // this.player_age = data.player_age;
+  // this.player_match_played = data.player_match_played;
+  this.player_goals = data.player_goals;
+  // this.player_yellow_cards = data.player_yellow_cards;
+  // this.player_red_cards = data.player_red_cards;
+  // goalsArr.push(this.player_goals)
+}
+
+// to sort the goals 
+
+
 // Listen To Server
 
 app.listen(PORT, () => {
