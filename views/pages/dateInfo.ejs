@@ -3,56 +3,51 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
-      integrity="sha284-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
-      crossorigin="anonymous"
-    />
     <link rel="stylesheet" href="../../styles/reset.css" />
     <link rel="stylesheet" href="../../styles/base.css" />
-    <title>Whistle</title>
+    <title>Live Matches</title>
   </head>
-  <body class="body">
+  <body>
     <header class="row">
       <h1>Whistle <i class="fas fa-flag-checkered"></i></h1>
       <a href="/live">Live matches</a>
       <a href="/sign">Sign in/up</a>
     </header>
-   <main class="main">
-<div  class="container4"> 
-  <h2 class="item1">country name</h2>
-  <h2 class="item1">league name</h2>
-  <h2 class="item1">match status</h2>
-  <h2 class="item1">match time</h2>
-  <h2 class="item1">date</h2>
-  <h2 class="item1">home team</h2>
-  <h2 class="item1">team badge</h2>
-  <h2 class="item1">hometeam score</h2>
-  <h2 class="item1">awayteam</h2>
-  <h2 class="item1">team badge</h2>
-  <h2 class="item1">awayteam score</h2>
-  <h2 class="item1">match stadium</h2>
-</div> 
-    <%dateData.forEach(element => {%>
-      <div class="container4">
-            <h4 class="item" > <%= element.country_name%></h4> 
-            <h4 class="item" ><%= element.league_name%></h4> 
-            <h4 class="item" ><%= element.match_status%></h4> 
-            <h4 class="item" ><%= element.match_time%></h4>
-            <h4 class="item" ><%= element.match_date%></h4>  
-            <h4 class="item" ><%= element.match_hometeam_name%></h4> 
-            <img class="item" src=<%= element.team_home_badge%> 
-            <h4 class="item" ><%= element.match_hometeam_score%></h4> 
-            <h4 class="item"><%= element.match_awayteam_name%></h4>
-            <img class="item" src=<%= element.team_away_badge%> 
-            <h4 class="item" ><%= element.match_awayteam_score%></h4> 
-            <h4 class="item" ><%= element.match_stadium%></h4> 
+    <div class="container row">
+      <% matchArray.forEach(match => { %>
+      <div class="live-match-content column">
+        <h2><%= match.league_name %></h2>
+        <img src="<%= match.league_logo %> " alt="<%- match.league_name %> " />
+        <p>Match time: <%= match.match_time%></p>
+        <div class="score row">
+          <div class="live-match-image column">
+            <img
+              src="<%= match.team_home_badge %> "
+              alt="<%= match.match_hometeam_name %> "
+            />
+            <small><%= match.match_hometeam_name %> </small>
           </div>
-    <%});%>
-
-    </main>
-    <script src="https://code.jquery.com/jquery-2.5.1.js"></script>
-    
+          <div class="time-score column">
+            <p><%=match.match_status%>`</p>
+            <p><%= match.score %></p>
+          </div>
+          <div class="live-match-image column">
+            <img
+              src="<%= match.team_away_badge %> "
+              alt="<%= match.match_awayteam_name %> "
+            />
+            <small><%= match.match_awayteam_name %> </small>
+          </div>
+        </div>
+        <form
+          class="row"
+          action="/match_detail/<%= match.match_id %> "
+          method="get"
+        >
+          <input type="submit" value="Get Match Details" />
+        </form>
+      </div>
+      <% }); %>
+    </div>
   </body>
 </html>

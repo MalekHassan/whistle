@@ -14,7 +14,6 @@
       <a href="/sign">Sign in/up</a>
     </header>
     <div class="container row">
-      <%console.log(match.statistics)%>
       <div class="live-match-stat column">
         <div class="line-up column">
           <h4>Players</h4>
@@ -50,6 +49,7 @@
       <div class="live-match-content column">
         <h2><%= match.league_name %></h2>
         <img src="<%= match.league_logo %> " alt="<%- match.league_name %> " />
+        <p>Match time: <%= match.match_time%></p>
         <div class="score row">
           <div class="live-match-image column">
             <img
@@ -58,7 +58,10 @@
             />
             <small><%= match.match_hometeam_name %> </small>
           </div>
-          <p><%= match.score %></p>
+          <div class="time-score column">
+            <p><%=match.match_status%>`</p>
+            <p><%= match.score %></p>
+          </div>
           <div class="live-match-image column">
             <img
               src="<%= match.team_away_badge %> "
@@ -66,6 +69,52 @@
             />
             <small><%= match.match_awayteam_name %> </small>
           </div>
+        </div>
+        <h2 class="underline">Goals</h2>
+        <div class="goal-scorer row">
+          <div class="live-Match-goalscorer column">
+          <% match.goalscorer.forEach(item =>{%>
+            <%if(item.home_scorer !== ''){%>
+              <%console.log('home',item.home_scorer)%>
+              <p><%=item.home_scorer%> at <%=item.time%>`</p>
+            <%}else{%>
+              <p><%=item.home_scorer%></p>
+            <%}%>
+              <%})%>
+          </div>
+          <div class="live-Match-goalscorer column">
+            <% match.goalscorer.forEach(item =>{%>
+              <%if(item.away_scorer !== ''){%>
+                <%console.log('away',item.away_scorer)%>
+                <p><%=item.away_scorer%> at <%=item.time%>`</p>
+                <%}else{%>
+                  <p><%=item.away_scorer%></p>
+                <%}%>
+                <%})%>
+            </div>
+        </div>
+        <h2 class="underline">Cards</h2>
+        <div class="goal-scorer row">
+          <div class="live-Match-goalscorer column">
+          <% match.cards.forEach(item =>{%>
+            <%if(item.home_fault !== ''){%>
+              <%console.log('home',item.home_scorer)%>
+              <p><%=item.card%> for <%=item.home_fault%> at <%=item.time%>`</p>
+            <%}else{%>
+              <p><%=item.home_fault%></p>
+            <%}%>
+              <%})%>
+          </div>
+          <div class="live-Match-goalscorer column">
+            <% match.cards.forEach(item =>{%>
+              <%if(item.away_fault !== ''){%>
+                <%console.log('away',item.away_scorer)%>
+                <p><%=item.card%> for <%=item.away_fault%> at <%=item.time%>`</p>
+              <%}else{%>
+                <p><%=item.away_fault%></p>
+              <%}%>
+                <%})%>
+            </div>
         </div>
         <% match.statistics.forEach(item =>{%>
           <div class="live-Match-Info row">

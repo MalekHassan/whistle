@@ -62,9 +62,9 @@ async function getLiveMatches(req, res) {
       let liveMatchesArray = data.body
         .filter((item) => {
           //item.match_status !== 'Finished'
-          if (item.match_live === '1') {
+          // if (item.match_live === '1') {
             return item;
-          }
+          // }
         })
         .map((match) => {
           return new liveMatches(match);
@@ -119,9 +119,9 @@ function eventsInfo(req, res) {
   superagent.get(url).then((item) => {
     // console.log("url data", item)
     let dateAgent = item.body.map((e) => {
-      return new Date1(e);
+      return new liveMatches(e);
     });
-    res.render('pages/dateInfo', { dateData: dateAgent });
+    res.render('pages/dateInfo', { matchArray: dateAgent });
   });
 }
 
@@ -180,31 +180,6 @@ function Player(data) {
   this.player_yellow_cards = data.player_yellow_cards;
   this.player_red_cards = data.player_red_cards;
   this.team_name = data.team_name;
-}
-
-// constructor function for the date
-function Date1(data) {
-  this.country_id = data.country_id;
-  this.country_name = data.country_name;
-  this.league_id = data.league_id;
-  this.league_name = data.league_name;
-  this.match_date = data.match_date;
-  this.match_status = data.match_status;
-  this.match_time = data.match_time;
-  this.match_hometeam_id = data.match_hometeam_id;
-  this.match_hometeam_name = data.match_hometeam_name;
-  this.match_hometeam_score = data.match_hometeam_score;
-  this.match_awayteam_name = data.match_awayteam_name;
-  this.match_awayteam_id = data.match_awayteam_id;
-  this.match_awayteam_score = data.match_awayteam_score;
-  this.match_hometeam_halftime_score = data.match_hometeam_halftime_score;
-  this.match_awayteam_halftime_score = data.match_awayteam_halftime_score;
-  this.match_live = data.match_live;
-  this.match_round = data.match_round;
-  this.match_stadium = data.match_stadium;
-  this.match_referee = data.match_referee;
-  this.team_home_badge = data.team_home_badge;
-  this.team_away_badge = data.team_away_badge;
 }
 
 // constructor function for top players
@@ -266,10 +241,9 @@ async function getUpCommingMatches(req, res) {
 
 function getLiveMatchDetails(req, res) {
   const matchID = req.params.matchID;
-  const todayDate = getTodayDate();
   const SOCCER_API_KEY = process.env.SOCCER_API_KEY;
-  const matchResultUrl = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${todayDate}&match_id=${matchID}&APIkey=${SOCCER_API_KEY}`;
-  console.log('getLiveMatchDetails -> matchResultUrl', matchResultUrl);
+  const matchResultUrl = `https://apiv2.apifootball.com/?action=get_events&match_id=${matchID}&APIkey=${SOCCER_API_KEY}`;
+  console.log('url',matchResultUrl)
   return superagent.get(matchResultUrl).then((data) => {
     let matchDetail = new MatchDetail(data.body[0]);
     res.render('pages/matchDetails', { match: matchDetail });
@@ -319,6 +293,7 @@ function UpCommingMatches(matchData) {
 
 function liveMatches(matchData) {
   this.match_id = matchData.match_id;
+  this.match_status = matchData.match_status;
   this.league_logo = matchData.league_logo;
   this.league_name = matchData.league_name;
   this.match_time = matchData.match_time;
@@ -340,6 +315,7 @@ function MatchDetail(matchData) {
   this.league_name = matchData.league_name;
   this.match_date = matchData.match_date;
   this.match_time = matchData.match_time;
+  this.match_status = matchData.match_status;
   this.match_hometeam_name = matchData.match_hometeam_name;
   this.match_awayteam_name = matchData.match_awayteam_name;
   this.match_stadium = matchData.match_stadium;
@@ -352,7 +328,7 @@ function MatchDetail(matchData) {
   this.league_logo = matchData.league_logo;
   this.cards = matchData.cards; /*array*/
   this.substitutions = matchData.substitutions;
-  this.score = `${matchData.match_hometeam_score} : ${matchData.match_awayteam_score}`;
+  this.score = `${matchData.match_hometeam_score} - ${matchData.match_awayteam_score}`;
   this.goalscorer = matchData.goalscorer;
   this.lineup = matchData.lineup;
   this.statistics=matchData.statistics;
