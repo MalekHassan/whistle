@@ -15,32 +15,43 @@
   </head>
   <body class="body">
     <header class="row">
-      <h1>Whistle <i class="fas fa-flag-checkered"></i></h1>
+      <a href="/"> <h1>Whistle <i class="fas fa-flag-checkered"></i></h1></a>
       <a href="/live">Live matches</a>
       <a href="/sign">Sign in/up</a>
     </header>
-   <main class="main">
-<div  class="container5"> 
-  <h2 class="item1" >team name</h2>
-  <h2 class="item1" >team badge</h2>
-  <h2 class="item1" >player name</h2>
-  <h2 class="item1" >player goals</h2>
-  
-</div>
-<!-- <%console.log(TopPlayerData)%> -->
-    <%TopPlayerData.forEach(element => {%>
-      <div class="container5">
-        <h4 class="item"> <%= element.team_name %></h4> 
-        <img class="item" src=<%= element.team_badge%> alt="badge" >
-            <h4 class="item" ><%=element.player_name  %></h4>
-            <h4 class="item" > <%=element.player_goals %></h4>
-            
-          </div>
-    <%});%>
-    
-    </main>
+    <div class="table-container column">
+      <div class="table-details">
+        <table>
+          <thead>
+            <th>Player Name</th>
+            <th>Player Number</th>
+            <th>Player Country</th>
+            <th>Team Name</th>
+            <th>Team Badge</th>
+            <th>Type</th>
+            <th>Age</th>
+            <th>Match Played</th>
+            <th>Goals</th>
+          </thead>
+          <tbody>
+            <%TopPlayerData.forEach(element=>{ %>
+            <tr>
+              <td><%= element.player_name %></td>
+              <td><%= element.player_number %></td>
+              <td><%= element.player_country %></td>
+              <td><%= element.team_name %></td>
+              <td><img src="<%= element.team_badge%>"/></td>
+              <td><%= element.player_type %></td>
+              <td><%= element.player_age %></td>
+              <td><%= element.player_match_played %></td>
+              <td><%= element.player_goals %></td>
+            </tr>
+            <% })%>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <script src="https://code.jquery.com/jquery-2.5.1.js"></script>
     
   </body>
 </html>
-

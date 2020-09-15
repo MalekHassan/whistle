@@ -140,11 +140,8 @@ async function getBadge(id) {
 function playerInfo(req, res) {
   let { player_name } = req.query;
   let key = process.env.SOCCER_API_KEY;
-  // console.log('key',key);
   const url = `https://apiv2.apifootball.com/?action=get_players&player_name=${player_name}&APIkey=${key}`;
-  // console.log('url',url)
   superagent.get(url).then((item) => {
-    // console.log("url data", item)
     let playerAgent = item.body.map((e) => {
       return new Player(e);
     });
@@ -155,11 +152,8 @@ function playerInfo(req, res) {
 function eventsInfo(req, res) {
   let { fromDate, toDate } = req.query;
   let key = process.env.SOCCER_API_KEY;
-  // console.log('key',key);
   const url = `https://apiv2.apifootball.com/?action=get_events&from=${fromDate}&to=${toDate}&APIkey=${key}`;
-  // console.log('url',url)
   superagent.get(url).then((item) => {
-    // console.log("url data", item)
     let dateAgent = item.body.map((e) => {
       return new liveMatches(e);
     });
@@ -266,11 +260,11 @@ function Team(data) {
 // constructor function for top players
 function TopPlayer(data) {
   this.player_name = data.player_name;
-  // this.player_number = data.player_number;
-  // this.player_country = data.player_country;
-  // this.player_type = data.player_type;
-  // this.player_age = data.player_age;
-  // this.player_match_played = data.player_match_played;
+  this.player_number = data.player_number;
+  this.player_country = data.player_country;
+  this.player_type = data.player_type;
+  this.player_age = data.player_age;
+  this.player_match_played = data.player_match_played;
   this.player_goals = data.player_goals;
   // this.player_yellow_cards = data.player_yellow_cards;
   // this.player_red_cards = data.player_red_cards;
@@ -287,7 +281,7 @@ async function getUpCommingMatches(req, res) {
   const liveURL = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${todayDate}&league_id=${
     league_id || 148
   }&APIkey=${SOCCER_API_KEY}`;
-  console.log(`News Url : ${liveURL}`);
+  // console.log(`News Url : ${liveURL}`);
 
   let matchesArray = await superagent.get(liveURL).then((data) => {
     if (data.body.length > 0) {
