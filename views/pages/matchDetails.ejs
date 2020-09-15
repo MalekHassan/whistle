@@ -9,7 +9,7 @@
   </head>
   <body>
     <header class="row">
-      <h1>Whistle <i class="fas fa-flag-checkered"></i></h1>
+     <a href="/"> <h1>Whistle <i class="fas fa-flag-checkered"></i></h1></a>
       <a href="/live">Live matches</a>
       <a href="/sign">Sign in/up</a>
     </header>
@@ -40,7 +40,7 @@
           <%})%>
         </div>
         <div class="substitutions column">
-          <h4>substitutions</h4>
+          <h4>Substitutions</h4>
           <% match.substitutions.home.forEach(item =>{%>
               <h5><%=item.substitution%> // time: <%=item.time%>`</h5>
           <%})%>
@@ -142,7 +142,7 @@
             />
           </div>
           <div class="team-name row">
-            <small><%= match.match_hometeam_name %> </small>
+            <small><%= match.match_awayteam_name %> </small>
           </div>
           <h4>Players</h4>
           <% match.lineup.away.starting_lineups.forEach(item =>{%>
@@ -159,7 +159,7 @@
           <%})%>
         </div>
         <div class="substitutions column">
-          <h4>substitutions</h4>
+          <h4>Substitutions</h4>
           <% match.substitutions.away.forEach(item =>{%>
               <h5><%=item.substitution%> // time: <%=item.time%>`</h5>
           <%})%>

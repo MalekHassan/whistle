@@ -255,9 +255,9 @@ header a:hover {
   margin: 60px 0;
 }
 .live-match-content img {
-  width: 40%;
+  width: 29%;
   /* text-align: center; */
-  height: 200px;
+  height: 150px;
   object-fit: fill;
   padding: 15px;
   margin: 0 auto;
@@ -319,8 +319,8 @@ header a:hover {
 }
 
 .live-match-content .live-match-image img {
-  width: 70%;
-  height: 150px;
+  width: 60%;
+  height: 130px;
   margin: 10px 0;
   padding: 10px;
   border-radius: 5px;
