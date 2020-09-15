@@ -8,11 +8,17 @@
     <title>Live Matches</title>
   </head>
   <body>
+    <header class="row">
+      <h1>Whistle <i class="fas fa-flag-checkered"></i></h1>
+      <a href="/live">Live matches</a>
+      <a href="/sign">Sign in/up</a>
+    </header>
     <div class="container row">
       <% matchArray.forEach(match => { %>
       <div class="live-match-content column">
         <h2><%= match.league_name %></h2>
         <img src="<%= match.league_logo %> " alt="<%- match.league_name %> " />
+        <p>Match time: <%= match.match_time%></p>
         <div class="score row">
           <div class="live-match-image column">
             <img
@@ -21,7 +27,10 @@
             />
             <small><%= match.match_hometeam_name %> </small>
           </div>
-          <p><%= match.score %></p>
+          <div class="time-score column">
+            <p><%=match.match_status%>`</p>
+            <p><%= match.score %></p>
+          </div>
           <div class="live-match-image column">
             <img
               src="<%= match.team_away_badge %> "

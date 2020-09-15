@@ -8,10 +8,48 @@
     <link rel="stylesheet" href="../../styles/base.css" />
   </head>
   <body>
+    <header class="row">
+      <h1>Whistle <i class="fas fa-flag-checkered"></i></h1>
+      <a href="/live">Live matches</a>
+      <a href="/sign">Sign in/up</a>
+    </header>
     <div class="container row">
+      <div class="live-match-stat column">
+        <div class="line-up column">
+          <h4>Players</h4>
+          <% match.lineup.home.starting_lineups.forEach(item =>{%>
+            <div class="player row">
+              <p><%=item.lineup_player%></p>
+              <p><%=item.lineup_number%></p>
+            </div>
+          <%})%>
+        </div>
+        <div class="substitutions column">
+          <h4>Coach</h4>
+          <% match.lineup.home.coach.forEach(item =>{%>
+              <h5>Coach Name: <%=item.lineup_player%></h5>
+          <%})%>
+        </div>
+        <div class="substitutions column">
+          <h4>substitutions</h4>
+          <% match.substitutions.home.forEach(item =>{%>
+              <h5><%=item.substitution%> // time: <%=item.time%>`</h5>
+          <%})%>
+        </div>
+        <div class="line-up column">
+          <h4>Substitutes</h4>
+          <% match.lineup.home.substitutes.forEach(item =>{%>
+            <div class="player row">
+              <p><%=item.lineup_player%></p>
+              <p><%=item.lineup_number%></p>
+            </div>
+          <%})%>
+        </div>
+      </div>
       <div class="live-match-content column">
         <h2><%= match.league_name %></h2>
         <img src="<%= match.league_logo %> " alt="<%- match.league_name %> " />
+        <p>Match time: <%= match.match_time%></p>
         <div class="score row">
           <div class="live-match-image column">
             <img
@@ -20,7 +58,10 @@
             />
             <small><%= match.match_hometeam_name %> </small>
           </div>
-          <p><%= match.score %></p>
+          <div class="time-score column">
+            <p><%=match.match_status%>`</p>
+            <p><%= match.score %></p>
+          </div>
           <div class="live-match-image column">
             <img
               src="<%= match.team_away_badge %> "
@@ -28,6 +69,91 @@
             />
             <small><%= match.match_awayteam_name %> </small>
           </div>
+        </div>
+        <h2 class="underline">Goals</h2>
+        <div class="goal-scorer row">
+          <div class="live-Match-goalscorer column">
+          <% match.goalscorer.forEach(item =>{%>
+            <%if(item.home_scorer !== ''){%>
+              <%console.log('home',item.home_scorer)%>
+              <p><%=item.home_scorer%> at <%=item.time%>`</p>
+            <%}else{%>
+              <p><%=item.home_scorer%></p>
+            <%}%>
+              <%})%>
+          </div>
+          <div class="live-Match-goalscorer column">
+            <% match.goalscorer.forEach(item =>{%>
+              <%if(item.away_scorer !== ''){%>
+                <%console.log('away',item.away_scorer)%>
+                <p><%=item.away_scorer%> at <%=item.time%>`</p>
+                <%}else{%>
+                  <p><%=item.away_scorer%></p>
+                <%}%>
+                <%})%>
+            </div>
+        </div>
+        <h2 class="underline">Cards</h2>
+        <div class="goal-scorer row">
+          <div class="live-Match-goalscorer column">
+          <% match.cards.forEach(item =>{%>
+            <%if(item.home_fault !== ''){%>
+              <%console.log('home',item.home_scorer)%>
+              <p><%=item.card%> for <%=item.home_fault%> at <%=item.time%>`</p>
+            <%}else{%>
+              <p><%=item.home_fault%></p>
+            <%}%>
+              <%})%>
+          </div>
+          <div class="live-Match-goalscorer column">
+            <% match.cards.forEach(item =>{%>
+              <%if(item.away_fault !== ''){%>
+                <%console.log('away',item.away_scorer)%>
+                <p><%=item.card%> for <%=item.away_fault%> at <%=item.time%>`</p>
+              <%}else{%>
+                <p><%=item.away_fault%></p>
+              <%}%>
+                <%})%>
+            </div>
+        </div>
+        <% match.statistics.forEach(item =>{%>
+          <div class="live-Match-Info row">
+            <p><%= item.home%></p>
+            <h3><%=item.type%></h3>
+            <p><%= item.away%></p>
+          </div>
+        <%})%>
+      </div>
+      <div class="live-match-stat column">
+        <div class="line-up column">
+          <h4>Players</h4>
+          <% match.lineup.away.starting_lineups.forEach(item =>{%>
+            <div class="player row">
+              <p><%=item.lineup_player%></p>
+              <p><%=item.lineup_number%></p>
+            </div>
+          <%})%>
+        </div>
+        <div class="substitutions column">
+          <h4>Coach</h4>
+          <% match.lineup.away.coach.forEach(item =>{%>
+              <h5>Coach Name: <%=item.lineup_player%></h5>
+          <%})%>
+        </div>
+        <div class="substitutions column">
+          <h4>substitutions</h4>
+          <% match.substitutions.away.forEach(item =>{%>
+              <h5><%=item.substitution%> // time: <%=item.time%>`</h5>
+          <%})%>
+        </div>
+        <div class="line-up column">
+          <h4>Substitutes</h4>
+          <% match.lineup.away.substitutes.forEach(item =>{%>
+            <div class="player row">
+              <p><%=item.lineup_player%></p>
+              <p><%=item.lineup_number%></p>
+            </div>
+          <%})%>
         </div>
       </div>
     </div>
