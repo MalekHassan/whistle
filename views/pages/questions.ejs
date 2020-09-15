@@ -3,12 +3,49 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Challenges</title>
+    <link rel="stylesheet" href="../../styles/reset.css" />
+    <link rel="stylesheet" href="../../styles/base.css" />
+    <title>Live Matches</title>
   </head>
-  <p>hello <%=data%></p>
     <body>
+      <header class="row">
+        <a href="/"> <h1>Whistle <i class="fas fa-flag-checkered"></i></h1></a>
+        <a href="/live">Live matches</a>
+        <a href="/sign">Sign in/up</a>
+      </header>
+   <div class="container-question column">
+     <form class="column" action="" method="POST">
     <% questions.forEach(item =>{ %>
-    <p><%= item.question %> <%= item.answers %></p>
-    <% }) %>
+      <div class="question column">
+        <h3> <%= item.question %></h3>
+        <div class="choises row">
+          <div class="option column">
+            <div class="row  form_content">
+              <input id="answer1" name="choise" type="radio" value="<%=item.answers[0]%>">
+              <label for="answer1"><%=item.answers[0]%></label>
+            </div>
+            <div class="row  form_content">
+              <input  id="answer2" name="choise" type="radio" value="<%=item.answers[1]%>">
+              <label for="answer2"><%=item.answers[1]%></label>
+            </div>    
+          </div>
+
+          <div class="option column">
+            <div class="row  form_content">
+              <input  id="answer3" name="choise" type="radio" value="<%=item.answers[2]%>">
+              <label for="answer3"><%=item.answers[2]%></label>
+            </div>
+            <div class="row  form_content">
+              <input  id="answer4" name="choise" type="radio" value="<%=item.answers[3]%>">
+              <label for="answer4"><%=item.answers[3]%></label>
+            </div>    
+          </div>
+        </div>
+      </div>
+      <% }) %>
+      <input type="submit" value="submit">
+    </form>
+   </div>
   </body>
 </html>
+
