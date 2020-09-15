@@ -232,25 +232,38 @@ header a:hover {
   width: 100%;
   flex-wrap: wrap;
   justify-content: space-around;
-  align-items: center;
+  align-items: baseline;
 }
 
-.live-match-content {
-  width: 30%;
+.live-match-content{
+  width: 40%;
+  color: #fff;
   border: 1px solid black;
-  background-color: bisque;
+  background-color: rgb(95, 89, 128);
   border-radius: 5px;
-  margin: 15px 0;
+  margin: 10px 0;
 }
-
+.live-match-stat{
+  width: 20%;
+  color: #fff;
+  border: 1px solid black;
+  background-color: rgb(95, 89, 128);
+  border-radius: 5px;
+  margin: 10px 0;
+}
 .live-match-content img {
-  width: 100%;
+  width: 40%;
+  /* text-align: center; */
   height: 200px;
   object-fit: fill;
   padding: 15px;
+  margin: 0 auto;
 }
-
-.live-match-content h2 {
+.live-match-content p{
+  text-align: center;
+  font-size: 20px;
+}
+.live-match-content h2 , .live-match-stat h3{
   font-size: 20px;
   text-align: center;
   width: 100%;
@@ -291,14 +304,19 @@ header a:hover {
   text-align: center;
   padding: 10px;
 }
-
+.live-match-content .score p:nth-of-type(1) {
+  background-color: rgb(95, 89, 128);
+  color: #fff;
+  border: none;
+}
 .live-match-content .live-match-image {
   width: 40%;
   margin: 10px 0;
+  align-items: center;
 }
 
 .live-match-content .live-match-image img {
-  width: 100%;
+  width: 70%;
   height: 150px;
   margin: 10px 0;
   padding: 10px;
@@ -308,7 +326,79 @@ header a:hover {
 .live-match-content .live-match-image small {
   text-align: center;
 }
-
+.live-Match-Info{
+  color: #fff;
+  justify-content: space-around;
+  width: 100%;
+  border-bottom: 1px solid white;
+}
+.live-Match-Info p {
+  font-size: 18px;
+  padding: 10px 0;
+  width: 10%;
+  text-align: center;
+}
+.live-Match-Info h3{
+  font-size: 20px;
+  padding: 10px 0;
+  width: 50%;
+  text-align: center;
+}
+.live-Match-goalscorer p{
+  font-size: 18px;
+  padding: 10px 0;
+  width: 50%;
+  text-align: center;}
+.line-up, .substitutions{
+  border-bottom: 1px solid white;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+.line-up .player{
+  justify-content: space-around;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 5px 0;
+  
+}
+.line-up p , .substitutions p{
+  text-align: center;
+  width: 20%;
+}
+.line-up p:nth-of-type(1) , .substitutions p:nth-of-type(1){
+  width: 60%;
+}
+.substitutions h5 {
+  width: 100%;
+  text-align: center;
+  margin: 5px 0;
+}
+.line-up h4 , .substitutions h4{
+  text-align: center;
+  width: 100%;
+  font-size: 25px;
+  font-weight: bold;
+  background-color:#fff;
+  color: #000000;
+  border-radius: 20px;
+  margin: 5px 0;
+  padding: 5px 0;
+}
+.goal-scorer{
+  width: 100%;
+  justify-content: space-between;
+}
+.goal-scorer .live-Match-goalscorer{
+  width: 40%;
+  align-items: center;
+  justify-content: center;
+}
+.goal-scorer .live-Match-goalscorer p{
+  width: 100%;
+}
+.underline{
+  border-bottom:solid 1px white ;
+}
 /* Live Matches live.ejs End */
 
 /*match details start*/
@@ -328,14 +418,14 @@ header a:hover {
   flex-direction: column;
 }
 /* H2H resulrs */
-main div{
+.main div{
   margin-top: 10px;
 }
 
 .item2{
   padding-left: 10px;
 }
-.container{
+.container1{
     align-items: center;
   justify-content: center;
   display: grid;

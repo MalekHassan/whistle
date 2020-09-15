@@ -13,9 +13,12 @@
 
 <body>
   <header class="row">
+    <%if (data){%>
+    <h1>welcome <%=data%></h1>
+    <%}%>
     <h1>Whistle <i class="fas fa-flag-checkered"></i></h1>
     <a href="/live">Live matches</a>
-    <a href="/sign">Sign in/up</a>
+    <a href="/signin">Sign in/up</a>
   </header>
   <main>
     <section id="firstSection">
