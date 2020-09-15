@@ -5,7 +5,7 @@
 /* Header Start */
 
 header {
-  background-color: black;
+  background-color: rgb(121, 121, 207);
   height: 75px;
   color: #fff;
   width: 100%;
@@ -28,6 +28,12 @@ header a:hover {
 }
 
 /* Header End */
+
+/* seperate sections */ 
+section{
+  padding-top: 50px;
+  border: 1px solid black ;
+}
 
 /* Top Section Background image start */
 
@@ -52,7 +58,7 @@ header a:hover {
   font-size: 60px;
 }
 
-#firstSection #aTags {
+/* #firstSection #aTags {
   position: absolute;
   bottom: 20%;
   justify-content: space-around;
@@ -64,7 +70,7 @@ header a:hover {
   color: black;
   font-size: 30px;
   text-align: center;
-}
+} */
 
 /* Top Section Background image end */
 
