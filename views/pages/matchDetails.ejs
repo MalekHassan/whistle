@@ -16,6 +16,15 @@
     <div class="container row">
       <div class="live-match-stat column">
         <div class="line-up column">
+          <div class="live-match-image row">
+            <img
+              src="<%= match.team_home_badge %> "
+              alt="<%= match.match_hometeam_name %> "
+            />
+          </div>
+          <div class="team-name row">
+            <small><%= match.match_hometeam_name %> </small>
+          </div>
           <h4>Players</h4>
           <% match.lineup.home.starting_lineups.forEach(item =>{%>
             <div class="player row">
@@ -126,6 +135,15 @@
       </div>
       <div class="live-match-stat column">
         <div class="line-up column">
+          <div class="live-match-image row">
+            <img
+              src="<%= match.team_away_badge %> "
+              alt="<%= match.match_awayteam_name %> "
+            />
+          </div>
+          <div class="team-name row">
+            <small><%= match.match_hometeam_name %> </small>
+          </div>
           <h4>Players</h4>
           <% match.lineup.away.starting_lineups.forEach(item =>{%>
             <div class="player row">

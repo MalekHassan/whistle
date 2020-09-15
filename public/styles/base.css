@@ -232,24 +232,27 @@ header a:hover {
   width: 100%;
   flex-wrap: wrap;
   justify-content: space-around;
-  align-items: baseline;
+  align-items: flex-start;
 }
 
+#live-match{
+  width: 30%;
+}
 .live-match-content{
   width: 40%;
-  color: #fff;
-  border: 1px solid black;
-  background-color: rgb(95, 89, 128);
+  color: rgb(52, 52, 52);
+  box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19);  
+  background-color: rgba(95, 89, 128,0.7);
   border-radius: 5px;
-  margin: 10px 0;
+  margin: 60px 0;
 }
 .live-match-stat{
   width: 20%;
-  color: #fff;
-  border: 1px solid black;
-  background-color: rgb(95, 89, 128);
+  color: rgb(52, 52, 52);
+  box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19); 
+  background-color: rgba(95, 89, 128,0.7);
   border-radius: 5px;
-  margin: 10px 0;
+  margin: 60px 0;
 }
 .live-match-content img {
   width: 40%;
@@ -274,8 +277,8 @@ header a:hover {
 
 .live-match-content input[type="submit"] {
   margin: 10px 0;
-  background-color: black;
-  color: white;
+  background-color: rgb(52, 52, 52);
+  color:rgb(223, 223, 223);
   width: 50%;
   border-radius: 5px;
   padding: 10px;
@@ -296,7 +299,7 @@ header a:hover {
 
 .live-match-content .score p {
   font-size: 18px;
-  background-color: #000000;
+  background-color:rgb(52, 52, 52);
   color: #fff;
   font-weight: bold;
   border: 2px solid #fff;
@@ -325,6 +328,8 @@ header a:hover {
 
 .live-match-content .live-match-image small {
   text-align: center;
+  font-size: 15px;
+  font-weight: bold;
 }
 .live-Match-Info{
   color: #fff;
@@ -354,6 +359,17 @@ header a:hover {
   justify-content: space-between;
   margin: 5px 0;
 }
+.line-up .live-match-image{
+  justify-content: space-around;
+  text-align: center;
+  padding: 5px 0;
+}
+.line-up .team-name{
+  justify-content: space-around;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 5px 0;
+}
 .line-up .player{
   justify-content: space-around;
   font-size: 20px;
@@ -375,13 +391,13 @@ header a:hover {
 }
 .line-up h4 , .substitutions h4{
   text-align: center;
-  width: 100%;
+  width: 70%;
   font-size: 25px;
   font-weight: bold;
   background-color:#fff;
   color: #000000;
-  border-radius: 20px;
-  margin: 5px 0;
+  border-radius: 10px;
+  margin: 5px auto;
   padding: 5px 0;
 }
 .goal-scorer{
@@ -417,47 +433,103 @@ header a:hover {
   display: flex;
   flex-direction: column;
 }
-/* H2H resulrs */
-.main div{
-  margin-top: 10px;
-}
 
-.item2{
-  padding-left: 10px;
+/* H2H Result Start */
+
+
+.h2hcontainer{
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 80vh;
+  margin-top: 60px;
 }
-.container1{
-    align-items: center;
+.first-row , .second-row {
+  width: 100%;
   justify-content: center;
-  display: grid;
-  grid-template-columns: 100px 100px 100px 100px 15px 30px 100px;
-  justify-items: center;
-  text-align: center;
-
+  align-items: center;
+  margin-bottom: 30px;
 }
-.container3{
-    align-items: center;
-  justify-content: center;
-  display: grid;
-  grid-template-columns: 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px;
-  justify-items: center;
-  text-align: center;
 
+.details-card{
+  width: 35%;
+  color: rgb(52, 52, 52);
+  box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19); 
+  background-color: rgba(95, 89, 128,0.7);
+  border-radius: 5px;
 }
-.container4{
-    align-items: center;
+
+.details-card .score {
+  width: 100%;
   justify-content: space-around;
-  display: grid;
-  grid-template-columns: 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px ;
-  justify-items: center;
-  text-align: center;
-
+  align-items: center;
+  margin: 10px 0;
 }
-.container5{
-    align-items: center;
+
+.details-card .score p {
+  font-size: 18px;
+  background-color:rgb(52, 52, 52);
+  color: #fff;
+  font-weight: bold;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px;
+}
+
+.details-card .live-match-image {
+  width: 40%;
+  margin: 10px 0;
+  align-items: center;
+}
+
+.details-card .live-match-image img {
+  width: 70%;
+  height: 150px;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.details-card .live-match-image small {
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.matchs-details {
+  justify-content: space-between;
+  width: 60%;
+  color: rgb(52, 52, 52);
+  box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19); 
+  background-color: rgba(95, 89, 128,0.7);
+  border-radius: 5px;
+  max-height: 1000px;
+}
+
+.matchs-details .match-detail{
   justify-content: space-around;
-  display: grid;
-  grid-template-columns: 100px 100px 100px 100px ;
-  justify-items: center;
-  text-align: center;
-
+  border-bottom: 1px solid white;
+  margin: 10px 0 ;
+  align-items: center;
+  padding: 10px 0;
 }
+
+.matchs-details .match-detail p {
+  width: 12.5%;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold
+}
+
+.matchs-details input[type="submit"] {
+  /* margin: 10px 0; */
+  background-color: rgb(52, 52, 52);
+  color:rgb(223, 223, 223);
+  width: 100%;
+  border-radius: 5px;
+  padding: 15px;
+  font-size: 10px;
+  font-weight: bold;
+}
+/* H2H Result End */
