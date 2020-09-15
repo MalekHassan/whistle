@@ -6,121 +6,98 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
     integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@1,800&family=Josefin+Sans:wght@700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="../../styles/reset.css" />
-  <link rel="stylesheet" href="../../styles/base.css" />
+  <link rel="stylesheet" href="../../styles/homePage.css" />
+  <link rel="stylesheet" href="../../styles/nav.css">
   <title>Whistle</title>
 </head>
 
 <body>
-  <header class="row">
-    <h1>Whistle <i class="fas fa-flag-checkered"></i></h1>
-    <a href="/live">Live matches</a>
-      <a href="#challenge">Challenge</a>
-      <a href="#newsSection">News</a>
-      <a href="#footballInfo">Football <br />
-        Information</a>
-    <%if (data){%>
-      <h1>welcome <%=data%></h1>
-      <%}%>
-      <i  onclick="showSignin()" style='font-size:24px' class='fas'>&#xf406;</i>
-      <li id="hideSign"><a href="/signin"></a>sign in</li>
-    
-      
+  <header>
+    <article class="headerContainer">
+      <div id="item1Header">
+        <h1>Whistle <i class="fas fa-flag-checkered"></i></h1>
+      </div>
+      <div id="item2Header">
+        <a href="/live">Live matches</a>
+        <a href="#challenge">Challenge</a>
+        <a href="#newsSection">News</a>
+        <a href="#footballInfo">Football Info</a>
+        <a href="/signin"><i onclick="showSignin()" style='font-size:24px' class='fas'>&#xf406;</i><br>
 
-  
+          <!-- <%if (data){%>
+          <i>sign in</i>
+          <%} else {%>
+            <i>sign out</i>
+            <%}%> -->
+
+        </a>
+      </div>
+    </article>
+
   </header>
   <main>
     <section id="firstSection">
       <!-- <div id="testDiv"></div> -->
-      <img src="../../images/background2.jpg" alt="background_image" />
+      <img src="../../images/vid.gif" alt="background_image" />
       <h2>Whistle <i class="fas fa-flag-checkered"></i></h2>
-     
+      <p>Love Football? You Reached! </p>
+
     </section>
+
+
     <section id="footballInfo">
-      <h2>Football Information</h2>
-      <h3>Topics</h3>
+      <div>
+        <img class="run" src="/images/football22.png" alt="">
+        <h2 id="afterRun">Football Information</h2>
+        <img class="run" src="/images/football22.png" alt="">
+      </div>
+      <div id="searchTopicDiv">
+        <p id="topicP">As we know how important is it to be updated with all aspects of football information
+           Whistle.com will help you to search easily and reach the topic that you are looking for, all you need is to pick the topic from here</p><br>
+      <label id="search">Search Topics  </label>
       <select name="searchTopic" id="searchTopic" onchange="showHiddenForm()">
-        <option value="SearchTopic">Search Topic</option>
-        <option value="matchesResults">matches results</option>
-        <option value="playersInfo">players info</option>
-        <option value="matchesDate">matches date</option>
-        <option value="bestPlayer">the best player</option>
+        <option value="SearchTopic">----Choose----</option>
+        <option value="matchesResults">Matches Results</option>
+        <option value="playersInfo">Players Info</option>
+        <option value="matchesDate">Matches Date</option>
+        <option value="bestPlayer">The Best Player</option>
       </select>
-      <section id="hideMe">
+    </div>
+
+      <div id="hideMe">
         <form action="/h2h" class="hidden-form" id="matchesResults">
 
-          <label>Enter the first team</label>
-          <input name="match_hometeam_name" required type="text" id="frstTeam" placeholder="First Team">
-          <label>Enter the second team</label>
-          <input name="match_awayteam_name" required type="text" id="secondTeam" placeholder="Second Team">
-          <input type="submit" value="submit">
+          <input name="match_hometeam_name" required type="text" id="frstTeam" placeholder="Enter The First Team Name">
+          <label>VS.</label>
+          <input name="match_awayteam_name" required type="text" id="secondTeam" placeholder="Enter The Second Team Name">
+          <input class="submitt" type="submit" value="submit">
 
         </form>
-      </section>
-
-    <section id="newsSection" class="row">
-      <h2>Today's Sport News</h2>
-        <div id="matches-container" class="column">
-          <div id="match_head" class="row">
-            <h2>Upcomming Matches</h2>
-            <form class="row" action="/" method="GET">
-              <select name="league_id" id="leagues-select">
-                <option value="195">Bundesliga</option>
-                <option value="148">Premier</option>
-                <option value="468">LaLiga</option>
-                <option value="262">Serie A</option>
-                <option value="176">Ligue 1</option>
-              </select>
-              <input type="submit" value="Get result" />
-            </form>
-          </div>
-          <% if(matches.length > 0){ %> <% matches.forEach(match=>{ %>
-          <div class="match-content row">
-            <div class="team-image column">
-              <img src="<%= match.home_team_logo%>" alt="home_team" />
-              <small><%= match.home_team %> </small>
-            </div>
-            <p><%= match.time %></p>
-            <div class="team-image column">
-              <img src="<%= match.away_team_logo%>" alt="away_team" />
-              <small><%= match.away_team %> </small>
-            </div>
-          </div>
-          <% }) %> <% }else{ %>
-          <h3>There is No Mathces today for this league</h3>
-          <% } %>
-        </div>
-        <div class="slide-show-container">
-          <% news.forEach(item =>{ %>
-          <div class="mySlides fade">
-            <a href="<%= item.url %>" target="_blank">
-              <img src="<%= item.image_url %>" alt=""
-            /></a>
-            <p class="text"><%= item.title%></p>
-          </div>
-          <% }) %>
-          <a onclick="plusSlides(-1)" class="prev">&#10094;</a>
-          <a onclick="plusSlides(1)" class="next">&#10095;</a>
-        </div>
-      </section>
-     
-
+      </div>
       
-        <form action="/player" class="hidden-form" id="playersInfo">
-          <label>Enter the player name</label>
-          <input type="text" name="player_name" id="player_name">
-          <input type="submit" value="submit">
-        </form>
-        <article id="hideMe">
+      <div>
+      <form action="/player" class="hidden-form" id="playersInfo">
+        <label>Enter the player name</label>
+        <input type="text" name="player_name" id="player_name">
+        <input class="submitt" type="submit" value="submit">
+      </form>
+    </div>
+
+      <div id="hideMe">
         <form action="/events" class="hidden-form" id="matchesDate">
           <label>display the matches from date </label>
           <input type="date" name="fromDate" id="date1">
           <label> to </label>
           <input type="date" name="toDate" id="date2">
-          <input type="submit" value="submit">
+          <input class="submitt" type="submit" value="submit">
         </form>
-      </article>
-      <article id="hideMe">
+      </div>
+
+      <div id="hideMe">
         <form action="/bestOf" class="hidden-form" id="bestPlayer">
           <select name="leagueName" id="leagueName">
             <option value="leagueName">League Name</option>
@@ -130,26 +107,87 @@
             <option value="195">Bundesliga</option>
             <option value="176">Ligue 1</option>
           </select>
-          <input type="submit" value="submit">
+          <input class="submitt" type="submit" value="submit">
         </form>
-      </article>
+      </div>
+      <div id="line"></div>
+    </section>
+    
 
-      <section id="challenge">
-        <h2>Challenge yourself</h2>
-        <form action="/question" method="get">
-          <label for="question">Number Of Questions</label>
-          <input type="number" name="question" id="question" />
-          <select name="diffculty" id="diffculty">
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
+    <section id="newsSection" class="row">
+      <div id="running">
+        <img class="run" src="/images/football22.png" alt="">
+        <h2 id="afterRun">Today's News</h2>
+        <img class="run" src="/images/football22.png" alt="">
+      </div>
+      <div class="slide-show-container">
+        <% news.forEach(item =>{ %>
+        <div class="mySlides fade">
+          <a href="<%= item.url %>" target="_blank">
+            <img src="<%= item.image_url %>" alt=""
+          /></a>
+          <p class="text"><%= item.title%></p>
+        </div>
+        <% }) %>
+        <a onclick="plusSlides(-1)" class="prev">&#10094;</a>
+        <a onclick="plusSlides(1)" class="next">&#10095;</a>
+      </div>
+    </section>
+     
+    <div id="matches-container" >
+      
+        <div>
+          <img class="run" src="/images/football22.png" alt="">
+          <h2  id="afterRun">Upcomming Matches</h2>
+          <img class="run" src="/images/football22.png" alt="">
+        </div>
+        <form class="row" action="/" method="GET">
+          <select name="league_id" id="leagues-select">
+            <option value="195">Bundesliga</option>
+            <option value="148">Premier</option>
+            <option value="468">LaLiga</option>
+            <option value="262">Serie A</option>
+            <option value="176">Ligue 1</option>
           </select>
-          <input type="submit" value="Submit" />
+          <input class="submitt" type="submit" value="Get result" />
         </form>
+      
+      <% if(matches.length > 0){ %> <% matches.forEach(match=>{ %>
+      <div class="match-content">
+        <div class="team-image">
+          <img src="<%= match.home_team_logo%>" alt="home_team" />
+          <strong><%= match.home_team %> </strong>
+        </div>
+        <div class="team-image">
+          <strong>match time</strong>
+        <strong  class="team-image"><%= match.time %></strong>
+        </div>
+        <div class="team-image">
+          <img src="<%= match.away_team_logo%>" alt="away_team" />
+          <strong><%= match.away_team %> </strong>
+        </div>
+      </div>
+      <% }) %> <% }else{ %>
+      <p>There is No Mathces today for this league</p>
+      <% } %>
+    </div>
+
+    <section id="challenge">
+      <h2  id="afterRun">Challenge yourself</h2>
+      <form action="/question" method="get">
+        <label for="question">Number Of Questions</label>
+        <input type="number" name="question" id="question" />
+        <select name="diffculty" id="diffculty">
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+        <input class="submitt" type="submit" value="Submit" />
+      </form>
       </article>
-    </main>
-    <script src="../../js/app.js"></script>
-     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  </main>
+  <script src="../../js/app.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
   <script>
 
     let selectArray = ['matchesResults', 'playersInfo', "matchesDate", "bestPlayer"];
@@ -169,12 +207,13 @@
     }
 
     // show sign in
-    $('#hideSign').hide(); 
+    $('#hideSign').hide();
     function showSignin() {
-          $('#hideSign').toggle()
+      $('#hideSign').toggle()
 
     }
 
   </script>
-  </body>
+</body>
+
 </html>
