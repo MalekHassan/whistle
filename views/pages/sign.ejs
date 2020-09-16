@@ -1,45 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<!-- Font -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
-integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
-<link
-href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@1,800&family=Josefin+Sans:wght@700&display=swap"
-rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Montserrat:wght@600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles/signup.css">
-<link rel="stylesheet" href="../../styles/nav.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Font -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+      integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@1,800&family=Josefin+Sans:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Montserrat:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../styles/signup.css" />
+    <link rel="stylesheet" href="../../styles/nav.css" />
+    <title>Document</title>
+  </head>
 
-	<title>Document</title>
-</head>
+  <body>
+    <%- include('../layout/header') %>
 
+    <div class="signContainer">
+      <div class="box">
+        <form class="loginForm form--login" action="/signin" method="post">
+          <h1 class="form__title">Sign in</h1>
 
-<body>
-<%- include('../layout/header') %>
+          <div class="form__helper">
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="User"
+              class="form__input"
+            />
+            <label class="form__label" for="user">User</label>
+          </div>
 
-<div class="signContainer">
-	<div class="box">		
-		<form class="loginForm form--login" action="/signin" method="post">
-			<h1 class="form__title">Sign in</h1>
+          <div class="form__helper">
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              class="form__input"
+            />
+            <label class="form__label" for="password">Password</label>
+          </div>
+          <button type="submit" class="form__button">Login</button>
 
-			<div class="form__helper">
-				<input type="text" name="username" id="username" placeholder="User" class="form__input" />
-				<label class="form__label" for="user">User</label>
-			</div>
-
-			<div class="form__helper">
-				<input type="password" name="password" id="password" placeholder="Password" class="form__input" />
-				<label class="form__label" for="password">Password</label>
-			</div>
-			<button type="submit" class="form__button">Login</button>
-
-			<p class="form__text">Don't have an account? <label for="toggle" class="form__link">Sign up!</label>
-		</form>
-	</div>
-</div>
-</body>
-
+          <p class="form__text">
+            Don't have an account?
+            <label id="singUP" for="toggle" class="form__link">Sign up!</label>
+          </p>
+        </form>
+      </div>
+    </div>
+  </body>
 </html>

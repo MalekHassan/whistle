@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+      integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@1,800&family=Josefin+Sans:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../styles/reset.css" />
+    <link rel="stylesheet" href="../../styles/base.css" />
+    <link rel="stylesheet" href="../../styles/nav.css" />
+    <title>User Fav</title>
+  </head>
+  <body>
+    <%- include('../layout/header') %>
+    <div class="container row">
+      <% matchArray.forEach(match => { %>
+      <div id="live-match" class="live-match-content column">
+        <h2><%= match.league_name %></h2>
+        <img src="<%= match.league_logo %> " alt="<%- match.league_name %> " />
+        <p>Match time: <%= match.match_time%></p>
+        <div class="score row">
+          <div class="live-match-image column">
+            <img
+              src="<%= match.team_home_badge %> "
+              alt="<%= match.match_hometeam_name %> "
+            />
+            <small><%= match.match_hometeam_name %> </small>
+          </div>
+          <div class="time-score column">
+            <p><%=match.match_status%>`</p>
+            <p><%= match.score %></p>
+          </div>
+          <div class="live-match-image column">
+            <img
+              src="<%= match.team_away_badge %> "
+              alt="<%= match.match_awayteam_name %> "
+            />
+            <small><%= match.match_awayteam_name %> </small>
+          </div>
+        </div>
+        <form
+          class="row"
+          action="/match_detail/<%= match.match_id %> "
+          method="get"
+        >
+          <input type="submit" value="Get Match Details" />
+        </form>
+      </div>
+      <% }); %>
+    </div>
+  </body>
+</html>
