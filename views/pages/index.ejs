@@ -75,7 +75,7 @@
       <div>
       <form action="/player" class="hidden-form" id="playersInfo">
         <label>Enter the player name</label>
-        <input type="text" name="player_name" id="player_name">
+        <input required type="text" name="player_name" id="player_name">
         <input class="submitt" type="submit" value="submit">
       </form>
     </div>
@@ -83,9 +83,9 @@
       <div id="hideMe">
         <form action="/events" class="hidden-form" id="matchesDate">
           <label>display the matches from date </label>
-          <input type="date" name="fromDate" id="date1">
+          <input required type="date" name="fromDate" id="date1">
           <label> to </label>
-          <input type="date" name="toDate" id="date2">
+          <input required type="date" name="toDate" id="date2">
           <input class="submitt" type="submit" value="submit">
         </form>
       </div>
@@ -170,9 +170,9 @@
       <h2  id="afterRun">Challenge yourself</h2>
       <form action="/question" method="get">
         <label for="question">Number Of Questions</label>
-        <input type="number" name="question" id="question" value="5" min="5" max="10" />
-        <select name="diffculty" id="diffculty">
-          <option value="easy">Easy</option>
+        <input required type="number" name="question" id="question" value="5" min="5" max="10" />
+        <select required name="diffculty" id="diffculty">
+          <option selected="selected" value="easy">Easy</option>
           <option value="medium">Medium</option>
           <option value="hard">Hard</option>
         </select>
