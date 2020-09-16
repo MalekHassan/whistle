@@ -7,73 +7,110 @@
     <link rel="stylesheet" href="../../styles/base.css" />
     <title>Live Matches</title>
   </head>
-    <body>
-      <header class="row">
-        <a href="/"> <h1>Whistle <i class="fas fa-flag-checkered"></i></h1></a>
-        <a href="/live">Live matches</a>
-        <a href="/sign">Sign in/up</a>
-      </header>
-   <div class="container-question column">
-     <form id="quies-form" class="column" action="" method="POST">
-    <% questions.forEach((item , index) =>{ %>
-      <div class="question column">
-        <h3> <%= item.question %></h3>
-        <p hidden><%=item.correct_answer%></p>
-        <div class="choises row">
-          <div class="option column">
-            <div class="row  form_content">
-              <input id="answer1" name="<%=index%>" type="radio" value="<%=item.answers[0]%>">
-              <label for="answer1"><%=item.answers[0]%></label>
+  <body>
+    <header class="row">
+      <a href="/">
+        <h1>Whistle <i class="fas fa-flag-checkered"></i></h1
+      ></a>
+      <a href="/live">Live matches</a>
+      <a href="/sign">Sign in/up</a>
+    </header>
+    <div class="container-question column">
+      <form id="quies-form" class="column" action="/answers" method="GET">
+        <% questions.forEach((item , index) =>{ %>
+        <div class="question column">
+          <h3><%= item.question %></h3>
+          <p hidden><%=item.correct_answer%></p>
+          <div class="choises row">
+            <div class="option column">
+              <div class="row form_content">
+                <input
+                  id="answer1"
+                  name="<%=index%>"
+                  type="radio"
+                  value="<%=item.answers[0]%>"
+                />
+                <label for="<%=index%>"><%=item.answers[0]%></label>
+              </div>
+              <div class="row form_content">
+                <input
+                  id="answer2"
+                  name="<%=index%>"
+                  type="radio"
+                  value="<%=item.answers[1]%>"
+                />
+                <label for="<%=index%>"><%=item.answers[1]%></label>
+              </div>
             </div>
-            <div class="row  form_content">
-              <input  id="answer2" name="<%=index%>" type="radio" value="<%=item.answers[1]%>">
-              <label for="answer2"><%=item.answers[1]%></label>
-            </div>    
-          </div>
 
-          <div class="option column">
-            <div class="row  form_content">
-              <input  id="answer3" name="<%=index%>" type="radio" value="<%=item.answers[2]%>">
-              <label for="answer3"><%=item.answers[2]%></label>
+            <div class="option column">
+              <div class="row form_content">
+                <input
+                  id="answer3"
+                  name="<%=index%>"
+                  type="radio"
+                  value="<%=item.answers[2]%>"
+                />
+                <label for="<%=index%>"><%=item.answers[2]%></label>
+              </div>
+              <div class="row form_content">
+                <input
+                  id="answer4"
+                  name="<%=index%>"
+                  type="radio"
+                  value="<%=item.answers[3]%>"
+                />
+                <label for="<%=index%>"><%=item.answers[3]%></label>
+              </div>
             </div>
-            <div class="row  form_content">
-              <input  id="answer4" name="<%=index%>" type="radio" value="<%=item.answers[3]%>">
-              <label for="answer4"><%=item.answers[3]%></label>
-            </div>    
           </div>
         </div>
+        <% }) %>
+        <input type="submit" value="submit" />
+      </form>
+    </div>
+    <div class="popup-container" id="popup-container">
+      <div class="popup">
+        <h2 id="final-message"></h2>
+        <button id="play-button">Close</button>
       </div>
-      <% }) %>
-      <input type="submit" value="submit">
-    </form>
-   </div>
-   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-   <script>
-     $('#quies-form').submit((event)=>{
-      event.preventDefault();
-      let userAnswerArray =$('input:radio')
-      var checkedAnswer = userAnswerArray.toArray().filter(item =>{
-        if(item.checked){
-          return item;
-        }
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script>
+      let popUp = $('#popup-container');
+
+      $('#play-button').click(() => {
+        popUp.css('display', 'none');
       });
-      // console.log(checkedAnswer);
-      let correct = $('p').toArray().map((item)=>{
-        return item.textContent;
+
+      $('#quies-form').submit((event) => {
+        // event.preventDefault();
+        let userAnswerArray = $('input:radio');
+        var checkedAnswer = userAnswerArray.toArray().filter((item) => {
+          if (item.checked) {
+            return item;
+          }
+        });
+        let correct = $('p')
+          .toArray()
+          .map((item) => {
+            return item.textContent;
+          });
+        let counter = 0;
+        let asnwers = checkedAnswer.map((item) => {
+          return item.attributes.value.textContent;
+        });
+        correct.forEach((item, index) => {
+          if (item === asnwers[index]) {
+            counter++;
+          }
+        });
+        console.log(counter);
+        $('#final-message').text(
+          `Your Score is ${counter} / ${asnwers.length} \n You Score has been Saved`
+        );
+        popUp.css('display', 'flex');
       });
-      // console.log(correct);
-      let counter = 0;
-      let asnwers = checkedAnswer.map((item)=>{
-        return item.attributes.value.textContent;
-      })
-      correct.forEach((item,index)=>{
-        if (item===asnwers[index]){
-          counter++;
-        }
-      })
-      console.log(counter);
-    })
-   </script>
+    </script>
   </body>
 </html>
-

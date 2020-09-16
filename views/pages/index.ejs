@@ -27,13 +27,6 @@
         <a href="#newsSection">News</a>
         <a href="#footballInfo">Football Info</a>
         <a href="/signin"><i onclick="showSignin()" style='font-size:24px' class='fas'>&#xf406;</i><br>
-
-          <!-- <%if (data){%>
-          <i>sign in</i>
-          <%} else {%>
-            <i>sign out</i>
-            <%}%> -->
-
         </a>
       </div>
     </article>
@@ -177,7 +170,7 @@
       <h2  id="afterRun">Challenge yourself</h2>
       <form action="/question" method="get">
         <label for="question">Number Of Questions</label>
-        <input type="number" name="question" id="question" />
+        <input type="number" name="question" id="question" value="5" min="5" max="10" />
         <select name="diffculty" id="diffculty">
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>

@@ -185,7 +185,7 @@ header a:hover {
   padding: 5px;
   font-size: 15px;
 }
-#match_head input[type="submit"] {
+#match_head input[type='submit'] {
   width: 60%;
   background-color: black;
   color: #fff;
@@ -278,7 +278,7 @@ header a:hover {
   margin: 10px 0;
 }
 
-.live-match-content input[type="submit"] {
+.live-match-content input[type='submit'] {
   margin: 10px 0;
   background-color: rgb(52, 52, 52);
   color: rgb(223, 223, 223);
@@ -530,7 +530,7 @@ header a:hover {
   font-weight: bold;
 }
 
-.matchs-details input[type="submit"] {
+.matchs-details input[type='submit'] {
   background-color: rgb(52, 52, 52);
   color: rgb(223, 223, 223);
   width: 100%;
@@ -602,27 +602,27 @@ table tbody tr {
   align-items: center;
   justify-content: center;
 }
-.container-question form{
-    justify-content: center;
-    align-items: center;
+.container-question form {
+  justify-content: center;
+  align-items: center;
 }
-.container-question .question h3{
+.container-question .question h3 {
   width: 100%;
   border-radius: 5px;
   background-color: rgb(52, 52, 52);
-  color:rgb(223, 223, 223) ;
+  color: rgb(223, 223, 223);
   text-align: center;
   font-size: 20px;
   text-transform: capitalize;
   padding: 5px 0;
   border-bottom: 5px solid rgb(223, 223, 223);
 }
-.container-question .question{
- width: 80%;
-justify-content: center;
-align-items: center;
+.container-question .question {
+  width: 80%;
+  justify-content: center;
+  align-items: center;
 }
-.choises .option{
+.choises .option {
   align-items: center;
   justify-content: space-around;
   width: 50%;
@@ -643,8 +643,49 @@ align-items: center;
   padding: 10px;
 }
 
-.form_content label{
+.form_content label {
   padding-left: 15px;
 }
+
+/* Pop up massage start */
+.popup-container {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup {
+  background-color: #2980b9;
+  border-radius: 5px;
+  box-shadow: 0 15px 10px 3px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+}
+
+.popup button {
+  cursor: pointer;
+  background-color: #fff;
+  color: #2980b9;
+  border: 0;
+  margin-top: 20px;
+  padding: 12px 20px;
+  font-size: 16px;
+}
+
+.popup button:active {
+  transform: scale(0.98);
+}
+
+.popup button:focus {
+  outline: 0;
+}
+/* Pop Up message end */
 
 /* question page end */
