@@ -241,18 +241,16 @@ header a:hover {
 .live-match-content {
   width: 40%;
   color: rgb(52, 52, 52);
-  box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2),
-    0 0 10px 0 rgba(0, 0, 0, 0.19);
-  background-color: rgba(95, 89, 128, 0.7);
-  border-radius: 5px;
-  margin: 60px 0;
+    box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19);
+    background-color: rgba(95, 89, 128, 0.2);
+    border-radius: 5px;
+    margin: 60px 0;
 }
 .live-match-stat {
   width: 20%;
   color: rgb(52, 52, 52);
-  box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2),
-    0 0 10px 0 rgba(0, 0, 0, 0.19);
-  background-color: rgba(95, 89, 128, 0.7);
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19);
+    background-color: rgba(95, 89, 128, 0.2);
   border-radius: 5px;
   margin: 60px 0;
 }
@@ -278,14 +276,32 @@ header a:hover {
   margin: 10px 0;
 }
 
-.live-match-content input[type='submit'] {
+#footballInfo div{
+  text-align: center;
+  vertical-align:top;
+  }
+.vrun , #afterRun {
+  display: inline-block;
+  font-family: 'Grandstander', cursive;
+font-family: 'Josefin Sans', sans-serif;
+font-size: 40px;
+color: rgb(30, 30, 85);
+  padding: 5px;
+}
+#footballInfo div h2{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.live-match-content input[type="submit"] {
+
   margin: 10px 0;
-  background-color: rgb(52, 52, 52);
+  background-color: #2f3061;
   color: rgb(223, 223, 223);
   width: 50%;
   border-radius: 5px;
   padding: 10px;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: bold;
 }
 
@@ -335,7 +351,6 @@ header a:hover {
   font-weight: bold;
 }
 .live-Match-Info {
-  color: #fff;
   justify-content: space-around;
   width: 100%;
   border-bottom: 1px solid white;
@@ -459,10 +474,8 @@ header a:hover {
 
 .details-card {
   width: 35%;
-  color: rgb(52, 52, 52);
-  box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2),
-    0 0 10px 0 rgba(0, 0, 0, 0.19);
-  background-color: rgba(95, 89, 128, 0.7);
+    color: rgb(52, 52, 52);
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19);
   border-radius: 5px;
 }
 
@@ -506,13 +519,12 @@ header a:hover {
 
 .matchs-details {
   justify-content: space-between;
-  width: 60%;
-  color: rgb(52, 52, 52);
-  box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2),
-    0 0 10px 0 rgba(0, 0, 0, 0.19);
-  background-color: rgba(95, 89, 128, 0.7);
-  border-radius: 5px;
-  max-height: 1000px;
+    width: 60%;
+    color: rgb(52, 52, 52);
+    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19);
+    background-color: rgba(95, 89, 128, 0.2);
+    border-radius: 5px;
+    max-height: 1000px;
 }
 
 .matchs-details .match-detail {
@@ -530,14 +542,14 @@ header a:hover {
   font-weight: bold;
 }
 
-.matchs-details input[type='submit'] {
-  background-color: rgb(52, 52, 52);
-  color: rgb(223, 223, 223);
-  width: 100%;
-  border-radius: 5px;
-  padding: 15px;
-  font-size: 10px;
-  font-weight: bold;
+.matchs-details input[type="submit"] {
+  background-color: #2f3061;
+    color: rgb(223, 223, 223);
+    width: 100%;
+    border-radius: 5px;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: bold;
 }
 /* H2H Result End */
 
@@ -549,7 +561,7 @@ header a:hover {
   justify-content: center;
 }
 .table-details {
-  width: 50%;
+  width: 65%;
 }
 .table-details1 {
   width: 80%;
@@ -564,9 +576,10 @@ table {
 }
 table tbody td {
   text-align: center;
-  color: rgb(223, 223, 223);
-  padding: 5px;
+  color: rgb(52, 52, 52);
+    padding: 23px;
   vertical-align: middle;
+  
 }
 table thead {
   background-color: rgb(52, 52, 52);
@@ -585,9 +598,8 @@ tbody tr {
 
 table tbody tr {
   color: rgb(52, 52, 52);
-  box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2),
-    0 0 10px 0 rgba(0, 0, 0, 0.19);
-  background-color: rgba(95, 89, 128, 0.7);
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19);
+  background-color: rgba(95, 89, 128, 0.2);
   border-radius: 5px;
   padding: 5px;
 }
