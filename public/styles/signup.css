@@ -6,10 +6,13 @@ html *, html *:before, html *:after {
     box-sizing: inherit;
 }
 body {
-    background-color: #dda02c;
+    background-color: #dfd9d985;
 }
 .signContainer{
-    margin-left: 40%;
+    align-items: center;
+    display: grid;
+    justify-items: center;
+    row-gap: 15px;
 }
 .loginContainer {
     display: grid;
@@ -19,12 +22,12 @@ body {
 .box {
     position: relative;
     display: flex;
+    margin-top: 10%;
     align-items: center;
-    width: 90%;
     max-width: 600px;
     padding: 220px 20px 20px;
     overflow: hidden;
-    background-color: white;
+    background-color: rgba(95, 89, 128, 0.2);
     border-radius: 5px;
     box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.3);
 }
@@ -76,6 +79,8 @@ body {
     font-weight: 700;
 }
 .form--login {
+    text-align: center;
+    margin: 0 auto;
     opacity: 1;
     transition: opacity 0.5s ease;
 }
