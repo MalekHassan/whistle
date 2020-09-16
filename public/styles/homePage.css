@@ -8,6 +8,9 @@
 body{
     background-color: #faf5f5;
 }
+html {
+  scroll-behavior: smooth;
+}
 img{
     box-shadow: 5px 10px 18px #dfd9d985;
 
@@ -306,4 +309,9 @@ justify-content: center;
 .match-content strong {
     word-spacing: 5px;
     font-size: 20px;
+}
+
+#challenge{
+  margin-top: 50px;
+  margin-bottom: 100px;
 }
