@@ -16,7 +16,7 @@
     <%if (data){%>
     <h1>welcome <%=data%></h1>
     <%}%>
-    <h1>Whistle <i class="fas fa-flag-checkered"></i></h1>
+    <a href="/"> <h1>Whistle <i class="fas fa-flag-checkered"></i></h1></a>
     <a href="/live">Live matches</a>
     <a href="/signin">Sign in/up</a>
   </header>
@@ -38,11 +38,12 @@
             <h2>Upcomming Matches</h2>
             <form class="row" action="/" method="GET">
               <select name="league_id" id="leagues-select">
-                <option value="195">Bundesliga</option>
+                <option selected="selected" value="195">Bundesliga</option>
                 <option value="148">Premier</option>
                 <option value="468">LaLiga</option>
                 <option value="262">Serie A</option>
                 <option value="176">Ligue 1</option>
+                <!-- <option value="589">Champions league</option> -->
               </select>
               <input type="submit" value="Get result" />
             </form>
@@ -116,7 +117,8 @@
       <section id="hideMe">
         <form action="/bestOf" class="hidden-form" id="bestPlayer">
           <select name="leagueName" id="leagueName">
-            <option value="leagueName">League Name</option>
+            <option selected="selected" value="leagueName" >League Name</option>
+            <!-- <option value="589">Champions league</option> -->
             <option value="148">Premier League</option>
             <option value="262">Serie A</option>
             <option value="468">LaLiga</option>

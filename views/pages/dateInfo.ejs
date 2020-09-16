@@ -9,13 +9,13 @@
   </head>
   <body>
     <header class="row">
-      <h1>Whistle <i class="fas fa-flag-checkered"></i></h1>
+      <a href="/"> <h1>Whistle <i class="fas fa-flag-checkered"></i></h1></a>
       <a href="/live">Live matches</a>
       <a href="/sign">Sign in/up</a>
     </header>
     <div class="container row">
       <% matchArray.forEach(match => { %>
-      <div class="live-match-content column">
+      <div id="live-match" class="live-match-content column">
         <h2><%= match.league_name %></h2>
         <img src="<%= match.league_logo %> " alt="<%- match.league_name %> " />
         <p>Match time: <%= match.match_time%></p>
