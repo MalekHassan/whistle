@@ -14,17 +14,29 @@ body {
     justify-items: center;
     row-gap: 15px;
 }
+.navs {
+    width: 100%;
+    margin-top: -8px;
+    background-color: #5f5980e8;
+    height: 50px;
+    color: #fff;
+    width: 100%;
+    font-size: 16px;
+    z-index: 1;
+  padding: 10px;
+  box-shadow: 5px 10px 18px #888888;
+  }
 .loginContainer {
     display: grid;
     place-items: center;
     height: 100vh;
 }
 .box {
+    width: 421px;     
     position: relative;
     display: flex;
-    margin-top: 10%;
+    margin-top: 6%;
     align-items: center;
-    max-width: 600px;
     padding: 220px 20px 20px;
     overflow: hidden;
     background-color: rgba(95, 89, 128, 0.2);
@@ -33,7 +45,7 @@ body {
 }
 @media (min-width: 768px) {
     .box {
-        min-height: 400px;
+        height: 450px;
         padding: 0;
    }
     .box__toggle:checked + .box__image {
@@ -68,7 +80,7 @@ body {
 }
 @media (min-width: 768px) {
     .loginForm {
-        width: 300px;
+        width: 370px;
         padding: 0 20px;
    }
 }
@@ -79,6 +91,7 @@ body {
     font-weight: 700;
 }
 .form--login {
+    height: 300px;
     text-align: center;
     margin: 0 auto;
     opacity: 1;
@@ -146,8 +159,8 @@ body {
     width: 100%;
     margin-top: 20px;
     padding: 10px;
-    color: white;
-    background-color: #2e8e79;
+    background-color: #2f3061;
+    color: rgb(223, 223, 223);
     border: 0;
     cursor: pointer;
     font-family: 'Lato', sans-serif;

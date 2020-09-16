@@ -16,7 +16,7 @@
 </head>
 
 <body>
-  <%- include('../layout/header') %>
+  <%- include('../layout/indexheader') %>
   <main>
     <section id="firstSection">
       <!-- <div id="testDiv"></div> -->
@@ -58,17 +58,16 @@
       
       <div>
       <form action="/player" class="hidden-form" id="playersInfo">
-        <label>Enter the player name</label>
-        <input required type="text" name="player_name" id="player_name">
+        <input required type="text" name="player_name" id="player_name" placeholder="Enter the player name">
         <input class="submitt" type="submit" value="submit">
       </form>
     </div>
 
       <div id="hideMe">
         <form action="/events" class="hidden-form" id="matchesDate">
-          <label>display the matches from date </label>
-          <input required type="date" name="fromDate" id="date1">
-          <label> to </label>
+          <label> From </label>
+          <input required type="date" name="fromDate" id="date1" placeholder="display the matches from date">
+          <label> To </label>
           <input required type="date" name="toDate" id="date2">
           <input class="submitt" type="submit" value="submit">
         </form>
@@ -120,7 +119,7 @@
           <img class="run" src="/images/football22.png" alt="">
         </div>
         <form class="row" action="/" method="GET">
-          <select name="league_id" id="leagues-select">
+          <select selected="selected" name="league_id" id="leagues-select">
             <option value="195">Bundesliga</option>
             <option value="148">Premier</option>
             <option value="468">LaLiga</option>
@@ -137,7 +136,7 @@
           <strong><%= match.home_team %> </strong>
         </div>
         <div class="team-image">
-          <strong>match time</strong>
+          <strong>Match Time</strong>
         <strong  class="team-image"><%= match.time %></strong>
         </div>
         <div class="team-image">
@@ -159,8 +158,7 @@
         <img class="run" src="/images/football22.png" alt="">
       </div>
       <form action="/question" method="get">
-        <label for="question">Number Of Questions</label>
-        <input required type="number" name="question" id="question" value="5" min="5" max="10" />
+        <input required type="number" name="question" id="question" value="5" min="5" max="10" placeholder="Number Of Questions" />
         <select required name="diffculty" id="diffculty">
           <option selected="selected" value="easy">Easy</option>
           <option value="medium">Medium</option>
