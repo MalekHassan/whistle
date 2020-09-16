@@ -21,40 +21,51 @@
   <body>
     <%- include('../layout/header') %>
     <div class="container row">
-      <% matchArray.forEach(match => { %>
+      <div class="cente-tilte">
+        <h2 id="afterRun">Favorite Match</h2>
+      </div>
       <div id="live-match" class="live-match-content column">
-        <h2><%= match.league_name %></h2>
-        <img src="<%= match.league_logo %> " alt="<%- match.league_name %> " />
-        <p>Match time: <%= match.match_time%></p>
+        <h2><%= matchArray.league_name %></h2>
+        <img
+          src="<%= matchArray.league_logo %> "
+          alt="<%- matchArray.league_name %> "
+        />
+        <p>Match time: <%= matchArray.match_time%></p>
         <div class="score row">
           <div class="live-match-image column">
             <img
-              src="<%= match.team_home_badge %> "
-              alt="<%= match.match_hometeam_name %> "
+              src="<%= matchArray.team_home_badge %> "
+              alt="<%= matchArray.match_hometeam_name %> "
             />
-            <small><%= match.match_hometeam_name %> </small>
+            <small><%= matchArray.match_hometeam_name %> </small>
           </div>
           <div class="time-score column">
-            <p><%=match.match_status%>`</p>
-            <p><%= match.score %></p>
+            <p><%=matchArray.match_status%>`</p>
+            <p><%= matchArray.score %></p>
           </div>
           <div class="live-match-image column">
             <img
-              src="<%= match.team_away_badge %> "
-              alt="<%= match.match_awayteam_name %> "
+              src="<%= matchArray.team_away_badge %> "
+              alt="<%= matchArray.match_awayteam_name %> "
             />
-            <small><%= match.match_awayteam_name %> </small>
+            <small><%= matchArray.match_awayteam_name %> </small>
           </div>
         </div>
         <form
           class="row"
-          action="/match_detail/<%= match.match_id %> "
+          action="/match_detail/<%= matchArray.match_id %> "
           method="get"
         >
           <input type="submit" value="Get Match Details" />
         </form>
+        <form
+          class="row"
+          action="/match_delete/<%= matchArray.match_id %>?_method=delete"
+          method="POST"
+        >
+          <input type="submit" value="Delete Match" />
+        </form>
       </div>
-      <% }); %>
     </div>
   </body>
 </html>

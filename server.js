@@ -35,6 +35,7 @@ app.get('/events', eventsInfo);
 app.get('/bestOf', bestPlayerInfo);
 app.get('/live', getLiveMatches);
 app.get('/match_detail/:matchID', getLiveMatchDetails);
+app.delete('/match_delete/:matchID', deleteMatch);
 app.get('/question', getQuestionsChall);
 app.get('/signin', renderSignin);
 app.post('/signin', signinFun);
@@ -242,17 +243,27 @@ async function signinFun(req, res) {
 }
 
 // User Page Funtcion
-function userPage(req, res) {
+async function userPage(req, res) {
   let userID = JSON.parse(localStorage.getItem('userID'))
     ? JSON.parse(localStorage.getItem('userID'))
     : null;
   if (userID) {
     const SQL = 'select match_id from matches where u_id=$1';
     const safeValues = [userID];
-    client.query(SQL, safeValues).then((result) => {
-      console.log(result.rows);
-      res.render('pages/user');
+    let matchsArray = await client.query(SQL, safeValues).then((result) => {
+      return result.rows[0];
     });
+    if (matchsArray) {
+      let SOCCER_API_KEY = process.env.SOCCER_API_KEY;
+      let matchResultUrl = `https://apiv2.apifootball.com/?action=get_events&match_id=${matchsArray.match_id}&APIkey=${SOCCER_API_KEY}`;
+      let matchDetail = await superagent.get(matchResultUrl).then((result) => {
+        return new liveMatches(result.body[0]);
+      });
+      console.log(matchDetail);
+      res.render('pages/user', { matchArray: matchDetail });
+    } else {
+      res.redirect('/');
+    }
   } else {
     res.redirect('/');
   }
@@ -374,6 +385,16 @@ async function getUpCommingMatches(req, res) {
     }
   });
   return matchesArray;
+}
+
+// Deelte Match
+
+function deleteMatch(req, res) {
+  let safeValue = [req.params.matchID];
+  const SQL = 'DELETE FROM matches WHERE match_id=$1';
+  client.query(SQL, safeValue).then(() => {
+    res.redirect('/');
+  });
 }
 
 // Get Live Match Details
