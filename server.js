@@ -1,7 +1,7 @@
 'use strict';
 
 // Dependencies
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 let localStorage;
 if (typeof localStorage === 'undefined' || localStorage === null) {
   var LocalStorage = require('node-localstorage').LocalStorage;
@@ -35,10 +35,13 @@ app.get('/events', eventsInfo);
 app.get('/bestOf', bestPlayerInfo);
 app.get('/live', getLiveMatches);
 app.get('/match_detail/:matchID', getLiveMatchDetails);
+app.delete('/match_delete/:matchID', deleteMatch);
 app.get('/question', getQuestionsChall);
 app.get('/signin', renderSignin);
 app.post('/signin', signinFun);
 app.get('/answers', getQuesResult);
+app.get('/userPage', userPage);
+app.get('/addToFav/:matchID', addFavToDataBase);
 
 // Functions
 
@@ -59,11 +62,35 @@ function renderSignin(req, res) {
 async function homePage(req, res) {
   let liveMatches = await getUpCommingMatches(req, res);
   let newsArray = await getNewsData();
+  let ifUserExcesit;
+  let userID = JSON.parse(localStorage.getItem('userID'))
+    ? JSON.parse(localStorage.getItem('userID'))
+    : null;
+  if (userID) {
+    ifUserExcesit = await getUserData(userID);
+  }
   res.render('pages/index', {
     news: newsArray,
     matches: liveMatches,
-    data: 'guest',
+    user: ifUserExcesit,
   });
+}
+
+async function getUserId() {
+  const selectSQl = 'SELECT * FROM users WHERE u_id=$1';
+  const safeValues = [JSON.parse(localStorage.getItem('userID'))];
+  client.query(selectSQl, safeValues).then((result) => {
+    return result.rows[0].username;
+  });
+}
+
+async function getUserData(userID) {
+  const SQL = 'select * from users Where u_id=$1';
+  const safeVales = [userID];
+  let userData = await client.query(SQL, safeVales).then((result) => {
+    return result.rows[0];
+  });
+  return userData;
 }
 
 async function getNewsData() {
@@ -83,11 +110,9 @@ async function getLiveMatches(req, res) {
   const SOCCER_API_KEY = process.env.SOCCER_API_KEY;
   const todayDate = getTodayDate();
   const liveURL = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${todayDate}&APIkey=${SOCCER_API_KEY}`;
-  // console.log(liveURL);
   await superagent
     .get(liveURL)
     .then((data) => {
-      // console.log(data.body);
       let liveMatchesArray = data.body
         .filter((item) => {
           //item.match_status !== 'Finished'
@@ -98,7 +123,6 @@ async function getLiveMatches(req, res) {
         .map((match) => {
           return new liveMatches(match);
         });
-      // console.log(liveMatchesArray);
       res.render('pages/live', { matchArray: liveMatchesArray });
     })
     .catch((err) => {
@@ -112,9 +136,7 @@ async function getLiveMatches(req, res) {
 async function h2hFunction(req, res) {
   let { match_hometeam_name, match_awayteam_name } = req.query;
   let key = process.env.SOCCER_API_KEY;
-  // console.log('key',key);
   const url = `https://apiv2.apifootball.com/?action=get_H2H&firstTeam=${match_hometeam_name}&secondTeam=${match_awayteam_name}&APIkey=${key}`;
-  // console.log('url',url)
   let h2hAgent = await superagent.get(url).then((data) => {
     return data.body.firstTeam_VS_secondTeam.map((match) => {
       return new H2hResult(match);
@@ -180,7 +202,6 @@ function bestPlayerInfo(req, res) {
           let obj1 = new Team(e);
           let Obj2 = new TopPlayer(el);
           let object3 = { ...obj1, ...Obj2 };
-          // console.log(object3.player_goals);
           teamArr.push(object3);
           teamArr.sort((a, b) => {
             if (Number(a.player_goals) > Number(b.player_goals)) {
@@ -189,7 +210,6 @@ function bestPlayerInfo(req, res) {
               return 1;
             } else return 0;
           });
-          // console.log("teamArr",teamArr)
         }
       });
     });
@@ -208,22 +228,45 @@ async function signinFun(req, res) {
   let liveMatches = await getUpCommingMatches(req, res);
   let newsArray = await getNewsData();
   client.query(SQL, values).then((results) => {
-    // console.log('helloo');
-    console.log(results.rows);
     if (results.rows.length) {
-      // console.log('username existed')
-      usernamedata = results.rows[0].username;
-      // console.log('usernamedata',usernamedata);
+      storeInLocalStorage('userID', JSON.stringify(results.rows[0].u_id));
+      usernamedata = results.rows[0];
       res.render('pages/index', {
-        data: usernamedata,
+        user: usernamedata,
         news: newsArray,
         matches: liveMatches,
       });
-      // res.render('pages/index');
     } else {
       console.log('username does NOT exist');
     }
   });
+}
+
+// User Page Funtcion
+async function userPage(req, res) {
+  let userID = JSON.parse(localStorage.getItem('userID'))
+    ? JSON.parse(localStorage.getItem('userID'))
+    : null;
+  if (userID) {
+    const SQL = 'select match_id from matches where u_id=$1';
+    const safeValues = [userID];
+    let matchsArray = await client.query(SQL, safeValues).then((result) => {
+      return result.rows[0];
+    });
+    if (matchsArray) {
+      let SOCCER_API_KEY = process.env.SOCCER_API_KEY;
+      let matchResultUrl = `https://apiv2.apifootball.com/?action=get_events&match_id=${matchsArray.match_id}&APIkey=${SOCCER_API_KEY}`;
+      let matchDetail = await superagent.get(matchResultUrl).then((result) => {
+        return new liveMatches(result.body[0]);
+      });
+      console.log(matchDetail);
+      res.render('pages/user', { matchArray: matchDetail });
+    } else {
+      res.redirect('/');
+    }
+  } else {
+    res.redirect('/');
+  }
 }
 
 // Get result for the challenge function
@@ -243,6 +286,25 @@ async function getQuesResult(req, res) {
     news: newsArray,
     matches: liveMatches,
   });
+}
+
+// Add match id to dataBase
+
+function addFavToDataBase(req, res) {
+  const { matchID } = req.params;
+  let userID = JSON.parse(localStorage.getItem('userID'))
+    ? JSON.parse(localStorage.getItem('userID'))
+    : null;
+
+  if (!userID) {
+    res.redirect('/');
+  } else {
+    const SQL = `INSERT INTO matches (match_id,u_id) VALUES ($1,$2)`;
+    const safeValues = [matchID, userID];
+    client.query(SQL, safeValues).then((result) => {
+      res.redirect('/userPage');
+    });
+  }
 }
 
 // constructor Function for match details
@@ -304,7 +366,6 @@ async function getUpCommingMatches(req, res) {
   const liveURL = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${todayDate}&league_id=${
     league_id || 148
   }&APIkey=${SOCCER_API_KEY}`;
-  // console.log(`News Url : ${liveURL}`);
 
   let matchesArray = await superagent.get(liveURL).then((data) => {
     if (data.body.length > 0) {
@@ -326,13 +387,22 @@ async function getUpCommingMatches(req, res) {
   return matchesArray;
 }
 
+// Deelte Match
+
+function deleteMatch(req, res) {
+  let safeValue = [req.params.matchID];
+  const SQL = 'DELETE FROM matches WHERE match_id=$1';
+  client.query(SQL, safeValue).then(() => {
+    res.redirect('/');
+  });
+}
+
 // Get Live Match Details
 
 function getLiveMatchDetails(req, res) {
   const matchID = req.params.matchID;
   const SOCCER_API_KEY = process.env.SOCCER_API_KEY;
   const matchResultUrl = `https://apiv2.apifootball.com/?action=get_events&match_id=${matchID}&APIkey=${SOCCER_API_KEY}`;
-  console.log('url', matchResultUrl);
   return superagent.get(matchResultUrl).then((data) => {
     let matchDetail = new MatchDetail(data.body[0]);
     res.render('pages/matchDetails', { match: matchDetail });
@@ -342,10 +412,8 @@ function getLiveMatchDetails(req, res) {
 // Challenge Questions
 
 async function getQuestionsChall(req, res) {
-  // console.log(req.query);
   const { question, diffculty } = req.query;
   const questionURL = `https://opentdb.com/api.php?amount=${question}&category=21&difficulty=${diffculty}&type=multiple`;
-  console.log(questionURL);
   let qustionArray = await superagent.get(questionURL).then((data) => {
     return data.body.results.map((question) => {
       return new challengeQuestion(question);
@@ -377,6 +445,7 @@ function News(newsData) {
 
 // Main page UpCommingMatches constructor
 function UpCommingMatches(matchData) {
+  this.match_id = matchData.match_id;
   this.time = matchData.match_time;
   this.home_team = matchData.match_hometeam_name;
   this.away_team = matchData.match_awayteam_name;
