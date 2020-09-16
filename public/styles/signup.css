@@ -16,31 +16,43 @@ body {
   justify-items: center;
   row-gap: 15px;
 }
+.navs {
+    width: 100%;
+    margin-top: -8px;
+    background-color: #5f5980e8;
+    height: 50px;
+    color: #fff;
+    width: 100%;
+    font-size: 16px;
+    z-index: 1;
+  padding: 10px;
+  box-shadow: 5px 10px 18px #888888;
+  }
 .loginContainer {
   display: grid;
   place-items: center;
   height: 100vh;
 }
 .box {
-  position: relative;
-  display: flex;
-  margin-top: 10%;
-  align-items: center;
-  max-width: 600px;
-  padding: 220px 20px 20px;
-  overflow: hidden;
-  background-color: rgba(95, 89, 128, 0.2);
-  border-radius: 5px;
-  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.3);
+    width: 421px;     
+    position: relative;
+    display: flex;
+    margin-top: 6%;
+    align-items: center;
+    padding: 220px 20px 20px;
+    overflow: hidden;
+    background-color: rgba(95, 89, 128, 0.2);
+    border-radius: 5px;
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.3);
 }
 @media (min-width: 768px) {
-  .box {
-    min-height: 400px;
-    padding: 0;
-  }
-  .box__toggle:checked + .box__image {
-    left: 300px;
-  }
+    .box {
+        height: 450px;
+        padding: 0;
+   }
+    .box__toggle:checked + .box__image {
+        left: 300px;
+   }
 }
 @media (max-width: 767px) {
   .box__toggle:checked ~ .form--register {
@@ -69,10 +81,11 @@ body {
   transition: 0.3s;
 }
 @media (min-width: 768px) {
-  .loginForm {
-    width: 300px;
-    padding: 0 20px;
-  }
+
+    .loginForm {
+        width: 370px;
+        padding: 0 20px;
+   }
 }
 .form__title {
   margin-bottom: 20px;
@@ -81,10 +94,13 @@ body {
   font-weight: 700;
 }
 .form--login {
-  text-align: center;
-  margin: 0 auto;
-  opacity: 1;
-  transition: opacity 0.5s ease;
+
+    height: 300px;
+    text-align: center;
+    margin: 0 auto;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+
 }
 .form--register {
   width: 0;
@@ -144,19 +160,21 @@ body {
   font-size: 1.2rem;
 }
 .form__button {
-  display: block;
-  width: 100%;
-  margin-top: 20px;
-  padding: 10px;
-  color: white;
-  background-color: #2e8e79;
-  border: 0;
-  cursor: pointer;
-  font-family: 'Lato', sans-serif;
-  font-size: 1.2rem;
-  font-weight: 300;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #2f3061;
+    color: rgb(223, 223, 223);
+    border: 0;
+    cursor: pointer;
+    font-family: 'Lato', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
 }
 .form__text {
   margin-top: 10px;

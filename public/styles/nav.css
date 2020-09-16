@@ -1,13 +1,10 @@
-@import url("https://fonts.googleapis.com/css?family=Lato:300,400,700,900");
-@import url(https://fonts.googleapis.com/css?family=Pacifico);
 * {
   box-sizing: border-box;
-  font-family: "Lato", Helvetica, Arial;
 
 }
 /* Header Start */
 
-header {
+.nav {
     background-color: #5f5980e8;
     height: 50px;
     color: #fff;
@@ -18,7 +15,7 @@ header {
   padding: 10px;
   box-shadow: 5px 10px 18px #888888;
   }
-  .headerContainer{
+ .headerContainer{
     grid-template-columns: auto  auto;
     align-items: center;
     justify-content: space-between;
@@ -47,5 +44,7 @@ header {
     margin: 0 15px;
     font-size: 20px;
     font-weight: bold;
+    font-family: 'Grandstander', cursive;
+font-family: 'Josefin Sans', sans-serif;
   }  
   /* Header End */

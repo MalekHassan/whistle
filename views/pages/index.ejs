@@ -63,6 +63,7 @@
           </select>
         </div>
 
+
         <div id="hideMe">
           <form action="/h2h" class="hidden-form" id="matchesResults">
             <input
@@ -148,7 +149,7 @@
           <img class="run" src="/images/football22.png" alt="" />
         </div>
         <form class="row" action="/" method="GET">
-          <select name="league_id" id="leagues-select">
+          <select selected="selected" name="league_id" id="leagues-select">
             <option value="195">Bundesliga</option>
             <option value="148">Premier</option>
             <option value="468">LaLiga</option>
@@ -157,7 +158,6 @@
           </select>
           <input class="submitt" type="submit" value="Get result" />
         </form>
-
         <% if(matches.length > 0){ %> <% matches.forEach(match=>{ %>
         <div class="match-content">
           <div class="team-image">
@@ -181,7 +181,6 @@
         <% } %>
         <div id="line"></div>
       </div>
-
       <section id="challenge">
         <div>
           <img class="run" src="/images/football22.png" alt="" />
