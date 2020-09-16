@@ -8,16 +8,13 @@
 /* Header Start */
 
 header {
-    background-color: #5f598083;
+    background-color: #5f5980e8;
     height: 50px;
-    color: #2F3061;
+    color: #fff;
     width: 100%;
-    /* align-items: center;
-    justify-content: space-between; */
     font-size: 16px;
     position: fixed;
     z-index: 1;
-    /* border: 1px solid; */
   padding: 10px;
   box-shadow: 5px 10px 18px #888888;
   }
@@ -30,6 +27,7 @@ header {
   }
   #item1Header{
       font-size: 25px;
+      font-weight: bolder;
   }
   #item2Header{
     grid-template-columns: auto  auto auto  auto auto;
@@ -48,11 +46,6 @@ header {
     text-decoration: none;
     margin: 0 15px;
     font-size: 20px;
-    
-  }
-  
-  header a:hover {
-    /* background-color: blue; */
-  }
-  
+    font-weight: bold;
+  }  
   /* Header End */

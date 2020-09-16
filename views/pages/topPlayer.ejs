@@ -3,28 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
-      integrity="sha284-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+    integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@1,800&family=Josefin+Sans:wght@700&display=swap"
+    rel="stylesheet">
     <link rel="stylesheet" href="../../styles/reset.css" />
     <link rel="stylesheet" href="../../styles/base.css" />
+    <link rel="stylesheet" href="../../styles/nav.css">
+
     <title>Whistle</title>
   </head>
   <body class="body">
-    <header class="row">
-      <a href="/"> <h1>Whistle <i class="fas fa-flag-checkered"></i></h1></a>
-      <a href="/live">Live matches</a>
-      <a href="/sign">Sign in/up</a>
-    </header>
-    <section id="footballInfo">
-      <div>
-        <!-- <img class="vrun" src="/images/football22.png" alt=""> -->
-        <h2 id="afterRun">Top scored player</h2>
-        <!-- <img class="vrun" src="/images/football22.png" alt=""> -->
-      </div>
+    <%- include('../layout/header') %>
     <div class="table-container column">
       <div class="table-details">
         <table>
