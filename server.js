@@ -1,51 +1,57 @@
-"use strict";
+'use strict';
 
 // Dependencies
 
-require("dotenv").config({ path: require("find-config")(".env") });
-const express = require("express");
+let localStorage;
+if (typeof localStorage === 'undefined' || localStorage === null) {
+  var LocalStorage = require('node-localstorage').LocalStorage;
+  localStorage = new LocalStorage('./scratch');
+}
+require('dotenv').config({ path: require('find-config')('.env') });
+const express = require('express');
 const app = express();
-const superagent = require("superagent");
+const superagent = require('superagent');
 const PORT = process.env.PORT || 3030;
-const cors = require("cors");
-const pg = require("pg");
-const methodOverride = require("method-override");
-const httpMsgs = require("http-msgs");
+const cors = require('cors');
+const pg = require('pg');
+const methodOverride = require('method-override');
+const httpMsgs = require('http-msgs');
 
-app.set("view engine", "ejs");
+app.set('view engine', 'ejs');
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride("_method"));
+app.use(methodOverride('_method'));
 // Using the public folder and sunFiles
-app.use(express.static("./public"));
+app.use(express.static('./public'));
 
 // to manage our data base
 const client = new pg.Client(process.env.DATABASE_URL);
 
 // Routs
-app.get("/", homePage);
-app.get("/h2h", h2hFunction);
-app.get("/player", playerInfo);
-app.get("/events", eventsInfo);
-app.get("/bestOf", bestPlayerInfo);
-app.get("/live", getLiveMatches);
-app.get("/match_detail/:matchID", getLiveMatchDetails);
-app.get("/question", getQuestionsChall);
-app.get("/signin", renderSignin);
-app.post("/signin", signinFun);
+app.get('/', homePage);
+app.get('/h2h', h2hFunction);
+app.get('/player', playerInfo);
+app.get('/events', eventsInfo);
+app.get('/bestOf', bestPlayerInfo);
+app.get('/live', getLiveMatches);
+app.get('/match_detail/:matchID', getLiveMatchDetails);
+app.get('/question', getQuestionsChall);
+app.get('/signin', renderSignin);
+app.post('/signin', signinFun);
+app.get('/answers', getQuesResult);
 
 // Functions
 
 // Get Today date
 
 function getTodayDate() {
-  return new Date().toJSON().slice(0, 10).replace(/-/g, "/");
+  return new Date().toJSON().slice(0, 10).replace(/-/g, '/');
 }
 
 // render sign in page
 
 function renderSignin(req, res) {
-  res.render("pages/sign");
+  res.render('pages/sign');
 }
 
 // Home page function
@@ -53,10 +59,10 @@ function renderSignin(req, res) {
 async function homePage(req, res) {
   let liveMatches = await getUpCommingMatches(req, res);
   let newsArray = await getNewsData();
-  res.render("pages/index", {
+  res.render('pages/index', {
     news: newsArray,
     matches: liveMatches,
-    data: "guest",
+    data: 'guest',
   });
 }
 
@@ -93,11 +99,11 @@ async function getLiveMatches(req, res) {
           return new liveMatches(match);
         });
       // console.log(liveMatchesArray);
-      res.render("pages/live", { matchArray: liveMatchesArray });
+      res.render('pages/live', { matchArray: liveMatchesArray });
     })
     .catch((err) => {
       res.status(500).json({
-        error: "Somthing went bad",
+        error: 'Somthing went bad',
       });
     });
 }
@@ -116,9 +122,9 @@ async function h2hFunction(req, res) {
   });
   let matchId = h2hAgent[0].match_id;
   let teamsBadge = await getBadge(matchId);
-  res.render('pages/h2hResult',{
-    matchArray:h2hAgent,
-    badges : teamsBadge
+  res.render('pages/h2hResult', {
+    matchArray: h2hAgent,
+    badges: teamsBadge,
   });
 }
 // get logo team
@@ -127,11 +133,11 @@ async function getBadge(id) {
   const url = `https://apiv2.apifootball.com/?action=get_events&match_id=${id}&APIkey=${key}`;
   let team_badge = await superagent.get(url).then((item) => {
     return {
-      home_badge : item.body[0].team_home_badge,
-      away_badge : item.body[0].team_away_badge,
-      home_name : item.body[0].match_hometeam_name,
-      away_name : item.body[0].match_awayteam_name
-    }
+      home_badge: item.body[0].team_home_badge,
+      away_badge: item.body[0].team_away_badge,
+      home_name: item.body[0].match_hometeam_name,
+      away_name: item.body[0].match_awayteam_name,
+    };
   });
   return team_badge;
 }
@@ -145,7 +151,7 @@ function playerInfo(req, res) {
     let playerAgent = item.body.map((e) => {
       return new Player(e);
     });
-    res.render("pages/playerInfo", { playerData: playerAgent });
+    res.render('pages/playerInfo', { playerData: playerAgent });
   });
 }
 // get the details for any match depending on the date
@@ -157,7 +163,7 @@ function eventsInfo(req, res) {
     let dateAgent = item.body.map((e) => {
       return new liveMatches(e);
     });
-    res.render("pages/dateInfo", { matchArray: dateAgent });
+    res.render('pages/dateInfo', { matchArray: dateAgent });
   });
 }
 
@@ -187,21 +193,20 @@ function bestPlayerInfo(req, res) {
         }
       });
     });
-    res.render("pages/topPlayer", { TopPlayerData: teamArr });
+    res.render('pages/topPlayer', { TopPlayerData: teamArr });
     teamArr = [];
   });
 }
 
 // sign in function
-var usernamedata = "";
+var usernamedata = '';
 async function signinFun(req, res) {
-  usernamedata = "";
+  usernamedata = '';
   let { username, password } = req.body;
-  let SQL = "SELECT * FROM  users WHERE username= $1 AND password=$2;";
+  let SQL = 'SELECT * FROM  users WHERE username= $1 AND password=$2;';
   let values = [username, password];
   let liveMatches = await getUpCommingMatches(req, res);
   let newsArray = await getNewsData();
-  console.log(newsArray);
   client.query(SQL, values).then((results) => {
     // console.log('helloo');
     console.log(results.rows);
@@ -209,22 +214,40 @@ async function signinFun(req, res) {
       // console.log('username existed')
       usernamedata = results.rows[0].username;
       // console.log('usernamedata',usernamedata);
-      res.render("pages/index", {
+      res.render('pages/index', {
         data: usernamedata,
         news: newsArray,
         matches: liveMatches,
       });
       // res.render('pages/index');
     } else {
-      console.log("username does NOT exist");
+      console.log('username does NOT exist');
     }
+  });
+}
+
+// Get result for the challenge function
+
+async function getQuesResult(req, res) {
+  let counter = 0;
+  let correctAnswers = JSON.parse(localStorage.getItem('rightAnswers'));
+  const userAnswers = Object.values(req.query);
+  let liveMatches = await getUpCommingMatches(req, res);
+  let newsArray = await getNewsData();
+  userAnswers.forEach((answer, index) => {
+    if (answer === correctAnswers[index]) {
+      counter++;
+    }
+  });
+  res.render('pages/index', {
+    news: newsArray,
+    matches: liveMatches,
   });
 }
 
 // constructor Function for match details
 
 function H2hResult(data) {
-
   this.league_name = data.league_name;
   this.match_id = data.match_id;
   this.match_date = data.match_date;
@@ -275,7 +298,7 @@ function TopPlayer(data) {
 
 // Get UpComming Matches From API
 async function getUpCommingMatches(req, res) {
-  const { league_id } = req.query ? req.query : "148";
+  const { league_id } = req.query ? req.query : '148';
   const SOCCER_API_KEY = process.env.SOCCER_API_KEY;
   const todayDate = getTodayDate();
   const liveURL = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${todayDate}&league_id=${
@@ -309,25 +332,31 @@ function getLiveMatchDetails(req, res) {
   const matchID = req.params.matchID;
   const SOCCER_API_KEY = process.env.SOCCER_API_KEY;
   const matchResultUrl = `https://apiv2.apifootball.com/?action=get_events&match_id=${matchID}&APIkey=${SOCCER_API_KEY}`;
-  console.log("url", matchResultUrl);
+  console.log('url', matchResultUrl);
   return superagent.get(matchResultUrl).then((data) => {
     let matchDetail = new MatchDetail(data.body[0]);
-    res.render("pages/matchDetails", { match: matchDetail });
+    res.render('pages/matchDetails', { match: matchDetail });
   });
 }
 
 // Challenge Questions
 
-function getQuestionsChall(req, res) {
+async function getQuestionsChall(req, res) {
   // console.log(req.query);
   const { question, diffculty } = req.query;
   const questionURL = `https://opentdb.com/api.php?amount=${question}&category=21&difficulty=${diffculty}&type=multiple`;
   console.log(questionURL);
-  superagent.get(questionURL).then((data) => {
-    let qustionArray = data.body.results.map((question) => {
+  let qustionArray = await superagent.get(questionURL).then((data) => {
+    return data.body.results.map((question) => {
       return new challengeQuestion(question);
     });
-    res.render("pages/questions", { questions: qustionArray });
+  });
+  let rightQuestions = qustionArray.map((question) => {
+    return question.correct_answer;
+  });
+  storeInLocalStorage('rightAnswers', rightQuestions);
+  res.render('pages/questions', {
+    questions: qustionArray,
   });
 }
 
@@ -337,10 +366,10 @@ function getQuestionsChall(req, res) {
 function News(newsData) {
   this.title = newsData.title;
   this.image_url = newsData.urlToImage
-    ? newsData.urlToImage.includes("rcom-default")
-      ? "/images/background.jpg"
+    ? newsData.urlToImage.includes('rcom-default')
+      ? '/images/background.jpg'
       : newsData.urlToImage
-    : "/images/background.jpg";
+    : '/images/background.jpg';
   this.url = newsData.url;
   this.author = newsData.author;
   this.description = newsData.description;
@@ -367,10 +396,10 @@ function liveMatches(matchData) {
   this.match_awayteam_name = matchData.match_awayteam_name;
   this.team_home_badge = matchData.team_home_badge
     ? matchData.team_home_badge
-    : "https://apiv2.apifootball.com/badges/17691_hafnarfjordur-w.png";
+    : 'https://apiv2.apifootball.com/badges/17691_hafnarfjordur-w.png';
   this.team_away_badge = matchData.team_away_badge
     ? matchData.team_away_badge
-    : "https://apiv2.apifootball.com/badges/17691_hafnarfjordur-w.png";
+    : 'https://apiv2.apifootball.com/badges/17691_hafnarfjordur-w.png';
   this.score = `${matchData.match_hometeam_score} : ${matchData.match_awayteam_score}`;
 }
 
@@ -405,6 +434,11 @@ function challengeQuestion(question) {
   this.question = question.question;
   this.answers = question.incorrect_answers.concat(question.correct_answer);
   this.correct_answer = question.correct_answer;
+}
+
+function storeInLocalStorage(key, wantedData) {
+  localStorage.setItem(key, JSON.stringify(wantedData));
+  console.log('data was saved');
 }
 
 // Listen To Server
