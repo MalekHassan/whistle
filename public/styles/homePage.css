@@ -345,12 +345,14 @@ justify-content: center;
     grid-template-columns: auto auto auto;
     justify-content:space-around;
     row-gap: 15px;
-    background-color: chocolate;
+    background-color: rgba(95, 89, 128, 0.2);
+    box-shadow: 0px 0px 16px #686262;
+    border-radius: 3px;
     /* box-shadow: inset 5px 10px 18px #dfd9d985; */
     /* background-image: radial-gradient(center ,chocolate,#DFDFDF ); */
-        background-image: radial-gradient(#DFDFDF 1%, chocolate 99%);
+        /* background-image: radial-gradient(#DFDFDF 1%, chocolate 99%); */
     padding: 10px;
-    width: 60%;
+    width: 40%;
     margin-bottom: 15px;
 }
 .team-image{
