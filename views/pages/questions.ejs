@@ -11,7 +11,16 @@
     <link rel="stylesheet" href="../../styles/reset.css" />
     <link rel="stylesheet" href="../../styles/base.css" />
     <link rel="stylesheet" href="../../styles/nav.css">
-
+    <style>input[type="submit"] {
+      background-color:rgb(52, 52, 52);
+        color: rgb(223, 223, 223);
+        width: 50%;
+        border-radius: 5px;
+        padding: 15px;
+        font-size: 15px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }</style>
     <title>Live Matches</title>
   </head>
 
@@ -72,7 +81,7 @@
           </div>
         </div>
         <% }) %>
-        <input type="submit" value="submit" />
+        <input class="submitt" type="submit" value="submit" />
       </form>
     </div>
     <div class="popup-container" id="popup-container">
@@ -90,7 +99,7 @@
       });
 
       $('#quies-form').submit((event) => {
-        // event.preventDefault();
+        event.preventDefault();
         let userAnswerArray = $('input:radio');
         var checkedAnswer = userAnswerArray.toArray().filter((item) => {
           if (item.checked) {
