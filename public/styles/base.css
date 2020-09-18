@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  font-family: 'Grandstander', cursive;
+font-family: 'Josefin Sans', sans-serif;
 }
 
 /* Header Start */
@@ -24,7 +26,7 @@ header a {
 }
 
 header a:hover {
-  background-color: blue;
+ cursor: pointer;
 }
 
 /* Header End */
@@ -81,7 +83,12 @@ header a:hover {
   width: 80%;
   position: relative;
 }
-
+.cente-tilte{
+  margin-top: 17px;
+  text-align: center;
+    width: 100%;
+    margin-bottom: 8px;
+}
 .slide-show-container img {
   width: 100%;
   height: 350px;
@@ -185,7 +192,7 @@ header a:hover {
   padding: 5px;
   font-size: 15px;
 }
-#match_head input[type="submit"] {
+#match_head input[type='submit'] {
   width: 60%;
   background-color: black;
   color: #fff;
@@ -232,38 +239,42 @@ header a:hover {
   width: 100%;
   flex-wrap: wrap;
   justify-content: space-around;
-  align-items: baseline;
+  align-items: flex-start;
 }
 
-.live-match-content{
-  width: 40%;
-  color: #fff;
-  border: 1px solid black;
-  background-color: rgb(95, 89, 128);
-  border-radius: 5px;
-  margin: 10px 0;
+#live-match {
+  width: 30%;
 }
-.live-match-stat{
+.live-match-content {
+  width: 40%;
+  color: rgb(52, 52, 52);
+    box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19);
+    background-color: rgba(95, 89, 128, 0.2);
+    border-radius: 5px;
+    margin: 60px 0;
+}
+.live-match-stat {
   width: 20%;
-  color: #fff;
-  border: 1px solid black;
-  background-color: rgb(95, 89, 128);
+  color: rgb(52, 52, 52);
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19);
+    background-color: rgba(95, 89, 128, 0.2);
   border-radius: 5px;
-  margin: 10px 0;
+  margin: 60px 0;
 }
 .live-match-content img {
-  width: 40%;
+  width: 29%;
   /* text-align: center; */
-  height: 200px;
+  height: 150px;
   object-fit: fill;
   padding: 15px;
   margin: 0 auto;
 }
-.live-match-content p{
+.live-match-content p {
   text-align: center;
   font-size: 20px;
 }
-.live-match-content h2 , .live-match-stat h3{
+.live-match-content h2,
+.live-match-stat h3 {
   font-size: 20px;
   text-align: center;
   width: 100%;
@@ -272,14 +283,34 @@ header a:hover {
   margin: 10px 0;
 }
 
+#footballInfo div{
+  text-align: center;
+  vertical-align:top;
+  }
+.vrun , #afterRun {
+  display: inline-block;
+  font-family: 'Grandstander', cursive;
+font-family: 'Josefin Sans', sans-serif;
+font-size: 40px;
+color: rgb(30, 30, 85);
+  padding: 5px;
+  font-family: 'Grandstander', cursive;
+  font-family: 'Josefin Sans', sans-serif;
+}
+#footballInfo div h2{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .live-match-content input[type="submit"] {
+
   margin: 10px 0;
-  background-color: black;
-  color: white;
+  background-color: #2f3061;
+  color: rgb(223, 223, 223);
   width: 50%;
   border-radius: 5px;
   padding: 10px;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: bold;
 }
 
@@ -296,7 +327,7 @@ header a:hover {
 
 .live-match-content .score p {
   font-size: 18px;
-  background-color: #000000;
+  background-color: rgb(52, 52, 52);
   color: #fff;
   font-weight: bold;
   border: 2px solid #fff;
@@ -316,8 +347,8 @@ header a:hover {
 }
 
 .live-match-content .live-match-image img {
-  width: 70%;
-  height: 150px;
+  width: 55%;
+  height: 120px;
   margin: 10px 0;
   padding: 10px;
   border-radius: 5px;
@@ -325,9 +356,10 @@ header a:hover {
 
 .live-match-content .live-match-image small {
   text-align: center;
+  font-size: 15px;
+  font-weight: bold;
 }
-.live-Match-Info{
-  color: #fff;
+.live-Match-Info {
   justify-content: space-around;
   width: 100%;
   border-bottom: 1px solid white;
@@ -338,34 +370,48 @@ header a:hover {
   width: 10%;
   text-align: center;
 }
-.live-Match-Info h3{
+.live-Match-Info h3 {
   font-size: 20px;
   padding: 10px 0;
   width: 50%;
   text-align: center;
 }
-.live-Match-goalscorer p{
+.live-Match-goalscorer p {
   font-size: 18px;
   padding: 10px 0;
   width: 50%;
-  text-align: center;}
-.line-up, .substitutions{
+  text-align: center;
+}
+.line-up,
+.substitutions {
   border-bottom: 1px solid white;
   justify-content: space-between;
   margin: 5px 0;
 }
-.line-up .player{
+.line-up .live-match-image {
+  justify-content: space-around;
+  text-align: center;
+  padding: 5px 0;
+}
+.line-up .team-name {
   justify-content: space-around;
   font-size: 20px;
   font-weight: bold;
   padding: 5px 0;
-  
 }
-.line-up p , .substitutions p{
+.line-up .player {
+  justify-content: space-around;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 5px 0;
+}
+.line-up p,
+.substitutions p {
   text-align: center;
   width: 20%;
 }
-.line-up p:nth-of-type(1) , .substitutions p:nth-of-type(1){
+.line-up p:nth-of-type(1),
+.substitutions p:nth-of-type(1) {
   width: 60%;
 }
 .substitutions h5 {
@@ -373,38 +419,38 @@ header a:hover {
   text-align: center;
   margin: 5px 0;
 }
-.line-up h4 , .substitutions h4{
+.line-up h4,
+.substitutions h4 {
   text-align: center;
-  width: 100%;
+  width: 70%;
   font-size: 25px;
   font-weight: bold;
-  background-color:#fff;
+  background-color: #fff;
   color: #000000;
-  border-radius: 20px;
-  margin: 5px 0;
+  border-radius: 10px;
+  margin: 5px auto;
   padding: 5px 0;
 }
-.goal-scorer{
+.goal-scorer {
   width: 100%;
   justify-content: space-between;
 }
-.goal-scorer .live-Match-goalscorer{
+.goal-scorer .live-Match-goalscorer {
   width: 40%;
   align-items: center;
   justify-content: center;
 }
-.goal-scorer .live-Match-goalscorer p{
+.goal-scorer .live-Match-goalscorer p {
   width: 100%;
 }
-.underline{
-  border-bottom:solid 1px white ;
+.underline {
+  border-bottom: solid 1px white;
 }
 /* Live Matches live.ejs End */
 
 /*match details start*/
 
 /*match details end*/
-
 
 /* Display */
 
@@ -417,47 +463,318 @@ header a:hover {
   display: flex;
   flex-direction: column;
 }
-/* H2H resulrs */
-.main div{
-  margin-top: 10px;
-}
 
-.item2{
-  padding-left: 10px;
+/* H2H Result Start */
+
+.h2hcontainer {
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 80vh;
+  margin-top: 60px;
 }
-.container1{
-    align-items: center;
+.first-row,
+.second-row {
+  width: 100%;
   justify-content: center;
-  display: grid;
-  grid-template-columns: 100px 100px 100px 100px 15px 30px 100px;
-  justify-items: center;
-  text-align: center;
-
+  align-items: center;
+  margin-bottom: 30px;
 }
-.container3{
-    align-items: center;
+
+.details-card {
+  width: 35%;
+    color: rgb(52, 52, 52);
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
+}
+
+.details-card .score {
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.details-card .score p {
+  font-size: 18px;
+  background-color: rgb(52, 52, 52);
+  color: #fff;
+  font-weight: bold;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px;
+}
+
+.details-card .live-match-image {
+  width: 40%;
+  margin: 10px 0;
+  align-items: center;
+}
+
+.details-card .live-match-image img {
+  width: 70%;
+  height: 150px;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+.submitt {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  font-size: 15px;
+  color: var(--colorShadeA);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-family: inherit;
+  border: 2px solid var(--colorShadeA);
+  border-radius: 1em;
+  background: var(--colorShadeE);
+  transform-style: preserve-3d;
+  transition: all 175ms cubic-bezier(0, 0, 1, 1);
+}
+.submitt::before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--colorShadeC);
+  border-radius: inherit;
+  box-shadow: 0 0 0 2px var(--colorShadeB), 0 0.75em 0 0 var(--colorShadeA);
+  transform: translate3d(0, 0.75em, -1em);
+  transition: all 175ms cubic-bezier(0, 0, 1, 1);
+}
+
+.submitt:hover {
+  background: var(--colorShadeD);
+  transform: translate(0, 0.375em);
+  color:rgb(52, 52, 52);
+}
+
+.submitt:hover::before {
+  transform: translate3d(0, 0.75em, -1em);
+}
+
+.submitt:active {
+  transform: translate(0em, 0.75em);
+}
+
+.submitt:active::before {
+  transform: translate3d(0, 0, -1em);
+
+  box-shadow: 0 0 0 2px var(--colorShadeB), 0 0.25em 0 0 var(--colorShadeB);
+}
+
+.navs {
+  background-color: #5f5980e8;
+  height: 50px;
+  color: #fff;
+  width: 100%;
+  font-size: 16px;
+  z-index: 1;
+padding: 10px;
+box-shadow: 5px 10px 18px #888888;
+}
+.details-card .live-match-image small {
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.matchs-details {
+  justify-content: space-between;
+    width: 60%;
+    color: rgb(52, 52, 52);
+    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19);
+    background-color: rgba(95, 89, 128, 0.2);
+    border-radius: 5px;
+    max-height: 1000px;
+}
+
+.matchs-details .match-detail {
+  justify-content: space-around;
+  border-bottom: 1px solid white;
+  margin: 10px 0;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.matchs-details .match-detail p {
+  width: 12.5%;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.matchs-details input[type="submit"] {
+  background-color: #2f3061;
+    color: rgb(223, 223, 223);
+    width: 100%;
+    border-radius: 5px;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: bold;
+}
+/* H2H Result End */
+
+/* Player info table start */
+.table-container {
+  width: 100%;
+  margin-top: 60px;
+  align-items: center;
   justify-content: center;
-  display: grid;
-  grid-template-columns: 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px;
-  justify-items: center;
-  text-align: center;
-
 }
-.container4{
-    align-items: center;
+.table-details {
+  width: 65%;
+}
+.table-details1 {
+  width: 80%;
+}
+table {
+  width: 100%;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #fff;
+  color: #000000;
+  padding: 5px 0;
+}
+table tbody td {
+  text-align: center;
+  color: rgb(52, 52, 52);
+    padding: 23px;
+  vertical-align: middle;
+  font-family: 'Grandstander', cursive;
+  font-family: 'Josefin Sans', sans-serif;
+}
+table thead {
+  background-color: rgb(52, 52, 52);
+  color: rgb(223, 223, 223);
+  border-bottom: 5px solid rgb(223, 223, 223);
+}
+table thead th {
+  padding: 5px;
+  text-align: center;
+  vertical-align: middle;
+  font-family: 'Grandstander', cursive;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+tbody tr {
+  border-bottom: 5px solid rgb(223, 223, 223);
+}
+
+table tbody tr {
+  color: rgb(52, 52, 52);
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19);
+  background-color: rgba(95, 89, 128, 0.2);
+  border-radius: 5px;
+  padding: 5px;
+}
+
+/* Player info table end */
+
+/* question page start */
+
+.container-question {
+  width: 100%;
+  margin-top: 60px;
+  align-items: center;
+  justify-content: center;
+}
+.container-question form {
+  justify-content: center;
+  align-items: center;
+}
+.container-question .question h3 {
+  width: 100%;
+  border-radius: 5px;
+  background-color: rgb(52, 52, 52);
+  color: rgb(223, 223, 223);
+  text-align: center;
+  font-size: 20px;
+  text-transform: capitalize;
+  padding: 5px 0;
+  border-bottom: 5px solid rgb(223, 223, 223);
+}
+.container-question .question {
+  width: 80%;
+  justify-content: center;
+  align-items: center;
+}
+.choises .option {
+  align-items: center;
   justify-content: space-around;
-  display: grid;
-  grid-template-columns: 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px ;
-  justify-items: center;
-  text-align: center;
-
+  width: 50%;
+  font-size: 15px;
+  font-weight: bold;
+  color: rgb(52, 52, 52);
+  margin-bottom: 15px;
 }
-.container5{
-    align-items: center;
+.question .choises {
+  width: 100%;
+  align-items: flex-start;
   justify-content: space-around;
-  display: grid;
-  grid-template-columns: 100px 100px 100px 100px ;
-  justify-items: center;
-  text-align: center;
-
 }
+.option .form_content {
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
+}
+
+.form_content label {
+  padding-left: 15px;
+}
+
+/* Pop up massage start */
+.popup-container {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup {
+  background-color: #2980b9;
+  border-radius: 5px;
+  box-shadow: 0 15px 10px 3px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+}
+
+.popup button {
+  cursor: pointer;
+  background-color: #fff;
+  color: #2980b9;
+  border: 0;
+  margin-top: 20px;
+  padding: 12px 20px;
+  font-size: 16px;
+}
+
+.popup button:active {
+  transform: scale(0.98);
+}
+
+.popup button:focus {
+  outline: 0;
+}
+/* Pop Up message end */
+
+/* question page end */

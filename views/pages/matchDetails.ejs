@@ -3,19 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+    integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@1,800&family=Josefin+Sans:wght@700&display=swap"
+    rel="stylesheet">
     <title>Match details</title>
     <link rel="stylesheet" href="../../styles/reset.css" />
     <link rel="stylesheet" href="../../styles/base.css" />
+    <link rel="stylesheet" href="../../styles/nav.css">
+
   </head>
   <body>
-    <header class="row">
-      <h1>Whistle <i class="fas fa-flag-checkered"></i></h1>
-      <a href="/live">Live matches</a>
-      <a href="/sign">Sign in/up</a>
-    </header>
+    <%- include('../layout/header') %>
+
     <div class="container row">
+      <div class="cente-tilte">
+        <h2  id="afterRun">Matche Details</h2>
+      </div>
       <div class="live-match-stat column">
         <div class="line-up column">
+          <div class="live-match-image row">
+            <img
+              src="<%= match.team_home_badge %> "
+              alt="<%= match.match_hometeam_name %> "
+            />
+          </div>
+          <div class="team-name row">
+            <small><%= match.match_hometeam_name %> </small>
+          </div>
           <h4>Players</h4>
           <% match.lineup.home.starting_lineups.forEach(item =>{%>
             <div class="player row">
@@ -31,7 +47,7 @@
           <%})%>
         </div>
         <div class="substitutions column">
-          <h4>substitutions</h4>
+          <h4>Substitutions</h4>
           <% match.substitutions.home.forEach(item =>{%>
               <h5><%=item.substitution%> // time: <%=item.time%>`</h5>
           <%})%>
@@ -126,6 +142,15 @@
       </div>
       <div class="live-match-stat column">
         <div class="line-up column">
+          <div class="live-match-image row">
+            <img
+              src="<%= match.team_away_badge %> "
+              alt="<%= match.match_awayteam_name %> "
+            />
+          </div>
+          <div class="team-name row">
+            <small><%= match.match_awayteam_name %> </small>
+          </div>
           <h4>Players</h4>
           <% match.lineup.away.starting_lineups.forEach(item =>{%>
             <div class="player row">
@@ -141,7 +166,7 @@
           <%})%>
         </div>
         <div class="substitutions column">
-          <h4>substitutions</h4>
+          <h4>Substitutions</h4>
           <% match.substitutions.away.forEach(item =>{%>
               <h5><%=item.substitution%> // time: <%=item.time%>`</h5>
           <%})%>

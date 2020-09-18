@@ -3,44 +3,56 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
-      integrity="sha284-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+    integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@1,800&family=Josefin+Sans:wght@700&display=swap"
+    rel="stylesheet">
     <link rel="stylesheet" href="../../styles/reset.css" />
     <link rel="stylesheet" href="../../styles/base.css" />
+    <link rel="stylesheet" href="../../styles/nav.css">
+
     <title>Whistle</title>
   </head>
-  <body class="body">
-    <header class="row">
-      <h1>Whistle <i class="fas fa-flag-checkered"></i></h1>
-      <a href="/live">Live matches</a>
-      <a href="/sign">Sign in/up</a>
-    </header>
-   <main class="main">
-<div  class="container5"> 
-  <h2 class="item1" >team name</h2>
-  <h2 class="item1" >team badge</h2>
-  <h2 class="item1" >player name</h2>
-  <h2 class="item1" >player goals</h2>
   
-</div>
-<!-- <%console.log(TopPlayerData)%> -->
-    <%TopPlayerData.forEach(element => {%>
-      <div class="container5">
-        <h4 class="item"> <%= element.team_name %></h4> 
-        <img class="item" src=<%= element.team_badge%> alt="badge" >
-            <h4 class="item" ><%=element.player_name  %></h4>
-            <h4 class="item" > <%=element.player_goals %></h4>
-            
-          </div>
-    <%});%>
-    
-    </main>
+  <body class="body">
+    <%- include('../layout/header') %>
+    <div class='cente-tilte'>
+      <h2  id="afterRun">Match details due to date</h2>
+    </div>
+    <div class="table-container column">
+      <div class="table-details">
+        <table>
+          <thead>
+            <th>Player Name</th>
+            <th>Player Number</th>
+            <th>Player Country</th>
+            <th>Team Name</th>
+            <th>Team Badge</th>
+            <th>Type</th>
+            <th>Age</th>
+            <th>Match Played</th>
+            <th>Goals</th>
+          </thead>
+          <tbody>
+            <%TopPlayerData.forEach(element=>{ %>
+            <tr>
+              <td><%= element.player_name %></td>
+              <td><%= element.player_number %></td>
+              <td><%= element.player_country %></td>
+              <td><%= element.team_name %></td>
+              <td><img src="<%= element.team_badge%>"/></td>
+              <td><%= element.player_type %></td>
+              <td><%= element.player_age %></td>
+              <td><%= element.player_match_played %></td>
+              <td><%= element.player_goals %></td>
+            </tr>
+            <% })%>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <script src="https://code.jquery.com/jquery-2.5.1.js"></script>
     
   </body>
 </html>
-

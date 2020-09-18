@@ -3,52 +3,58 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
-      integrity="sha284-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
-      crossorigin="anonymous"
-    />
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+    integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@1,800&family=Josefin+Sans:wght@700&display=swap"
+    rel="stylesheet">
     <link rel="stylesheet" href="../../styles/reset.css" />
     <link rel="stylesheet" href="../../styles/base.css" />
+    <link rel="stylesheet" href="../../styles/nav.css">
+
     <title>Whistle</title>
   </head>
   <body class="body">
-    <header class="row">
-      <h1>Whistle <i class="fas fa-flag-checkered"></i></h1>
-      <a href="/live">Live matches</a>
-      <a href="/sign">Sign in/up</a>
-    </header>
-   <main class="main">
-<div  class="container3"> 
-  <h2 class="item1">Player Name</h2> 
-  <h2 class="item1" >Player Number</h2>
-  <h2 class="item1" >player country</h2>
-  <h2 class="item1" > player type</h2>
-  <h2 class="item1" >player age </h2>
-  <h2 class="item1" > player match played</h2>
-  <h2 class="item1" >player goals</h2>
-  <h2 class="item1" >player yellow cards</h2>
-  <h2 class="item1" >player red cards</h2>
-  <h2 class="item1" >team name</h2>
-</div>
-    <%playerData.forEach(element => {%>
-      <div class="container3">
-            <h4 class="item"> <%= element.player_name %></h4> 
-            <h4 class="item" > <%= element.player_number %></h4>
-            <h4 class="item" ><%= element.player_country %></h4>
-            <h4 class="item" ><%= element.player_type %></h4>
-            <h4 class="item" > <%= element.player_age %></h4>
-            <h4 class="item" ><%= element.player_match_played %> </h4>
-            <h4 class="item" > <%= element.player_goals %></h4>
-            <h4 class="item" > <%= element.player_yellow_cards %></h4>
-            <h4 class="item" > <%= element.player_red_cards%></h4>
-            <h4 class="item" > <%= element.team_name %></h4>
-          </div>
-    <%});%>
+    <%- include('../layout/header') %>
+    <div class="cente-tilte">
+      <h2  id="afterRun">Player Details</h2>
+    </div>
+    <div class="table-container column">
+      <div class="table-details1">
+        <table>
+          <thead>
+            <th>Player Name</th>
+            <th>Player Number</th>
+            <th>Player Country</th>
+            <th>Player Type</th>
+            <th>Player Age</th>
+            <th>Player Match Played</th>
+            <th>Player Goals</th>
+            <th>Player Yallow Cards</th>
+            <th>Player Red Cards</th>
+            <th>Team Name</th>
+          </thead>
+          <tbody>
+            <%playerData.forEach((element, index) =>{ %>
+            <tr>
+              <td><%= element.player_name %></td>
+              <td><%= element.player_number %></td>
+              <td><%= element.player_country %></td>
+              <td><%= element.player_type %></td>
+              <td><%= element.player_age %></td>
+              <td><%= element.player_match_played %></td>
+              <td><%= element.player_goals %></td>
+              <td><%= element.player_yellow_cards %></td>
+              <td><%= element.player_red_cards%></td>
+              <td><%= element.team_name %></td>
+            </tr>
+            <% })%>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-    </main>
     <script src="https://code.jquery.com/jquery-2.5.1.js"></script>
-    
   </body>
 </html>

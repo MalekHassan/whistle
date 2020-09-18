@@ -3,19 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+    integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@1,800&family=Josefin+Sans:wght@700&display=swap"
+    rel="stylesheet">
     <link rel="stylesheet" href="../../styles/reset.css" />
     <link rel="stylesheet" href="../../styles/base.css" />
+    <link rel="stylesheet" href="../../styles/nav.css">
+
     <title>Live Matches</title>
   </head>
   <body>
-    <header class="row">
-      <h1>Whistle <i class="fas fa-flag-checkered"></i></h1>
-      <a href="/live">Live matches</a>
-      <a href="/sign">Sign in/up</a>
-    </header>
+    <%- include('../layout/header') %>
+    <div class='cente-tilte'>
+      <h2  id="afterRun">Match details due to date</h2>
+    </div>
     <div class="container row">
       <% matchArray.forEach(match => { %>
-      <div class="live-match-content column">
+      <div id="live-match" class="live-match-content column">
         <h2><%= match.league_name %></h2>
         <img src="<%= match.league_logo %> " alt="<%- match.league_name %> " />
         <p>Match time: <%= match.match_time%></p>

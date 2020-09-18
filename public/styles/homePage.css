@@ -1,0 +1,409 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900');
+@import url(https://fonts.googleapis.com/css?family=Pacifico);
+* {
+  box-sizing: border-box;
+  font-family: 'Lato', Helvetica, Arial;
+}
+body {
+  background-color: #faf5f5;
+}
+p {
+  color: #5f5980;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+/* Top Section Background image start */
+
+#firstSection {
+  position: relative;
+}
+
+#firstSection img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  margin-top: -5px;
+  /* opacity: 0.5; */
+}
+
+#firstSection h2 {
+  position: absolute;
+  color: #2f3061;
+  padding: 5px;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 60px;
+  background-color: rgba(162, 162, 212, 0.521);
+  box-shadow: inset 5px 10px 18px #dfd9d985;
+  border-radius: 3px;
+  font-family: 'Grandstander', cursive;
+  font-family: 'Josefin Sans', sans-serif;
+}
+#firstSection p {
+  position: absolute;
+  color: white;
+  padding: 5px;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+
+  border-radius: 3px;
+}
+#footballInfo div {
+  text-align: center;
+}
+
+img,
+#afterRun {
+  display: inline-block;
+  font-family: 'Grandstander', cursive;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 40px;
+  color: rgb(30, 30, 85);
+  padding: 5px;
+}
+#footballInfo {
+  align-items: center;
+  display: grid;
+  justify-items: center;
+  row-gap: 15px;
+}
+#searchTopicDiv {
+  align-items: center;
+  display: grid;
+  justify-items: center;
+  row-gap: 15px;
+  color: #5f5980;
+}
+#topicP {
+  width: 600px;
+  text-align: center;
+  line-height: 25px;
+  word-spacing: 5px;
+  font-size: 20px;
+}
+#search {
+  display: inline-block;
+  margin-right: 5px;
+  word-spacing: 5px;
+  font-size: 25px;
+  margin-bottom: -10px;
+}
+select {
+
+    height: 40px;
+    width: max-content;
+    background: #DFDFDF;
+    box-shadow: 0px 0px 16px #DFDFDF;
+    border-radius: 2px;
+    /* z-index: -50; */
+    border: 2px solid;
+    transition: all 1s ease-in-out;
+    border-image: linear-gradient(#DFDFDF, #5F5980) 30;
+    display: inline-block;
+    word-spacing: 5px;
+    font-size: 20px;
+    margin: 20px;
+    padding-left: 50px ;
+    padding-right: 50px ;
+    color: #5f5980;
+    
+}
+input{
+    height: 40px;
+    width: 300px;
+    background: #DFDFDF;
+    box-shadow: 0px 0px 16px #DFDFDF;
+    border-radius: 2px;
+    /* z-index: 3; */
+    border: 2px solid;
+    transition: all 1s ease-in-out;
+    border-image: linear-gradient(#5F5980, #5F5980) 30;
+    display: inline-block;
+    word-spacing: 5px;
+    font-size: 20px;
+    margin: 20px;
+}
+#line{
+    border-bottom: solid 1px #5f598093;
+    width: 50%;
+    box-shadow: 5px 10px 18px #5f5980;
+}
+#noMatches {
+  margin-bottom: 50px;
+  font-size: 30px;
+  font-weight: bolder;
+  animation: pulse 1s linear infinite alternate;
+  -webkit-animation: pulse 1s linear infinite alternate;
+}
+
+#noMatches:active {
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.1) 13%,
+    transparent 13%,
+    transparent
+  );
+  box-shadow: 0 1px 0 0 #383838;
+  color: rgba(0, 0, 0, 0.45);
+  text-shadow: none;
+
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
+@-webkit-keyframes pulse {
+  100% {
+    transform: translateY(15px);
+  }
+}
+
+@keyframes pulse {
+  100% {
+    transform: translateY(15px);
+  }
+}
+
+/* --------------------------------------button-------------------------------------------------------------*/
+:root {
+  --backgroundColor: rgba(246, 241, 209);
+  --colorShadeA: #5f5980;
+  --colorShadeB: #5f5980;
+  --colorShadeC: rgb(150, 232, 195);
+  --colorShadeD: #f3f3f3;
+  --colorShadeE: #dfdfdf;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700');
+* {
+  box-sizing: border-box;
+}
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.submitt {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  font-size: 15px;
+  color: var(--colorShadeA);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-family: inherit;
+  border: 2px solid var(--colorShadeA);
+  border-radius: 1em;
+  background: var(--colorShadeE);
+  transform-style: preserve-3d;
+  transition: all 175ms cubic-bezier(0, 0, 1, 1);
+}
+.submitt::before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--colorShadeC);
+  border-radius: inherit;
+  box-shadow: 0 0 0 2px var(--colorShadeB), 0 0.75em 0 0 var(--colorShadeA);
+  transform: translate3d(0, 0.75em, -1em);
+  transition: all 175ms cubic-bezier(0, 0, 1, 1);
+}
+
+.submitt:hover {
+  background: var(--colorShadeD);
+  transform: translate(0, 0.375em);
+}
+
+.submitt:hover::before {
+  transform: translate3d(0, 0.75em, -1em);
+}
+
+.submitt:active {
+  transform: translate(0em, 0.75em);
+}
+
+.submitt:active::before {
+  transform: translate3d(0, 0, -1em);
+
+  box-shadow: 0 0 0 2px var(--colorShadeB), 0 0.25em 0 0 var(--colorShadeB);
+}
+/* ------------------------------------------End of button------------------------------------------------------*/
+/*News section start*/
+
+#newsSection {
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.slide-show-container {
+  width: 100%;
+  position: relative;
+}
+
+.slide-show-container img {
+  width: 100%;
+  height: 500px;
+  object-fit: fill;
+}
+
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: #000000;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+}
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+#running {
+  text-align: center;
+  margin-bottom: 30px;
+}
+#run {
+  box-shadow: 0;
+}
+.text {
+  font-size: 60px;
+  background-color: rgba(162, 162, 212, 0.521);
+  box-shadow: inset 5px 10px 18px #dfd9d985;
+  border-radius: 3px;
+  font-size: 20px;
+  padding: 8px 12px;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: fit-content;
+  transform: translate(-50%, -50%);
+}
+.mySlides {
+  justify-content: center;
+}
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/*News section end*/
+
+/* matches section*/
+#matches-container {
+  align-items: center;
+  display: grid;
+  justify-items: center;
+  row-gap: 15px;
+}
+
+.match-content {
+  align-items: center;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content: space-around;
+  row-gap: 15px;
+  background-color: rgba(95, 89, 128, 0.2);
+  box-shadow: 0px 0px 16px #686262;
+  border-radius: 3px;
+  /* box-shadow: inset 5px 10px 18px #dfd9d985; */
+  /* background-image: radial-gradient(center ,chocolate,#DFDFDF ); */
+  /* background-image: radial-gradient(#DFDFDF 1%, chocolate 99%); */
+  padding: 10px;
+  width: 40%;
+  margin-bottom: 15px;
+}
+.team-image {
+  align-items: center;
+  display: grid;
+  grid-template-columns: auto;
+  justify-content: space-around;
+  row-gap: 15px;
+  text-align: center;
+}
+.match-content strong {
+  word-spacing: 5px;
+  font-size: 20px;
+}
+
+#challenge {
+  margin-top: 50px;
+  margin-bottom: 100px;
+  align-items: center;
+  display: grid;
+  justify-items: center;
+  row-gap: 15px;
+}
+
+/* User DataBase link Start */
+
+#user-name-database {
+  color: #fff;
+  text-decoration: none;
+  animation: pulse 1s linear infinite alternate;
+  -webkit-animation: pulse 1s linear infinite alternate;
+  text-transform: uppercase;
+}
+
+#user-name-database:active {
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.1) 13%,
+    transparent 13%,
+    transparent
+  );
+  box-shadow: 0 1px 0 0 #383838;
+  color: rgba(0, 0, 0, 0.45);
+  text-shadow: none;
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
+
+/* User DataBase link End */
+footer {
+  height: 200px;
+  background-color: #dfdfdf;
+  border: 0px 2px 0px 2px solid #5f5980;
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  justify-items: center;
+  row-gap: 15px;
+  color: #5f5980;
+}
