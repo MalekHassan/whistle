@@ -43,6 +43,7 @@ app.get('/answers', getQuesResult);
 app.get('/userPage', userPage);
 app.get('/addToFav/:matchID', addFavToDataBase);
 app.post('/addNewUser', addNewUserToDB);
+app.get('/signout', signOutUser);
 
 // Functions
 
@@ -239,6 +240,7 @@ async function signinFun(req, res) {
       });
     } else {
       console.log('username does NOT exist');
+      res.redirect('/signin');
     }
   });
 }
@@ -411,6 +413,13 @@ async function getUpCommingMatches(req, res) {
     }
   });
   return matchesArray;
+}
+
+// User Sign out funstion
+
+function signOutUser(req, res) {
+  localStorage.removeItem('userID');
+  res.redirect('/');
 }
 
 // Deelte Match
