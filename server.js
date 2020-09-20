@@ -251,13 +251,20 @@ async function userPage(req, res) {
     const SQL = 'select match_id from matches where u_id=$1';
     const safeValues = [userID];
     let matchsArray = await client.query(SQL, safeValues).then((result) => {
-      return result.rows[0];
+      return result.rows;
     });
     if (matchsArray) {
+      let matchesIds = matchsArray
+        .map((item) => {
+          return item.match_id;
+        })
+        .join(',');
       let SOCCER_API_KEY = process.env.SOCCER_API_KEY;
-      let matchResultUrl = `https://apiv2.apifootball.com/?action=get_events&match_id=${matchsArray.match_id}&APIkey=${SOCCER_API_KEY}`;
+      let matchResultUrl = `https://apiv2.apifootball.com/?action=get_events&match_id=${matchesIds}&APIkey=${SOCCER_API_KEY}`;
       let matchDetail = await superagent.get(matchResultUrl).then((result) => {
-        return new liveMatches(result.body[0]);
+        return result.body.map((match) => {
+          return new liveMatches(match);
+        });
       });
       console.log(matchDetail);
       res.render('pages/user', { matchArray: matchDetail });
