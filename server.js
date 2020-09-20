@@ -42,6 +42,8 @@ app.post('/signin', signinFun);
 app.get('/answers', getQuesResult);
 app.get('/userPage', userPage);
 app.get('/addToFav/:matchID', addFavToDataBase);
+app.post('/addNewUser', addNewUserToDB);
+app.get('/signout', signOutUser);
 
 // Functions
 
@@ -222,9 +224,9 @@ function bestPlayerInfo(req, res) {
 var usernamedata = '';
 async function signinFun(req, res) {
   usernamedata = '';
-  let { username, password } = req.body;
-  let SQL = 'SELECT * FROM  users WHERE username= $1 AND password=$2;';
-  let values = [username, password];
+  let { email, password } = req.body;
+  let SQL = 'SELECT * FROM  users WHERE email= $1 AND password=$2;';
+  let values = [email, password];
   let liveMatches = await getUpCommingMatches(req, res);
   let newsArray = await getNewsData();
   client.query(SQL, values).then((results) => {
@@ -238,6 +240,7 @@ async function signinFun(req, res) {
       });
     } else {
       console.log('username does NOT exist');
+      res.redirect('/signin');
     }
   });
 }
@@ -251,13 +254,20 @@ async function userPage(req, res) {
     const SQL = 'select match_id from matches where u_id=$1';
     const safeValues = [userID];
     let matchsArray = await client.query(SQL, safeValues).then((result) => {
-      return result.rows[0];
+      return result.rows;
     });
     if (matchsArray) {
+      let matchesIds = matchsArray
+        .map((item) => {
+          return item.match_id;
+        })
+        .join(',');
       let SOCCER_API_KEY = process.env.SOCCER_API_KEY;
-      let matchResultUrl = `https://apiv2.apifootball.com/?action=get_events&match_id=${matchsArray.match_id}&APIkey=${SOCCER_API_KEY}`;
+      let matchResultUrl = `https://apiv2.apifootball.com/?action=get_events&match_id=${matchesIds}&APIkey=${SOCCER_API_KEY}`;
       let matchDetail = await superagent.get(matchResultUrl).then((result) => {
-        return new liveMatches(result.body[0]);
+        return result.body.map((match) => {
+          return new liveMatches(match);
+        });
       });
       console.log(matchDetail);
       res.render('pages/user', { matchArray: matchDetail });
@@ -305,6 +315,24 @@ function addFavToDataBase(req, res) {
       res.redirect('/userPage');
     });
   }
+}
+
+// Add New User To Data Base
+// select * from books_table ORDER BY id DESC LIMIT 1
+function addNewUserToDB(req, res) {
+  console.log(req.body);
+  const { firstname, lastname, email, password } = req.body;
+  const inserSQL =
+    'INSERT INTO users (first_name,last_name,email,password) VALUES ($1,$2,$3,$4);';
+  const safeValues = [firstname, lastname, email, password];
+  client.query(inserSQL, safeValues).then(() => {
+    console.log('user has been added');
+    let selectSQL = 'select * from users ORDER BY u_id DESC LIMIT 1';
+    client.query(selectSQL).then((result) => {
+      storeInLocalStorage('userID', result.rows[0].u_id);
+      res.redirect('/');
+    });
+  });
 }
 
 // constructor Function for match details
@@ -385,6 +413,13 @@ async function getUpCommingMatches(req, res) {
     }
   });
   return matchesArray;
+}
+
+// User Sign out funstion
+
+function signOutUser(req, res) {
+  localStorage.removeItem('userID');
+  res.redirect('/');
 }
 
 // Deelte Match

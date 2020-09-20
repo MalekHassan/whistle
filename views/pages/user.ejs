@@ -19,53 +19,71 @@
     <title>User Fav</title>
   </head>
   <body>
-    <%- include('../layout/header') %>
+    <header class="navs">
+      <article class="headerContainer">
+        <div id="item1Header">
+          <!-- <h>  Whistle <i class="fas fa-flag-checkered"></i></a> -->
+          <a href="/">Whistle <i class="fas fa-flag-checkered"></i></a>
+        </div>
+        <div id="item2Header">
+          <a href="/live">Todays Matches</a>
+          <a href="#challenge">Challenge</a>
+          <a href="#newsSection">News</a>
+          <a href="#footballInfo">Football Info</a>
+          <a href="/signout"
+            ><i onclick="showSignin()" style="font-size: 24px" class="fas"
+              >&#xf406;</i
+            ><br />
+            Sign Out
+          </a>
+        </div>
+      </article>
+    </header>
     <div class="container row">
       <div class="cente-tilte">
         <h2 id="afterRun">Favorite Match</h2>
       </div>
+      <% matchArray.forEach(match => { %>
       <div id="live-match" class="live-match-content column">
-        <h2><%= matchArray.league_name %></h2>
-        <img
-          src="<%= matchArray.league_logo %> "
-          alt="<%- matchArray.league_name %> "
-        />
-        <p>Match time: <%= matchArray.match_time%></p>
+        <h2><%= match.league_name %></h2>
+        <img src="<%= match.league_logo %> " alt="<%- match.league_name %> " />
+        <p>Match time: <%= match.match_time%></p>
         <div class="score row">
           <div class="live-match-image column">
             <img
-              src="<%= matchArray.team_home_badge %> "
-              alt="<%= matchArray.match_hometeam_name %> "
+              src="<%= match.team_home_badge %> "
+              alt="<%= match.match_hometeam_name %> "
             />
-            <small><%= matchArray.match_hometeam_name %> </small>
+            <small><%= match.match_hometeam_name %> </small>
           </div>
           <div class="time-score column">
-            <p><%=matchArray.match_status%>`</p>
-            <p><%= matchArray.score %></p>
+            <p><%=match.match_status%>`</p>
+            <p><%= match.score %></p>
           </div>
           <div class="live-match-image column">
             <img
-              src="<%= matchArray.team_away_badge %> "
-              alt="<%= matchArray.match_awayteam_name %> "
+              src="<%= match.team_away_badge %> "
+              alt="<%= match.match_awayteam_name %> "
             />
-            <small><%= matchArray.match_awayteam_name %> </small>
+            <small><%= match.match_awayteam_name %> </small>
           </div>
         </div>
         <form
           class="row"
-          action="/match_detail/<%= matchArray.match_id %> "
+          action="/match_detail/<%= match.match_id %> "
           method="get"
         >
           <input type="submit" value="Get Match Details" />
         </form>
         <form
           class="row"
-          action="/match_delete/<%= matchArray.match_id %>?_method=delete"
+          action="/match_delete/<%= match.match_id %>?_method=delete"
           method="POST"
         >
           <input type="submit" value="Delete Match" />
         </form>
       </div>
+      <% }); %>
     </div>
   </body>
 </html>
