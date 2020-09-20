@@ -5,7 +5,11 @@ CREATE TABLE
 IF NOT EXISTS users
 (
   u_id SERIAL PRIMARY KEY,
-  username VARCHAR
+  first_name VARCHAR
+(255),
+  last_name VARCHAR
+(255),
+  email VARCHAR
 (255),
   password VARCHAR
 (255)
@@ -22,12 +26,9 @@ IF NOT EXISTS matches
 );
 
 INSERT INTO users
-  (username,password)
+  (first_name,last_name,email,password)
 VALUES
-  ('aya.ak@hotmail.com', '0000');
-INSERT INTO users
-  (username,password)
-VALUES
-  ('hamzh78@gmail.com', '0000');
+  ('malek', 'hassan', 'malek@hotmail.com', '0000');
+
 
   

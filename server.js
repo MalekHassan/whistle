@@ -42,6 +42,7 @@ app.post('/signin', signinFun);
 app.get('/answers', getQuesResult);
 app.get('/userPage', userPage);
 app.get('/addToFav/:matchID', addFavToDataBase);
+app.post('/addNewUser', addNewUserToDB);
 
 // Functions
 
@@ -222,9 +223,9 @@ function bestPlayerInfo(req, res) {
 var usernamedata = '';
 async function signinFun(req, res) {
   usernamedata = '';
-  let { username, password } = req.body;
-  let SQL = 'SELECT * FROM  users WHERE username= $1 AND password=$2;';
-  let values = [username, password];
+  let { email, password } = req.body;
+  let SQL = 'SELECT * FROM  users WHERE email= $1 AND password=$2;';
+  let values = [email, password];
   let liveMatches = await getUpCommingMatches(req, res);
   let newsArray = await getNewsData();
   client.query(SQL, values).then((results) => {
@@ -312,6 +313,24 @@ function addFavToDataBase(req, res) {
       res.redirect('/userPage');
     });
   }
+}
+
+// Add New User To Data Base
+// select * from books_table ORDER BY id DESC LIMIT 1
+function addNewUserToDB(req, res) {
+  console.log(req.body);
+  const { firstname, lastname, email, password } = req.body;
+  const inserSQL =
+    'INSERT INTO users (first_name,last_name,email,password) VALUES ($1,$2,$3,$4);';
+  const safeValues = [firstname, lastname, email, password];
+  client.query(inserSQL, safeValues).then(() => {
+    console.log('user has been added');
+    let selectSQL = 'select * from users ORDER BY u_id DESC LIMIT 1';
+    client.query(selectSQL).then((result) => {
+      storeInLocalStorage('userID', result.rows[0].u_id);
+      res.redirect('/');
+    });
+  });
 }
 
 // constructor Function for match details
