@@ -256,12 +256,13 @@ async function userPage(req, res) {
     let matchsArray = await client.query(SQL, safeValues).then((result) => {
       return result.rows;
     });
-    if (matchsArray) {
+    if (matchsArray.length > 0) {
       let matchesIds = matchsArray
         .map((item) => {
           return item.match_id;
         })
         .join(',');
+      res.render('pages/user', { matchesIds });
       let SOCCER_API_KEY = process.env.SOCCER_API_KEY;
       let matchResultUrl = `https://apiv2.apifootball.com/?action=get_events&match_id=${matchesIds}&APIkey=${SOCCER_API_KEY}`;
       let matchDetail = await superagent.get(matchResultUrl).then((result) => {
@@ -269,8 +270,8 @@ async function userPage(req, res) {
           return new liveMatches(match);
         });
       });
-      console.log(matchDetail);
-      res.render('pages/user', { matchArray: matchDetail });
+      // res.render('pages/user', { matchArray: matchDetail });
+      res.render('pages/user');
     } else {
       res.redirect('/');
     }

@@ -43,47 +43,19 @@
       <div class="cente-tilte">
         <h2 id="afterRun">Favorite Match</h2>
       </div>
-      <% matchArray.forEach(match => { %>
-      <div id="live-match" class="live-match-content column">
-        <h2><%= match.league_name %></h2>
-        <img src="<%= match.league_logo %> " alt="<%- match.league_name %> " />
-        <p>Match time: <%= match.match_time%></p>
-        <div class="score row">
-          <div class="live-match-image column">
-            <img
-              src="<%= match.team_home_badge %> "
-              alt="<%= match.match_hometeam_name %> "
-            />
-            <small><%= match.match_hometeam_name %> </small>
-          </div>
-          <div class="time-score column">
-            <p><%=match.match_status%>`</p>
-            <p><%= match.score %></p>
-          </div>
-          <div class="live-match-image column">
-            <img
-              src="<%= match.team_away_badge %> "
-              alt="<%= match.match_awayteam_name %> "
-            />
-            <small><%= match.match_awayteam_name %> </small>
-          </div>
-        </div>
-        <form
-          class="row"
-          action="/match_detail/<%= match.match_id %> "
-          method="get"
-        >
-          <input type="submit" value="Get Match Details" />
-        </form>
-        <form
-          class="row"
-          action="/match_delete/<%= match.match_id %>?_method=delete"
-          method="POST"
-        >
-          <input type="submit" value="Delete Match" />
-        </form>
+      <!-- Main Section -->
+      <div class="main-aside-container row">
+        <main id="main" class="column">
+          <button id="user-info">Personal Info</button>
+          <button id="password">Update Password</button>
+          <input type="hidden" value="<%= matchesIds %> " />
+          <button id="favMatchesForm">You Matches</button>
+        </main>
+        <!-- This Content will change -->
+        <aside id="aside" class="column"></aside>
       </div>
-      <% }); %>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../../js/user.js"></script>
   </body>
 </html>

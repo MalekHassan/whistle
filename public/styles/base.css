@@ -1,7 +1,7 @@
 * {
   box-sizing: border-box;
   font-family: 'Grandstander', cursive;
-font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 /* Header Start */
@@ -26,7 +26,7 @@ header a {
 }
 
 header a:hover {
- cursor: pointer;
+  cursor: pointer;
 }
 
 /* Header End */
@@ -83,11 +83,11 @@ header a:hover {
   width: 80%;
   position: relative;
 }
-.cente-tilte{
+.cente-tilte {
   margin-top: 17px;
   text-align: center;
-    width: 100%;
-    margin-bottom: 8px;
+  width: 100%;
+  margin-bottom: 8px;
 }
 .slide-show-container img {
   width: 100%;
@@ -248,16 +248,16 @@ header a:hover {
 .live-match-content {
   width: 40%;
   color: rgb(52, 52, 52);
-    box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19);
-    background-color: rgba(95, 89, 128, 0.2);
-    border-radius: 5px;
-    margin: 60px 0;
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19);
+  background-color: rgba(95, 89, 128, 0.2);
+  border-radius: 5px;
+  margin: 60px 0;
 }
 .live-match-stat {
   width: 20%;
   color: rgb(52, 52, 52);
   box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19);
-    background-color: rgba(95, 89, 128, 0.2);
+  background-color: rgba(95, 89, 128, 0.2);
   border-radius: 5px;
   margin: 60px 0;
 }
@@ -283,27 +283,27 @@ header a:hover {
   margin: 10px 0;
 }
 
-#footballInfo div{
+#footballInfo div {
   text-align: center;
-  vertical-align:top;
-  }
-.vrun , #afterRun {
+  vertical-align: top;
+}
+.vrun,
+#afterRun {
   display: inline-block;
   font-family: 'Grandstander', cursive;
-font-family: 'Josefin Sans', sans-serif;
-font-size: 40px;
-color: rgb(30, 30, 85);
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 40px;
+  color: rgb(30, 30, 85);
   padding: 5px;
   font-family: 'Grandstander', cursive;
   font-family: 'Josefin Sans', sans-serif;
 }
-#footballInfo div h2{
+#footballInfo div h2 {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-.live-match-content input[type="submit"] {
-
+.live-match-content input[type='submit'] {
   margin: 10px 0;
   background-color: #2f3061;
   color: rgb(223, 223, 223);
@@ -483,8 +483,8 @@ color: rgb(30, 30, 85);
 
 .details-card {
   width: 35%;
-    color: rgb(52, 52, 52);
-    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19);
+  color: rgb(52, 52, 52);
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19);
   border-radius: 5px;
 }
 
@@ -558,7 +558,7 @@ color: rgb(30, 30, 85);
 .submitt:hover {
   background: var(--colorShadeD);
   transform: translate(0, 0.375em);
-  color:rgb(52, 52, 52);
+  color: rgb(52, 52, 52);
 }
 
 .submitt:hover::before {
@@ -582,8 +582,8 @@ color: rgb(30, 30, 85);
   width: 100%;
   font-size: 16px;
   z-index: 1;
-padding: 10px;
-box-shadow: 5px 10px 18px #888888;
+  padding: 10px;
+  box-shadow: 5px 10px 18px #888888;
 }
 .details-card .live-match-image small {
   text-align: center;
@@ -593,12 +593,13 @@ box-shadow: 5px 10px 18px #888888;
 
 .matchs-details {
   justify-content: space-between;
-    width: 60%;
-    color: rgb(52, 52, 52);
-    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19);
-    background-color: rgba(95, 89, 128, 0.2);
-    border-radius: 5px;
-    max-height: 1000px;
+  width: 60%;
+  color: rgb(52, 52, 52);
+  box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2),
+    0 0 10px 0 rgba(0, 0, 0, 0.19);
+  background-color: rgba(95, 89, 128, 0.2);
+  border-radius: 5px;
+  max-height: 1000px;
 }
 
 .matchs-details .match-detail {
@@ -616,14 +617,14 @@ box-shadow: 5px 10px 18px #888888;
   font-weight: bold;
 }
 
-.matchs-details input[type="submit"] {
+.matchs-details input[type='submit'] {
   background-color: #2f3061;
-    color: rgb(223, 223, 223);
-    width: 100%;
-    border-radius: 5px;
-    padding: 15px;
-    font-size: 15px;
-    font-weight: bold;
+  color: rgb(223, 223, 223);
+  width: 100%;
+  border-radius: 5px;
+  padding: 15px;
+  font-size: 15px;
+  font-weight: bold;
 }
 /* H2H Result End */
 
@@ -651,7 +652,7 @@ table {
 table tbody td {
   text-align: center;
   color: rgb(52, 52, 52);
-    padding: 23px;
+  padding: 23px;
   vertical-align: middle;
   font-family: 'Grandstander', cursive;
   font-family: 'Josefin Sans', sans-serif;
@@ -778,3 +779,126 @@ table tbody tr {
 /* Pop Up message end */
 
 /* question page end */
+
+/* User Page Start */
+
+.main-aside-container {
+  width: 50%;
+  justify-content: space-between;
+}
+#main {
+  width: 25%;
+  border: solid 1px red;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0 1.5rem;
+  height: 300px;
+}
+
+#main form {
+  width: 100%;
+}
+
+#main button,
+#main input[type='submit'] {
+  width: 100%;
+  color: rgb(52, 52, 52);
+  background-color: #fff;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  margin: 1rem 0;
+  border: none;
+  cursor: pointer;
+  text-align: start;
+}
+#main button:hover,
+#main input[type='submit']:hover {
+  color: blue;
+}
+
+.border-left {
+  border-left: 5px solid #2980b9;
+}
+
+#aside {
+  width: 70%;
+  border: 1px solid black;
+  min-height: 300px;
+  align-items: center;
+  justify-content: center;
+}
+
+#fav-match {
+  width: 45%;
+  margin: 1rem;
+}
+#fav-match-container {
+  width: 100%;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19);
+  background-color: rgba(95, 89, 128, 0.2);
+  border-radius: 5px;
+}
+
+#home-team-badge,
+#away-team-badge {
+  width: 100%;
+}
+
+.update-form-container {
+  width: 100%;
+}
+
+.update-form-container form {
+  width: 50%;
+  justify-content: space-evenly;
+  min-height: 300px;
+  padding: 1rem;
+}
+
+.form-content,
+.form-content-inside {
+  align-items: center;
+  margin: 1rem 0;
+  justify-content: space-between;
+}
+
+.form-content-inside {
+  width: 25%;
+}
+
+.form-content-inside p {
+  font-size: 1.2rem;
+}
+
+.form-content label {
+  width: 15%;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.form-content input[type='text'] {
+  width: 50%;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.update-form-container input[type='submit'] {
+  width: 50%;
+  margin: 1rem 0;
+  background-color: rgb(30, 30, 85);
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 2px;
+}
+
+.user-title {
+  width: 100%;
+  margin: 1rem;
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* User Page End */
