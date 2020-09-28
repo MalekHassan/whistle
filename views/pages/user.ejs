@@ -19,6 +19,19 @@
     <title>User Fav</title>
   </head>
   <body>
+    <form action="">
+      <input id="userID" type="hidden" value="<%= userID %> " />
+      <input id="fName" type="hidden" value="<%= userInfo.first_name %> " />
+      <input id="lName" type="hidden" value="<%= userInfo.last_name %> " />
+      <input id="email" type="hidden" value="<%= userInfo.email %> " />
+      <input id="gender" type="hidden" value="<%= userInfo.gender %> " />
+      <input
+        id="phone_number"
+        type="hidden"
+        value="<%= userInfo.phone_number %>
+      "
+      />
+    </form>
     <header class="navs">
       <article class="headerContainer">
         <div id="item1Header">
@@ -48,21 +61,29 @@
         <main id="main" class="column">
           <button id="user-info">Personal Info</button>
           <button id="password">Update Password</button>
+          <% if(matchesIds){ %>
           <input type="hidden" value="<%= matchesIds %> " />
+          <% }else{%>
+          <input type="hidden" value="" />
+          <%} %>
           <button id="favMatchesForm">Your Matches</button>
         </main>
         <!-- This Content will change -->
         <aside id="aside" class="column">
           <h2 class="user-title">Basic Information</h2>
           <div class="update-form-container row">
-            <form action="/changePersonalInfo" class="column" method="post">
+            <form
+              action="/changePersonalInfo/<%= userID %>?_method=put"
+              class="column"
+              method="post"
+            >
               <div class="form-content row">
                 <label for="name">First Name</label>
-                <input type="text" name="fname" />
+                <input type="text" name="first_name" />
               </div>
               <div class="form-content row">
                 <label for="name">Last Name</label>
-                <input type="text" name="lname" />
+                <input type="text" name="last_name" />
               </div>
               <div class="form-content row">
                 <label for="email">Email</label>
@@ -81,7 +102,7 @@
               </div>
               <div class="form-content row">
                 <label for="phone">Phone Number</label>
-                <input type="text" name="phone-number" />
+                <input type="text" name="phone_number" />
               </div>
               <input type="submit" value="Update" />
             </form>

@@ -1,4 +1,13 @@
 let asaid = $('#aside');
+let userID = $('#userID').val();
+let userFName = $('#fName').val().trim();
+let userLName = $('#lName').val().trim();
+let userEmail = $('#email').val().trim();
+let userGender = $('#gender').val().trim();
+let userPhone = $('#phone_number').val().trim();
+let userIfnoArr = [userFName, userLName, userEmail, userPhone];
+setCheckedAttribut();
+setValues();
 // functions
 function renderPersonalInfoForm() {
   // Empty the inside of asaid section
@@ -6,18 +15,22 @@ function renderPersonalInfoForm() {
   asaid.html(`
   <h2 class='user-title'>Basic Information</h2>
   <div class="update-form-container row">
-  <form action="/changePersonalInfo" class="column" method="post">
+  <form
+      action="/changePersonalInfo/${userID}?_method=put "
+      class="column"
+       method="post"
+   >
     <div class="form-content row">
       <label for="name">First Name</label>
-      <input type="text" name="fname" />
+      <input type="text" name="first_name" value="${userFName}" />
     </div>
     <div class="form-content row">
       <label for="name">Last Name</label>
-      <input type="text" name="lname" />
+      <input type="text" name="last_name" value="${userLName}" />
     </div>
     <div class="form-content row">
       <label for="email">Email</label>
-      <input type="text" name="email" />
+      <input type="text" name="email" value="${userEmail}" />
     </div>
     <div class="form-content row">
       <label for="gender">Gender</label>
@@ -32,12 +45,14 @@ function renderPersonalInfoForm() {
     </div>
     <div class="form-content row">
       <label for="phone">Phone Number</label>
-      <input type="text" name="phone-number" />
+      <input type="text" name="phone_number" ${userPhone} />
     </div>
     <input type="submit" value="Update" />
   </form>
 </div>
   `);
+  setCheckedAttribut();
+  setValues();
 }
 
 function changeUserPassword() {
@@ -45,7 +60,7 @@ function changeUserPassword() {
   asaid.html(`
       <h2 class='user-title'>Change Password</h2>
       <div class="update-form-container row">
-      <form action="/changePersonalInfo" class="column" method="post">
+      <form action="/changeUserPass/${userID}?_method=put" class="column" method="post">
         <div class="form-content row">
           <label for="password">Password</label>
           <input type="text" name="newpass" />
@@ -106,15 +121,36 @@ function renderMatches(match) {
 
 function getFavMatches() {
   asaid.html('');
-  asaid.append(`<div id="fav-match-container" class="row">
+
+  let ids = $('input[type="hidden"]').val();
+  if (ids) {
+    asaid.append(`<div id="fav-match-container" class="row">
   <h2 class='user-title'>Favorite Matchs</h2>
   </div>`);
-  let ids = $('input[type="hidden"]').val();
-  let matchResultUrl = `https://apiv2.apifootball.com/?action=get_events&match_id=${ids}&APIkey=b2fec2eb69e6174d9c6a0c3d5187b0661eb4e4b4a708387c3b1e8d9c7ed3951a`;
-  $.ajax(matchResultUrl).then((result) => {
-    result.forEach((match) => {
-      renderMatches(new liveMatches(match));
+    let matchResultUrl = `https://apiv2.apifootball.com/?action=get_events&match_id=${ids}&APIkey=b2fec2eb69e6174d9c6a0c3d5187b0661eb4e4b4a708387c3b1e8d9c7ed3951a`;
+    $.ajax(matchResultUrl).then((result) => {
+      result.forEach((match) => {
+        renderMatches(new liveMatches(match));
+      });
     });
+  } else {
+    asaid.append(`<h2>There Is No Fav Matches<h2>`);
+  }
+}
+
+function setCheckedAttribut() {
+  let radios = [...$('input[type=radio]')];
+  radios.forEach((item) => {
+    if (item.value == userGender) {
+      item.checked = true;
+    }
+  });
+}
+
+function setValues() {
+  let inputText = [...$('input[type=text]')];
+  inputText.forEach((item, index) => {
+    item.value = userIfnoArr[index];
   });
 }
 
