@@ -62,7 +62,7 @@
           <button id="user-info">Personal Info</button>
           <button id="password">Update Password</button>
           <% if(matchesIds){ %>
-          <input type="hidden" value="<%= matchesIds %> " />
+          <input id="ids" type="hidden" value="<%= matchesIds %> " />
           <% }else{%>
           <input type="hidden" value="" />
           <%} %>

@@ -122,7 +122,8 @@ function renderMatches(match) {
 function getFavMatches() {
   asaid.html('');
 
-  let ids = $('input[type="hidden"]').val();
+  let ids = $('#ids').val();
+  console.log(ids);
   if (ids) {
     asaid.append(`<div id="fav-match-container" class="row">
   <h2 class='user-title'>Favorite Matchs</h2>
@@ -134,7 +135,7 @@ function getFavMatches() {
       });
     });
   } else {
-    asaid.append(`<h2>There Is No Fav Matches<h2>`);
+    asaid.append(`<h2>There Is No Favorite Matches<h2>`);
   }
 }
 
