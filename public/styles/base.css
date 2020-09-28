@@ -878,7 +878,7 @@ table tbody tr {
 }
 
 .form-content label {
-  width: 15%;
+  width: 100%;
   font-size: 1.2rem;
   font-weight: bold;
 }

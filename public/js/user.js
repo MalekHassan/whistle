@@ -8,8 +8,12 @@ function renderPersonalInfoForm() {
   <div class="update-form-container row">
   <form action="/changePersonalInfo" class="column" method="post">
     <div class="form-content row">
-      <label for="name">Name</label>
-      <input type="text" name="name" />
+      <label for="name">First Name</label>
+      <input type="text" name="fname" />
+    </div>
+    <div class="form-content row">
+      <label for="name">Last Name</label>
+      <input type="text" name="lname" />
     </div>
     <div class="form-content row">
       <label for="email">Email</label>
