@@ -49,10 +49,40 @@
           <button id="user-info">Personal Info</button>
           <button id="password">Update Password</button>
           <input type="hidden" value="<%= matchesIds %> " />
-          <button id="favMatchesForm">You Matches</button>
+          <button id="favMatchesForm">Your Matches</button>
         </main>
         <!-- This Content will change -->
-        <aside id="aside" class="column"></aside>
+        <aside id="aside" class="column">
+          <h2 class="user-title">Basic Information</h2>
+          <div class="update-form-container row">
+            <form action="/changePersonalInfo" class="column" method="post">
+              <div class="form-content row">
+                <label for="name">Name</label>
+                <input type="text" name="name" />
+              </div>
+              <div class="form-content row">
+                <label for="email">Email</label>
+                <input type="text" name="email" />
+              </div>
+              <div class="form-content row">
+                <label for="gender">Gender</label>
+                <div class="form-content-inside row">
+                  <input type="radio" name="gender" value="Male" />
+                  <p>Male</p>
+                </div>
+                <div class="form-content-inside row">
+                  <input type="radio" name="gender" value="Female" />
+                  <p>Female</p>
+                </div>
+              </div>
+              <div class="form-content row">
+                <label for="phone">Phone Number</label>
+                <input type="text" name="phone-number" />
+              </div>
+              <input type="submit" value="Update" />
+            </form>
+          </div>
+        </aside>
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

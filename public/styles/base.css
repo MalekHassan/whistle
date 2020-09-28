@@ -788,11 +788,13 @@ table tbody tr {
 }
 #main {
   width: 25%;
-  border: solid 1px red;
   align-items: center;
   justify-content: space-evenly;
   padding: 0 1.5rem;
   height: 300px;
+  min-width: 150px;
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19);
+  background-color: rgba(95, 89, 128, 0.2);
 }
 
 #main form {
@@ -803,7 +805,8 @@ table tbody tr {
 #main input[type='submit'] {
   width: 100%;
   color: rgb(52, 52, 52);
-  background-color: #fff;
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19);
+  background-color: rgba(95, 89, 128, 0.2);
   padding: 0.5rem;
   font-size: 1.2rem;
   margin: 1rem 0;
@@ -822,10 +825,12 @@ table tbody tr {
 
 #aside {
   width: 70%;
-  border: 1px solid black;
   min-height: 300px;
   align-items: center;
   justify-content: center;
+  min-width: 550px;
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.2), 0 0 10px 0 rgba(0, 0, 0, 0.19);
+  background-color: rgba(95, 89, 128, 0.2);
 }
 
 #fav-match {
@@ -899,6 +904,55 @@ table tbody tr {
   padding: 1rem;
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+@media (max-width: 1024px) {
+  #main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
+  }
+
+  #aside {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .main-aside-container {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 650px) {
+  #main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
+  }
+
+  #aside {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .main-aside-container {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  #fav-match-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
 }
 
 /* User Page End */
