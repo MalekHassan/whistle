@@ -467,7 +467,13 @@ async function updatePersonalInfo(req, res) {
 // Update user Password
 
 function updateUserPassword(req, res) {
-  const userId = [req.params.userID];
+  const userId = req.params.userID;
+  const newpass = req.body.newpass;
+  const updateSQL = 'UPDATE users set password=$1 WHERE u_id=$2';
+  const safeValues = [newpass, userId];
+  client.query(updateSQL, safeValues).then(() => {
+    res.redirect('/userPage');
+  });
 }
 
 // Deelte Match

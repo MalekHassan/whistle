@@ -1,5 +1,5 @@
 let asaid = $('#aside');
-let userID = $('#userID').val();
+let userID = $('#userID').val().trim();
 let userFName = $('#fName').val().trim();
 let userLName = $('#lName').val().trim();
 let userEmail = $('#email').val().trim();
