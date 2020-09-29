@@ -28,8 +28,7 @@
         <h2>Whistle <i class="fas fa-flag-checkered"></i></h2>
         <p>
           Love Football? WELCOME<a id="user-name-database" href="/userPage"
-            ><% if(user){ %> <%= user.username.split("@")[0] %> <%}else{ %> <%}
-            %>
+            ><% if(user){ %> <%= user.first_name %> <%}else{ %> <%} %>
           </a>
           to the CLUB!!
         </p>
@@ -62,7 +61,6 @@
             <option value="bestPlayer">Top scored player</option>
           </select>
         </div>
-
 
         <div id="hideMe">
           <form action="/h2h" class="hidden-form" id="matchesResults">
