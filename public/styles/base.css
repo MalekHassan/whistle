@@ -303,7 +303,19 @@ header a:hover {
   margin-bottom: 10px;
 }
 
-.live-match-content input[type='submit'] {
+
+.live-match-content a{
+  text-decoration: none;
+  color: rgb(30, 30, 85);
+}
+.live-match-content a :hover{
+  color: #2f3061;
+  border-bottom: 1px solid #2f3061;
+  padding-bottom: 1px ;
+
+}
+
+.live-match-content input[type="submit"] {
   margin: 10px 0;
   background-color: #2f3061;
   color: rgb(223, 223, 223);
@@ -615,6 +627,15 @@ header a:hover {
   text-align: center;
   font-size: 20px;
   font-weight: bold;
+}
+.match-detail a {
+  text-decoration: none;
+  color: rgb(52, 52, 52);
+}
+.match-detail a :hover{
+  color: #2f3061;
+  border-bottom: 1px solid #2f3061;
+  padding-bottom: 1px ;
 }
 
 .matchs-details input[type='submit'] {
