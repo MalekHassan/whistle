@@ -45,6 +45,8 @@ app.get('/userPage', userPage);
 app.get('/addToFav/:matchID', addFavToDataBase);
 app.post('/addNewUser', addNewUserToDB);
 app.get('/signout', signOutUser);
+app.put('/changePersonalInfo/:userID', updatePersonalInfo);
+app.put('/changeUserPass/:userID', updateUserPassword);
 
 // Functions
 
@@ -271,16 +273,21 @@ async function userPage(req, res) {
     : null;
   if (userID) {
     const SQL = 'select match_id from matches where u_id=$1';
+    const selectSQL = 'SELECT * FROM users WHERE u_id=$1';
     const safeValues = [userID];
+    let userInfo = await client
+      .query(selectSQL, safeValues)
+      .then((result) => result.rows[0]);
     let matchsArray = await client.query(SQL, safeValues).then((result) => {
       return result.rows;
     });
-    if (matchsArray) {
+    if (matchsArray.length > 0) {
       let matchesIds = matchsArray
         .map((item) => {
           return item.match_id;
         })
         .join(',');
+      res.render('pages/user', { matchesIds, userID });
       let SOCCER_API_KEY = process.env.SOCCER_API_KEY;
       let matchResultUrl = `https://apiv2.apifootball.com/?action=get_events&match_id=${matchesIds}&APIkey=${SOCCER_API_KEY}`;
       let matchDetail = await superagent.get(matchResultUrl).then((result) => {
@@ -288,10 +295,10 @@ async function userPage(req, res) {
           return new liveMatches(match);
         });
       });
-      console.log(matchDetail);
-      res.render('pages/user', { matchArray: matchDetail });
+      // res.render('pages/user', { matchArray: matchDetail });
+      res.render('pages/user');
     } else {
-      res.redirect('/');
+      res.render('pages/user', { matchesIds: '', userID, userInfo });
     }
   } else {
     res.redirect('/');
@@ -450,6 +457,53 @@ async function getUpCommingMatches(req, res) {
 function signOutUser(req, res) {
   localStorage.removeItem('userID');
   res.redirect('/');
+}
+
+// Update User Personal Information
+
+async function updatePersonalInfo(req, res) {
+  const selectURL = 'SELECT * FROM users WHERE u_id=$1';
+  const userId = [req.params.userID];
+  let userInfo = await client
+    .query(selectURL, userId)
+    .then((result) => result.rows[0]);
+  console.log('user Info', userInfo);
+  const first_name = req.body.first_name
+    ? req.body.first_name
+    : userInfo.first_name;
+  const last_name = req.body.last_name
+    ? req.body.last_name
+    : userInfo.last_name;
+  const email = req.body.email ? req.body.email : userInfo.email;
+  const gender = req.body.gender ? req.body.gender : userInfo.gender;
+  const phone_number = req.body.phone_number
+    ? req.body.phone_number
+    : userInfo.phone_number;
+  const updateSQL =
+    'UPDATE users SET first_name=$1,last_name=$2,email=$3,gender=$4,phone_number=$5 WHERE u_id=$6';
+  const values = [
+    first_name,
+    last_name,
+    email,
+    gender,
+    phone_number,
+    req.params.userID,
+  ];
+  client.query(updateSQL, values).then(() => {
+    res.redirect('/userPage');
+  });
+}
+
+// Update user Password
+
+function updateUserPassword(req, res) {
+  const userId = req.params.userID;
+  const newpass = req.body.newpass;
+  const updateSQL = 'UPDATE users set password=$1 WHERE u_id=$2';
+  const safeValues = [newpass, userId];
+  client.query(updateSQL, safeValues).then(() => {
+    res.redirect('/userPage');
+  });
 }
 
 // Deelte Match

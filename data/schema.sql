@@ -11,6 +11,10 @@ IF NOT EXISTS users
 (255),
   email VARCHAR
 (255),
+gender VARCHAR
+(255),
+phone_number VARCHAR
+(255),
   password VARCHAR
 (255)
 );
