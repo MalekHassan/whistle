@@ -161,8 +161,9 @@
         <% if(matches.length > 0){ %> <% matches.forEach(match=>{ %>
         <div class="match-content">
           <div class="team-image">
+            <a href="/team/<%= match.match_hometeam_id %>">
             <img src="<%= match.home_team_logo%>" alt="home_team" />
-            <strong><%= match.home_team %> </strong>
+            <strong><%= match.home_team %> </strong></a>
           </div>
           <div class="team-image">
             <strong>match time</strong>
@@ -172,8 +173,9 @@
             </form>
           </div>
           <div class="team-image">
+            <a href="/team/<%= match.match_awayteam_id %>">
             <img src="<%= match.away_team_logo%>" alt="away_team" />
-            <strong><%= match.away_team %> </strong>
+            <strong><%= match.away_team %> </strong></a>
           </div>
         </div>
         <% }) %> <% }else{ %>

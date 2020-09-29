@@ -33,6 +33,7 @@ app.get('/h2h', h2hFunction);
 app.get('/player', playerInfo);
 app.get('/events', eventsInfo);
 app.get('/bestOf', bestPlayerInfo);
+app.get('/team/:teamId',getTeamInfo)
 app.get('/live', getLiveMatches);
 app.get('/match_detail/:matchID', getLiveMatchDetails);
 app.delete('/match_delete/:matchID', deleteMatch);
@@ -162,6 +163,24 @@ async function getBadge(id) {
     };
   });
   return team_badge;
+}
+
+// get team information function
+
+function getTeamInfo(req,res){
+// console.log(req.params)
+let teamId = req.params.teamId;
+let key = process.env.SOCCER_API_KEY;
+let url = `https://apiv2.apifootball.com/?action=get_teams&team_id=${teamId}&APIkey=${key}`;
+// console.log(url);
+superagent.get(url).then((item) => {
+  let teamDetails = item.body.map((k)=>{
+    
+     return new Teams(k);
+    })
+   
+    res.render('pages/teamdeatails',{data :teamDetails})
+})
 }
 
 // get the player information
@@ -313,9 +332,19 @@ function H2hResult(data) {
   this.league_name = data.league_name;
   this.match_id = data.match_id;
   this.match_date = data.match_date;
+  this.match_hometeam_id = data.match_hometeam_id;
   this.match_hometeam_name = data.match_hometeam_name;
+  this.match_awayteam_id = data.match_awayteam_id;
   this.match_awayteam_name = data.match_awayteam_name;
   this.score = `${data.match_hometeam_score} : ${data.match_awayteam_score}`;
+}
+
+// constructor for team details
+function Teams(data){
+  this.team_badge = data.team_badge;
+  this.team_name = data.team_name;
+  this.players = data.players;
+  this.coaches = data.coaches
 }
 
 // constructor Function for player details
@@ -330,6 +359,7 @@ function Player(data) {
   this.player_yellow_cards = data.player_yellow_cards;
   this.player_red_cards = data.player_red_cards;
   this.team_name = data.team_name;
+  
 }
 
 // constructor function for top players
@@ -404,6 +434,7 @@ function getLiveMatchDetails(req, res) {
   const SOCCER_API_KEY = process.env.SOCCER_API_KEY;
   const matchResultUrl = `https://apiv2.apifootball.com/?action=get_events&match_id=${matchID}&APIkey=${SOCCER_API_KEY}`;
   return superagent.get(matchResultUrl).then((data) => {
+    console.log(data);
     let matchDetail = new MatchDetail(data.body[0]);
     res.render('pages/matchDetails', { match: matchDetail });
   });
@@ -448,7 +479,9 @@ function UpCommingMatches(matchData) {
   this.match_id = matchData.match_id;
   this.time = matchData.match_time;
   this.home_team = matchData.match_hometeam_name;
+  this.match_hometeam_id = matchData.match_hometeam_id;
   this.away_team = matchData.match_awayteam_name;
+  this.match_awayteam_id = matchData.match_awayteam_id;
   this.home_team_logo = matchData.team_home_badge;
   this.away_team_logo = matchData.team_away_badge;
 }
@@ -461,6 +494,8 @@ function liveMatches(matchData) {
   this.league_logo = matchData.league_logo;
   this.league_name = matchData.league_name;
   this.match_time = matchData.match_time;
+  this.match_hometeam_id = matchData.match_hometeam_id;
+  this.match_awayteam_id = matchData.match_awayteam_id;
   this.match_hometeam_name = matchData.match_hometeam_name;
   this.match_awayteam_name = matchData.match_awayteam_name;
   this.team_home_badge = matchData.team_home_badge
@@ -480,8 +515,10 @@ function MatchDetail(matchData) {
   this.match_date = matchData.match_date;
   this.match_time = matchData.match_time;
   this.match_status = matchData.match_status;
+  this.match_hometeam_id = matchData.match_hometeam_id;
   this.match_hometeam_name = matchData.match_hometeam_name;
   this.match_awayteam_name = matchData.match_awayteam_name;
+  this.match_awayteam_id = matchData.match_awayteam_id;
   this.match_stadium = matchData.match_stadium;
   this.match_hometeam_halftime_score = matchData.match_hometeam_halftime_score;
   this.match_awayteam_halftime_score = matchData.match_awayteam_halftime_score;
