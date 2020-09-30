@@ -78,7 +78,7 @@ function changeUserPassword() {
 function renderMatches(match) {
   console.log(match);
   let content = `
-            <div id="fav-match" class="live-match-content column">
+            <div class="fav-match live-match-content column">
         <h2>${match.league_name}</h2>
         <div class="score row">
           <div class="live-match-image column">

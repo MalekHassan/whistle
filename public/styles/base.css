@@ -303,19 +303,17 @@ header a:hover {
   margin-bottom: 10px;
 }
 
-
-.live-match-content a{
+.live-match-content a {
   text-decoration: none;
   color: rgb(30, 30, 85);
 }
-.live-match-content a :hover{
+.live-match-content a :hover {
   color: #2f3061;
   border-bottom: 1px solid #2f3061;
-  padding-bottom: 1px ;
-
+  padding-bottom: 1px;
 }
 
-.live-match-content input[type="submit"] {
+.live-match-content input[type='submit'] {
   margin: 10px 0;
   background-color: #2f3061;
   color: rgb(223, 223, 223);
@@ -632,10 +630,10 @@ header a:hover {
   text-decoration: none;
   color: rgb(52, 52, 52);
 }
-.match-detail a :hover{
+.match-detail a :hover {
   color: #2f3061;
   border-bottom: 1px solid #2f3061;
-  padding-bottom: 1px ;
+  padding-bottom: 1px;
 }
 
 .matchs-details input[type='submit'] {
@@ -834,7 +832,7 @@ table tbody tr {
   margin: 1rem 0;
   border: none;
   cursor: pointer;
-  text-align: start;
+  text-align: center;
 }
 #main button:hover,
 #main input[type='submit']:hover {
@@ -855,9 +853,13 @@ table tbody tr {
   background-color: rgba(95, 89, 128, 0.2);
 }
 
-#fav-match {
-  width: 45%;
+.fav-match {
+  width: 40%;
   margin: 1rem;
+}
+
+.fav-match input[type='submit'] {
+  width: 75%;
 }
 #fav-match-container {
   width: 100%;
@@ -871,6 +873,7 @@ table tbody tr {
 #home-team-badge,
 #away-team-badge {
   width: 100%;
+  height: 100px;
 }
 
 .update-form-container {
@@ -931,6 +934,7 @@ table tbody tr {
 @media (max-width: 1024px) {
   #main {
     width: 100%;
+    min-width: 100%;
     display: flex;
     flex-direction: column;
     margin: 1rem 0;
@@ -938,11 +942,13 @@ table tbody tr {
 
   #aside {
     width: 100%;
+    min-width: 100%;
     display: flex;
     flex-direction: column;
   }
   .main-aside-container {
     width: 95%;
+    min-width: 95%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -959,21 +965,62 @@ table tbody tr {
 
   #aside {
     width: 100%;
+    min-width: 100%;
     display: flex;
     flex-direction: column;
   }
   .main-aside-container {
     width: 95%;
+    min-width: 95%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
   #fav-match-container {
     width: 100%;
+    min-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+  }
+}
+
+@media (min-width: 320px) AND (max-width: 500px) {
+  #main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
+  }
+
+  #aside {
+    width: 100%;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .main-aside-container {
+    width: 95%;
+    min-width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  #fav-match-container {
+    width: 100%;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .fav-match {
+    width: 90%;
+  }
+  #fav-match-container {
+    align-items: flex-start;
   }
 }
 
