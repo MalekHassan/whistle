@@ -73,21 +73,26 @@
           <h2 class="user-title">Basic Information</h2>
           <div class="update-form-container row">
             <form
+              id="personalInfoFrom"
               action="/changePersonalInfo/<%= userID %>?_method=put"
               class="column"
               method="post"
+              onsubmit="return basicInfoValidation()"
             >
               <div class="form-content row">
                 <label for="name">First Name</label>
                 <input type="text" name="first_name" />
+                <i class="fas fa-exclamation-circle"></i>
               </div>
               <div class="form-content row">
                 <label for="name">Last Name</label>
                 <input type="text" name="last_name" />
+                <i class="fas fa-exclamation-circle"></i>
               </div>
               <div class="form-content row">
                 <label for="email">Email</label>
                 <input type="text" name="email" />
+                <i class="fas fa-exclamation-circle"></i>
               </div>
               <div class="form-content row">
                 <label for="gender">Gender</label>
@@ -103,6 +108,7 @@
               <div class="form-content row">
                 <label for="phone">Phone Number</label>
                 <input type="text" name="phone_number" />
+                <i class="fas fa-exclamation-circle"></i>
               </div>
               <input type="submit" value="Update" />
             </form>

@@ -887,6 +887,20 @@ table tbody tr {
   padding: 1rem;
 }
 
+.form-content {
+  position: relative;
+}
+
+.fa-exclamation-circle {
+  color: red;
+}
+
+.form-content .fa-exclamation-circle {
+  position: absolute;
+  right: 5px;
+  display: none;
+}
+
 .form-content,
 .form-content-inside {
   align-items: center;
@@ -913,7 +927,33 @@ table tbody tr {
   padding: 0.5rem;
   font-size: 1rem;
 }
+.form-content input[type='password'] {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
 
+.sucsses {
+  border: 2px solid green;
+  border-radius: 7px;
+}
+
+.sucsses:focus {
+  outline: none;
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
+}
+
+.error {
+  border: 2px solid red;
+  border-radius: 7px;
+}
+
+.error:focus {
+  outline: none;
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
+}
 .update-form-container input[type='submit'] {
   width: 50%;
   margin: 1rem auto;

@@ -1,3 +1,4 @@
+// Values of the hidden from
 let asaid = $('#aside');
 let userID = $('#userID').val().trim();
 let userFName = $('#fName').val().trim();
@@ -8,7 +9,9 @@ let userPhone = $('#phone_number').val().trim();
 let userIfnoArr = [userFName, userLName, userEmail, userPhone];
 setCheckedAttribut();
 setValues();
-// functions
+// Functions
+
+// Render Pesonal Into Form
 function renderPersonalInfoForm() {
   // Empty the inside of asaid section
   asaid.html('');
@@ -16,21 +19,26 @@ function renderPersonalInfoForm() {
   <h2 class='user-title'>Basic Information</h2>
   <div class="update-form-container row">
   <form
+      id="personalInfoFrom"
       action="/changePersonalInfo/${userID}?_method=put "
       class="column"
        method="post"
+       onsubmit="return basicInfoValidation()"
    >
     <div class="form-content row">
       <label for="name">First Name</label>
-      <input type="text" name="first_name" value="${userFName}" />
+      <input  type="text" name="first_name" value="${userFName}" />
+      <i class="fas fa-exclamation-circle"></i>
     </div>
     <div class="form-content row">
       <label for="name">Last Name</label>
-      <input type="text" name="last_name" value="${userLName}" />
+      <input  type="text" name="last_name" value="${userLName}" />
+      <i class="fas fa-exclamation-circle"></i>
     </div>
     <div class="form-content row">
       <label for="email">Email</label>
       <input type="text" name="email" value="${userEmail}" />
+      <i class="fas fa-exclamation-circle"></i>
     </div>
     <div class="form-content row">
       <label for="gender">Gender</label>
@@ -46,6 +54,7 @@ function renderPersonalInfoForm() {
     <div class="form-content row">
       <label for="phone">Phone Number</label>
       <input type="text" name="phone_number" ${userPhone} />
+      <i class="fas fa-exclamation-circle"></i>
     </div>
     <input type="submit" value="Update" />
   </form>
@@ -55,6 +64,7 @@ function renderPersonalInfoForm() {
   setValues();
 }
 
+// Render Change Password Form
 function changeUserPassword() {
   asaid.html('');
   asaid.html(`
@@ -63,11 +73,11 @@ function changeUserPassword() {
       <form action="/changeUserPass/${userID}?_method=put" class="column" method="post">
         <div class="form-content row">
           <label for="password">Password</label>
-          <input type="text" name="newpass" />
+          <input type="password" name="newpass" />
         </div>
         <div class="form-content row">
           <label for="password">Comform New Password</label>
-          <input type="text" name="compass" />
+          <input type="password" name="compass" />
         </div>
         <input type="submit" value="Change Password" />
       </form>
@@ -75,6 +85,7 @@ function changeUserPassword() {
       `);
 }
 
+// Render Matches
 function renderMatches(match) {
   console.log(match);
   let content = `
@@ -118,7 +129,7 @@ function renderMatches(match) {
             `;
   $('#fav-match-container').append(content);
 }
-
+// Get matches from API
 function getFavMatches() {
   asaid.html('');
 
@@ -138,7 +149,7 @@ function getFavMatches() {
     asaid.append(`<h2>There Is No Favorite Matches<h2>`);
   }
 }
-
+// Set Male or Female checked
 function setCheckedAttribut() {
   let radios = [...$('input[type=radio]')];
   radios.forEach((item) => {
@@ -147,7 +158,7 @@ function setCheckedAttribut() {
     }
   });
 }
-
+// Set from backend into front end
 function setValues() {
   let inputText = [...$('input[type=text]')];
   inputText.forEach((item, index) => {
@@ -156,7 +167,6 @@ function setValues() {
 }
 
 // Constructor
-
 function liveMatches(matchData) {
   this.match_id = matchData.match_id;
   this.match_status = matchData.match_status;
@@ -173,6 +183,61 @@ function liveMatches(matchData) {
     : 'https://apiv2.apifootball.com/badges/17691_hafnarfjordur-w.png';
   this.score = `${matchData.match_hometeam_score} : ${matchData.match_awayteam_score}`;
 }
+
+// Check the Basic Infromation form validation
+function basicInfoValidation() {
+  // Get the values of inputes
+  let firstNameEle = $('input[name="first_name"]');
+  let lastNameEle = $('input[name="last_name"]');
+  let email = $('input[name="email"]');
+  let phoneNumberEle = $('input[name="phone_number"]');
+  let checkArray = checkEmpty([
+    firstNameEle,
+    lastNameEle,
+    email,
+    phoneNumberEle,
+  ]);
+  checkArray.push(checkphoneNumber(phoneNumberEle));
+  console.log(checkArray);
+  return !checkArray.includes(false);
+}
+
+// Check inputs if empty
+function checkEmpty(elements) {
+  let checkArray = [];
+  elements.forEach((element, index) => {
+    if (element.val() === '') {
+      $('.fa-exclamation-circle').eq(index).show();
+      element.addClass('error');
+      checkArray.push(false);
+    } else {
+      $('.fa-exclamation-circle').eq(index).hide();
+      element.removeClass('error');
+      element.addClass('sucsses');
+      checkArray.push(true);
+    }
+  });
+  return checkArray;
+}
+
+// Check Phone Number length and if it is number
+
+function checkphoneNumber(element) {
+  let regix = /^\d{10}$/g;
+  let str = false;
+  if (regix.test(element.val())) {
+    console.log(element.val());
+    $('.fa-exclamation-circle').eq(3).hide();
+    element.removeClass('error');
+    element.addClass('sucsses');
+    str = true;
+  } else {
+    $('.fa-exclamation-circle').eq(3).show();
+    element.addClass('error');
+  }
+  return str;
+}
+
 // Events
 
 $('#user-info').click(renderPersonalInfoForm);
