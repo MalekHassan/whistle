@@ -305,8 +305,10 @@ header a:hover {
 
 
 .live-match-content a{
+  text-align: center;
   text-decoration: none;
   color: rgb(30, 30, 85);
+  align-items: inherit;
 }
 .live-match-content a :hover{
   color: #2f3061;
@@ -335,6 +337,7 @@ header a:hover {
   justify-content: space-around;
   align-items: center;
   margin: 10px 0;
+  text-align: center;
 }
 
 .live-match-content .score p {
@@ -359,7 +362,7 @@ header a:hover {
 }
 
 .live-match-content .live-match-image img {
-  width: 55%;
+  width: initial;
   height: 120px;
   margin: 10px 0;
   padding: 10px;
@@ -370,6 +373,7 @@ header a:hover {
   text-align: center;
   font-size: 15px;
   font-weight: bold;
+  justify-content: center;
 }
 .live-Match-Info {
   justify-content: space-around;
@@ -404,6 +408,18 @@ header a:hover {
   justify-content: space-around;
   text-align: center;
   padding: 5px 0;
+}
+.team-name a{
+  text-align: center;
+  text-decoration: none;
+  color: rgb(30, 30, 85);
+  align-items: inherit;
+}
+
+.tema-name a :hover{
+  color: #2f3061;
+  border-bottom: 1px solid #2f3061;
+  padding-bottom: 1px ;
 }
 .line-up .team-name {
   justify-content: space-around;
@@ -650,6 +666,12 @@ header a:hover {
 /* H2H Result End */
 
 /* Player info table start */
+.table-standings-container {
+  align-items: center;
+  width: 50%;
+  margin-top: 60px;
+  justify-content: center;
+}
 .table-container {
   width: 100%;
   margin-top: 60px;
@@ -684,6 +706,9 @@ table thead {
   border-bottom: 5px solid rgb(223, 223, 223);
 }
 table thead th {
+  background-color: rgb(52, 52, 52);
+  position: sticky;
+  top: 0;
   padding: 5px;
   text-align: center;
   vertical-align: middle;
@@ -701,6 +726,18 @@ table tbody tr {
   background-color: rgba(95, 89, 128, 0.2);
   border-radius: 5px;
   padding: 5px;
+}
+
+table tbody tr td a {
+  text-decoration: none;
+  color: rgb(52, 52, 52);
+}
+
+table tbody tr td a:hover{
+  
+  color: #2f3061;
+  border-bottom: 1px solid #2f3061;
+  padding-bottom: 1px ; 
 }
 
 /* Player info table end */

@@ -82,22 +82,24 @@ function renderMatches(match) {
         <h2>${match.league_name}</h2>
         <div class="score row">
           <div class="live-match-image column">
+          <a href="/team/${match.match_hometeam_id}">
             <img id="home-team-badge"
               src="${match.team_home_badge} "
               alt="${match.match_hometeam_name} "
             />
-            <small>${match.match_hometeam_name} </small>
+            <small>${match.match_hometeam_name} </small></a>
           </div>
           <div class="time-score column">
             <p>${match.match_status}</p>
             <p>${match.score}</p>
           </div>
           <div class="live-match-image column">
+          <a href="/team/${match.match_awayteam_id}">
             <img id="away-team-badge"
               src="${match.team_away_badge} "
               alt="${match.match_awayteam_name} "
             />
-            <small>${match.match_awayteam_name} </small>
+            <small>${match.match_awayteam_name} </small></a>
           </div>
         </div>
         <form
@@ -163,7 +165,9 @@ function liveMatches(matchData) {
   this.league_logo = matchData.league_logo;
   this.league_name = matchData.league_name;
   this.match_time = matchData.match_time;
+  this.match_hometeam_id = matchData.match_hometeam_id;
   this.match_hometeam_name = matchData.match_hometeam_name;
+  this.match_awayteam_id = matchData.match_awayteam_id;
   this.match_awayteam_name = matchData.match_awayteam_name;
   this.team_home_badge = matchData.team_home_badge
     ? matchData.team_home_badge

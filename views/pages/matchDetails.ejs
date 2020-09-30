@@ -24,13 +24,14 @@
       <div class="live-match-stat column">
         <div class="line-up column">
           <div class="live-match-image row">
+            <a href="/team/<%= match.match_hometeam_id %>">
             <img
               src="<%= match.team_home_badge %> "
               alt="<%= match.match_hometeam_name %> "
             />
           </div>
           <div class="team-name row">
-            <a href="/team/<%= match.match_hometeam_id %>"><small><%= match.match_hometeam_name %> </small></a>
+            <small><%= match.match_hometeam_name %> </small></a>
           </div>
           <h4>Players</h4>
           <% match.lineup.home.starting_lineups.forEach(item =>{%>
@@ -68,22 +69,24 @@
         <p>Match time: <%= match.match_time%></p>
         <div class="score row">
           <div class="live-match-image column">
-            <img
+            <a href="/team/<%= match.match_hometeam_id %>"  class="column">
+            <img class="row"
               src="<%= match.team_home_badge %> "
               alt="<%= match.match_hometeam_name %> "
             />
-            <a href="/team/<%= match.match_hometeam_id %>"> <small><%= match.match_hometeam_name %> </small></a>
+          <small><%= match.match_hometeam_name %> </small></a>
           </div>
           <div class="time-score column">
             <p><%=match.match_status%>`</p>
             <p><%= match.score %></p>
           </div>
           <div class="live-match-image column">
-            <img
+            <a href="/team/<%= match.match_awayteam_id %>"  class="column">
+            <img class="row"
               src="<%= match.team_away_badge %> "
               alt="<%= match.match_awayteam_name %> "
             />
-            <a href="/team/<%= match.match_awayteam_id %>"><small><%= match.match_awayteam_name %> </small></a>
+           <small><%= match.match_awayteam_name %> </small></a>
           </div>
         </div>
         <h2 class="underline">Goals</h2>
@@ -143,13 +146,14 @@
       <div class="live-match-stat column">
         <div class="line-up column">
           <div class="live-match-image row">
+            <a href="/team/<%= match.match_awayteam_id %>">
             <img
               src="<%= match.team_away_badge %> "
               alt="<%= match.match_awayteam_name %> "
             />
           </div>
           <div class="team-name row">
-            <a href="/team/<%= match.match_awayteam_id %>"><small><%= match.match_awayteam_name %> </small></a>
+          <small><%= match.match_awayteam_name %> </small></a>
           </div>
           <h4>Players</h4>
           <% match.lineup.away.starting_lineups.forEach(item =>{%>
