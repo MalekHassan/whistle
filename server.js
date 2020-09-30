@@ -28,11 +28,13 @@ app.use(express.static('./public'));
 const client = new pg.Client(process.env.DATABASE_URL);
 
 // Routs
+
 app.get('/', homePage);
 app.get('/h2h', h2hFunction);
 app.get('/player', playerInfo);
 app.get('/events', eventsInfo);
 app.get('/bestOf', bestPlayerInfo);
+app.get('/leagues',leaguesStandings)
 app.get('/team/:teamId', getTeamInfo);
 app.get('/live', getLiveMatches);
 app.get('/match_detail/:matchID', getLiveMatchDetails);
@@ -167,6 +169,23 @@ async function getBadge(id) {
     };
   });
   return team_badge;
+}
+// get league standings
+function leaguesStandings(req,res){
+  let data = [];
+  let {leaguesName} = req.query
+  let key = process.env.SOCCER_API_KEY;
+  let url = `https://apiv2.apifootball.com/?action=get_standings&league_id=${leaguesName}&APIkey=${key}`
+  // console.log(url);
+  superagent.get(url).then(items =>{
+    // console.log(items.body)
+    items.body.forEach((k)=>{
+      // console.log(k);
+     let standings = new LeaguesStandings(k);
+      data.push(standings);     
+    })
+    res.render('pages/standings',{ StandingsData :data })
+  })
 }
 
 // get team information function
@@ -397,6 +416,7 @@ function Player(data) {
 
 // constructor function for top players
 function Team(data) {
+  this.team_key = data.team_key;
   this.team_name = data.team_name;
   this.team_badge = data.team_badge;
   // data.players.map(k=>{
@@ -548,6 +568,38 @@ async function getQuestionsChall(req, res) {
 
 //Constructors
 
+// LeaguesStandings Constructor
+function LeaguesStandings(standings){
+  this.country_name = standings.country_name;
+  this.league_name = standings.league_name;
+  this.team_id = standings.team_id;
+  this.overall_promotion = standings.overall_promotion;
+  this.team_name = standings.team_name;
+  this.overall_league_position = standings.overall_league_position;
+  this.overall_league_payed = standings.overall_league_payed;
+  this.overall_league_W = standings.overall_league_W;
+  this.overall_league_D = standings.overall_league_D;
+  this.overall_league_L = standings.overall_league_L;
+  this.overall_league_GF = standings.overall_league_GF;
+  this.overall_league_GA = standings.overall_league_GA;
+  this.overall_league_PTS = standings.overall_league_PTS;
+  this.home_league_payed = standings.home_league_payed;
+  this.home_league_W = standings.home_league_W;
+  this.home_league_D = standings.home_league_D;
+  this.home_league_L= standings.home_league_L;
+  this.home_league_GF = standings.home_league_GF;
+  this.home_league_GA = standings.home_league_GA;
+  this.home_league_PTS = standings.home_league_PTS;
+  this.away_league_payed = standings.away_league_payed;
+  this.away_league_W = standings.away_league_W;
+  this.away_league_D = standings.away_league_D;
+  this.away_league_L = standings.away_league_L;
+  this.away_league_GF = standings.away_league_GF;
+  this.away_league_GA = standings.away_league_GA;
+  this.away_league_PTS = standings.away_league_PTS;
+  this.team_badge = standings.team_badge;
+}
+
 //News Constructors - #1
 function News(newsData) {
   this.title = newsData.title;
@@ -563,6 +615,7 @@ function News(newsData) {
 
 // Main page UpCommingMatches constructor
 function UpCommingMatches(matchData) {
+  this.league_id = matchData.league_id;
   this.match_id = matchData.match_id;
   this.time = matchData.match_time;
   this.home_team = matchData.match_hometeam_name;

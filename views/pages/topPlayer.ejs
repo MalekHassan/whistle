@@ -40,8 +40,8 @@
               <td><%= element.player_name %></td>
               <td><%= element.player_number %></td>
               <td><%= element.player_country %></td>
-              <td><%= element.team_name %></td>
-              <td><img src="<%= element.team_badge%>"/></td>
+              <td><a href="/team/<%= element.team_key %> "><%= element.team_name %></td></a>
+              <td><a href="/team/<%= element.team_key %> "><img src="<%= element.team_badge%>"/></td></a>
               <td><%= element.player_type %></td>
               <td><%= element.player_age %></td>
               <td><%= element.player_match_played %></td>
