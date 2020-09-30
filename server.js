@@ -35,7 +35,7 @@ app.get('/player', playerInfo);
 app.get('/events', eventsInfo);
 app.get('/bestOf', bestPlayerInfo);
 app.get('/leagues',leaguesStandings)
-app.get('/team/:teamId',getTeamInfo)
+app.get('/team/:teamId', getTeamInfo);
 app.get('/live', getLiveMatches);
 app.get('/match_detail/:matchID', getLiveMatchDetails);
 app.delete('/match_delete/:matchID', deleteMatch);
@@ -190,20 +190,19 @@ function leaguesStandings(req,res){
 
 // get team information function
 
-function getTeamInfo(req,res){
-// console.log(req.params)
-let teamId = req.params.teamId;
-let key = process.env.SOCCER_API_KEY;
-let url = `https://apiv2.apifootball.com/?action=get_teams&team_id=${teamId}&APIkey=${key}`;
-// console.log(url);
-superagent.get(url).then((item) => {
-  let teamDetails = item.body.map((k)=>{
-    
-     return new Teams(k);
-    })
-   
-    res.render('pages/teamdeatails',{data :teamDetails})
-})
+function getTeamInfo(req, res) {
+  // console.log(req.params)
+  let teamId = req.params.teamId;
+  let key = process.env.SOCCER_API_KEY;
+  let url = `https://apiv2.apifootball.com/?action=get_teams&team_id=${teamId}&APIkey=${key}`;
+  // console.log(url);
+  superagent.get(url).then((item) => {
+    let teamDetails = item.body.map((k) => {
+      return new Teams(k);
+    });
+
+    res.render('pages/teamdeatails', { data: teamDetails });
+  });
 }
 
 // get the player information
@@ -306,7 +305,7 @@ async function userPage(req, res) {
           return item.match_id;
         })
         .join(',');
-      res.render('pages/user', { matchesIds, userInfo,userID });
+      res.render('pages/user', { matchesIds, userID, userInfo });
       let SOCCER_API_KEY = process.env.SOCCER_API_KEY;
       let matchResultUrl = `https://apiv2.apifootball.com/?action=get_events&match_id=${matchesIds}&APIkey=${SOCCER_API_KEY}`;
       let matchDetail = await superagent.get(matchResultUrl).then((result) => {
@@ -394,11 +393,11 @@ function H2hResult(data) {
 }
 
 // constructor for team details
-function Teams(data){
+function Teams(data) {
   this.team_badge = data.team_badge;
   this.team_name = data.team_name;
   this.players = data.players;
-  this.coaches = data.coaches
+  this.coaches = data.coaches;
 }
 
 // constructor Function for player details
@@ -413,7 +412,6 @@ function Player(data) {
   this.player_yellow_cards = data.player_yellow_cards;
   this.player_red_cards = data.player_red_cards;
   this.team_name = data.team_name;
-  
 }
 
 // constructor function for top players
