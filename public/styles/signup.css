@@ -199,3 +199,11 @@ body {
 #signupform {
   display: none;
 }
+
+.sucsses {
+  border-bottom: 2px solid green;
+}
+
+.error {
+  border-bottom: 2px solid red;
+}

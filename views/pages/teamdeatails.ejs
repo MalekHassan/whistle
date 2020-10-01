@@ -3,84 +3,83 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
-    integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@1,800&family=Josefin+Sans:wght@700&display=swap"
-    rel="stylesheet">
+
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+      integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@1,800&family=Josefin+Sans:wght@700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../../styles/reset.css" />
     <link rel="stylesheet" href="../../styles/base.css" />
-    <link rel="stylesheet" href="../../styles/nav.css">
+    <link rel="stylesheet" href="../../styles/nav.css" />
 
     <title>Whistle</title>
   </head>
   <body class="body">
     <%- include('../layout/header') %>
     <div class="cente-tilte">
-        <%data.forEach((element, index) =>{ %>
+      <%data.forEach((element, index) =>{ %>
 
-            <h2  id="afterRun"><%= element.team_name %>'s Details</h2>
-        </div>
-        <div class="table-container column">
-            <img src="<%= element.team_badge%>"/>
-        <h2 id="afterRun"><%= element.team_name %>'s Coache Details</h2>
-      <div class="table-details1 ">
+      <h2 id="afterRun"><%= element.team_name %>'s Details</h2>
+    </div>
+    <div class="table-container column">
+      <img src="<%= element.team_badge%>" />
+      <h2 id="afterRun"><%= element.team_name %>'s Coache Details</h2>
+      <div class="table-details1">
         <table>
-            <thead>
-              <th>Coach Name</th>
-              <th>Coach Country</th>
-              <th>Coach Age</th>
-            </thead>
-            <tbody>
-                
-                <%element.coaches.forEach((item) =>{%>
-              <tr>
-                <td><%= item.coach_name %></td>
-                <td><%= item.coach_country %></td>
-                <td><%= item.coach_age %></td>
-              </tr>
-              <%})%>
-              
-            </tbody>
-          </table>
-      </div>
-      <div class="table-container column">
-        <h2 id="afterRun"> <%= element.team_name %>'s Players Details</h2>
-        <div class="table-details1 ">
-      <table>
           <thead>
-            <th>Player Name</th>
-            <th>Player Number</th>
-            <th>Player Country</th>
-            <th>Player Type</th>
-            <th>Player Age</th>
-            <th>Player Match Played</th>
-            <th>Player Goals</th>
-            <th>Player Yallow Cards</th>
-            <th>Player Red Cards</th>
-            
+            <th>Coach Name</th>
+            <th>Coach Country</th>
+            <th>Coach Age</th>
           </thead>
           <tbody>
-              
-              <%element.players.forEach((item) =>{%>
+            <%element.coaches.forEach((item) =>{%>
             <tr>
-              <td><%= item.player_name %></td>
-              <td><%= item.player_number %></td>
-              <td><%= item.player_country %></td>
-              <td><%= item.player_type %></td>
-              <td><%= item.player_age %></td>
-              <td><%= item.player_match_played %></td>
-              <td><%= item.player_goals %></td>
-              <td><%= item.player_yellow_cards %></td>
-              <td><%= item.player_red_cards%></td>
-             
+              <td><%= item.coach_name %></td>
+              <td><%= item.coach_country %></td>
+              <td><%= item.coach_age %></td>
             </tr>
             <%})%>
-            <% })%>
           </tbody>
         </table>
       </div>
+      <div class="table-container column">
+        <h2 id="afterRun"><%= element.team_name %>'s Players Details</h2>
+        <div class="table-details1">
+          <table>
+            <thead>
+              <th>Player Name</th>
+              <th>Player Number</th>
+              <th>Player Country</th>
+              <th>Player Type</th>
+              <th>Player Age</th>
+              <th>Player Match Played</th>
+              <th>Player Goals</th>
+              <th>Player Yallow Cards</th>
+              <th>Player Red Cards</th>
+            </thead>
+            <tbody>
+              <%element.players.forEach((item) =>{%>
+              <tr>
+                <td><%= item.player_name %></td>
+                <td><%= item.player_number %></td>
+                <td><%= item.player_country %></td>
+                <td><%= item.player_type %></td>
+                <td><%= item.player_age %></td>
+                <td><%= item.player_match_played %></td>
+                <td><%= item.player_goals %></td>
+                <td><%= item.player_yellow_cards %></td>
+                <td><%= item.player_red_cards%></td>
+              </tr>
+              <%})%> <% })%>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
