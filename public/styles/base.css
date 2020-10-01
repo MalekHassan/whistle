@@ -971,6 +971,16 @@ table tbody tr {
   font-weight: bold;
 }
 
+.user-instuctions {
+  padding: 0.5rem 0;
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.user-instuctions li {
+  margin: 1rem 0;
+}
+
 @media (max-width: 1024px) {
   #main {
     width: 100%;

@@ -69,6 +69,10 @@ function changeUserPassword() {
   asaid.html('');
   asaid.html(`
       <h2 class='user-title'>Change Password</h2>
+      <ul class="user-instuctions">
+      <li>Password Min length=5 and Max length=15</li>
+      <li>Password and Comform Password should be equal</li>
+      </ul>
       <div class="update-form-container row">
       <form 
       action="/changeUserPass/${userID}?_method=put" 
