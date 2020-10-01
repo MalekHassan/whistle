@@ -59,7 +59,7 @@ function getTodayDate() {
 // render sign in page
 
 function renderSignin(req, res) {
-  res.render('pages/sign');
+  res.render('pages/sign', { errorMessage: '' });
 }
 
 // Home page function
@@ -259,8 +259,8 @@ async function signinFun(req, res) {
         matches: liveMatches,
       });
     } else {
-      console.log('username does NOT exist');
-      res.redirect('/signin');
+      let errorMessage = 'invalid email or password';
+      res.render('pages/sign', { errorMessage });
     }
   });
 }
@@ -297,7 +297,11 @@ async function userPage(req, res) {
       // res.render('pages/user', { matchArray: matchDetail });
       res.render('pages/user');
     } else {
-      res.render('pages/user', { matchesIds: '', userID, userInfo });
+      res.render('pages/user', {
+        matchesIds: '',
+        userID,
+        userInfo,
+      });
     }
   } else {
     res.redirect('/');

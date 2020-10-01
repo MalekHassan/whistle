@@ -25,6 +25,9 @@
   <body>
     <%- include('../layout/header') %>
     <div class="signContainer">
+      <h2 class="error-message">
+        <% if(errorMessage){ %> <%= errorMessage %> <%}else{ %> <%} %>
+      </h2>
       <!-- Box number 1 -->
       <div id="signinform" class="box">
         <form

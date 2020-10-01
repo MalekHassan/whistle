@@ -981,6 +981,14 @@ table tbody tr {
   margin: 1rem 0;
 }
 
+.message {
+  color: rgb(52, 52, 52);
+  font-size: 1.5rem;
+  border-bottom: 1px solid green;
+  margin: 1rem 0;
+  padding-bottom: 0.5rem 0;
+}
+
 @media (max-width: 1024px) {
   #main {
     width: 100%;

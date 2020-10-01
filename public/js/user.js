@@ -1,4 +1,5 @@
 // Values of the hidden from
+$('.message').hide();
 let asaid = $('#aside');
 let userID = $('#userID').val().trim();
 let userFName = $('#fName').val().trim();
@@ -17,6 +18,7 @@ function renderPersonalInfoForm() {
   asaid.html('');
   asaid.html(`
   <h2 class='user-title'>Basic Information</h2>
+  <h3 class="message">Updated</h3>
   <div class="update-form-container row">
   <form
       id="personalInfoFrom"
@@ -56,10 +58,11 @@ function renderPersonalInfoForm() {
       <input type="text" name="phone_number" ${userPhone} />
       <i class="fas fa-exclamation-circle"></i>
     </div>
-    <input type="submit" value="Update" />
+    <input onclick="showMessage()" type="submit" value="Update" />
   </form>
 </div>
   `);
+  $('.message').hide();
   setCheckedAttribut();
   setValues();
 }
@@ -69,6 +72,7 @@ function changeUserPassword() {
   asaid.html('');
   asaid.html(`
       <h2 class='user-title'>Change Password</h2>
+      <h3 class="message">Updated</h3>
       <ul class="user-instuctions">
       <li>Password Min length=5 and Max length=15</li>
       <li>Password and Comform Password should be equal</li>
@@ -90,10 +94,11 @@ function changeUserPassword() {
           <input type="password" name="compass" min="5" max="15" required  />
           <i class="fas fa-exclamation-circle"></i>
         </div>
-        <input type="submit" value="Change Password" />
+        <input onclick="showMessage()" type="submit" value="Change Password" />
       </form>
     </div>
       `);
+  $('.message').hide();
 }
 
 // Render Matches
@@ -193,6 +198,10 @@ function liveMatches(matchData) {
     ? matchData.team_away_badge
     : 'https://apiv2.apifootball.com/badges/17691_hafnarfjordur-w.png';
   this.score = `${matchData.match_hometeam_score} : ${matchData.match_awayteam_score}`;
+}
+
+function showMessage() {
+  $('.message').show();
 }
 
 // Check the Basic Infromation form validation
