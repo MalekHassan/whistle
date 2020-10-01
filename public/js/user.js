@@ -27,17 +27,17 @@ function renderPersonalInfoForm() {
    >
     <div class="form-content row">
       <label for="name">First Name</label>
-      <input  type="text" name="first_name" value="${userFName}" />
+      <input  type="text" name="first_name" value="${userFName}"   />
       <i class="fas fa-exclamation-circle"></i>
     </div>
     <div class="form-content row">
       <label for="name">Last Name</label>
-      <input  type="text" name="last_name" value="${userLName}" />
+      <input  type="text" name="last_name" value="${userLName}"   />
       <i class="fas fa-exclamation-circle"></i>
     </div>
     <div class="form-content row">
       <label for="email">Email</label>
-      <input type="text" name="email" value="${userEmail}" />
+      <input readonly type="text" name="email" value="${userEmail}" />
       <i class="fas fa-exclamation-circle"></i>
     </div>
     <div class="form-content row">
@@ -70,14 +70,21 @@ function changeUserPassword() {
   asaid.html(`
       <h2 class='user-title'>Change Password</h2>
       <div class="update-form-container row">
-      <form action="/changeUserPass/${userID}?_method=put" class="column" method="post">
+      <form 
+      action="/changeUserPass/${userID}?_method=put" 
+      class="column" 
+      method="post" 
+      onsubmit="return checkPasswords()"
+      >
         <div class="form-content row">
           <label for="password">Password</label>
-          <input type="password" name="newpass" />
+          <input type="password" name="newpass" min="5" max="15" required  />
+          <i class="fas fa-exclamation-circle"></i>
         </div>
         <div class="form-content row">
           <label for="password">Comform New Password</label>
-          <input type="password" name="compass" />
+          <input type="password" name="compass" min="5" max="15" required  />
+          <i class="fas fa-exclamation-circle"></i>
         </div>
         <input type="submit" value="Change Password" />
       </form>
@@ -202,11 +209,22 @@ function basicInfoValidation() {
   return !checkArray.includes(false);
 }
 
+// Check password and comform password
+
+function checkPasswords() {
+  // Get the Values of passwords
+  let passwordsArray = [...$('input[type="password"]')];
+  let checkArray = checkEmptyPass(passwordsArray);
+  checkArray.push(checkPassAndComPass(passwordsArray));
+  console.log(checkArray);
+  return !checkArray.includes(false);
+}
+
 // Check inputs if empty
 function checkEmpty(elements) {
   let checkArray = [];
   elements.forEach((element, index) => {
-    if (element.val() === '') {
+    if (element.val().trim() === '') {
       $('.fa-exclamation-circle').eq(index).show();
       element.addClass('error');
       checkArray.push(false);
@@ -218,6 +236,34 @@ function checkEmpty(elements) {
     }
   });
   return checkArray;
+}
+
+// Check passwords if empty
+function checkEmptyPass(elements) {
+  let checkArray = [];
+  elements.forEach((element, index) => {
+    if (element.value.trim() === '') {
+      $('.fa-exclamation-circle').eq(index).show();
+      element.classList.add('error');
+      checkArray.push(false);
+    } else {
+      $('.fa-exclamation-circle').eq(index).hide();
+      element.classList.remove('error');
+      element.classList.add('sucsses');
+      checkArray.push(true);
+    }
+  });
+  return checkArray;
+}
+// check if password and comform password are equal
+function checkPassAndComPass(elements) {
+  let str = true;
+  if (elements[0].value !== elements[1].value) {
+    $('.fa-exclamation-circle').eq(1).show();
+    elements[1].classList.add('error');
+    str = false;
+  }
+  return str;
 }
 
 // Check Phone Number length and if it is number
