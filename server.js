@@ -328,8 +328,7 @@ async function getQuesResult(req, res) {
 }
 
 // Add match id to dataBase
-
-function addFavToDataBase(req, res) {
+async function addFavToDataBase(req, res) {
   const { matchID } = req.params;
   let userID = JSON.parse(localStorage.getItem('userID'))
     ? JSON.parse(localStorage.getItem('userID'))
@@ -338,12 +337,29 @@ function addFavToDataBase(req, res) {
   if (!userID) {
     res.redirect('/');
   } else {
-    const SQL = `INSERT INTO matches (match_id,u_id) VALUES ($1,$2)`;
-    const safeValues = [matchID, userID];
-    client.query(SQL, safeValues).then((result) => {
-      res.redirect('/userPage');
-    });
+    let matchesIds = await getMatchesInDB(userID);
+    if (matchesIds.includes(matchID)) {
+      // it should be a message to the user
+      console.log('you already have this match');
+      res.redirect('/');
+    } else {
+      const SQL = `INSERT INTO matches (match_id,u_id) VALUES ($1,$2)`;
+      const safeValues = [matchID, userID];
+      client.query(SQL, safeValues).then((result) => {
+        res.redirect('/userPage');
+      });
+    }
   }
+}
+
+// get matches ids from data base for each user
+
+async function getMatchesInDB(userID) {
+  const selectSQL = 'SELECT match_id FROM matches WHERE u_id=$1;';
+  const safeValues = [userID];
+  return await client
+    .query(selectSQL, safeValues)
+    .then((data) => data.rows.map((item) => item.match_id));
 }
 
 // Add New User To Data Base
