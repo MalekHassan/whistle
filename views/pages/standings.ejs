@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+    integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@1,800&family=Josefin+Sans:wght@700&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href="../../styles/reset.css" />
+    <link rel="stylesheet" href="../../styles/base.css" />
+    <link rel="stylesheet" href="../../styles/nav.css">
+
+    <title>Whistle</title>
+  </head>
+  
+  <body class="body">
+    <%- include('../layout/header') %>
+    <div class='cente-tilte'>
+
+      <h2  id="afterRun"><%= StandingsData[0].league_name%> Standings(<%= StandingsData[0].country_name%> league)</h2>
+    </div>
+    <div class="table-standings-container column">
+      <div class="table-details">
+        <table>
+            <thead>
+            <th>Team position</th>  
+            <th>Team Name</th>
+            <th>Team Badge</th>
+            <th>Matches Played</th>
+            <th>Matches Won</th>
+            <th>Matches Draw</th>
+            <th>Matches Lost</th>
+            <th>Goals Scored</th>
+            <th>Goals Against</th>
+            <th>Goals Difference</th>
+            <th>Points</th>
+            <th>Status</th>
+          </thead>
+          <tbody>
+            <%StandingsData.forEach(element=>{ %>
+          <% let def = element. overall_league_GF - element. overall_league_GA %>
+            <tr>
+              <td><%= element.overall_league_position %></td>
+              <td><a href="/team/<%= element.team_id %> "><%= element.team_name %></a></td>
+              <td><a href="/team/<%= element.team_id %> "><img src="<%= element.team_badge%>"/></a></td>
+              <td><%= element.overall_league_payed %></td>
+              <td><%= element.overall_league_W %></td>
+              <td><%= element.overall_league_D %></td>
+              <td><%= element. overall_league_L %></td>
+              <td><%= element. overall_league_GF %></td>
+              <td><%= element. overall_league_GA %></td>
+              <td> <%= def%></td>
+              <td><%= element.overall_league_PTS %></td>
+              <td><%= element.overall_promotion %></td>
+            </tr>
+            <% })%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.5.1.js"></script>
+    
+  </body>
+</html>

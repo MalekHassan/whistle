@@ -99,22 +99,24 @@ function renderMatches(match) {
         <h2>${match.league_name}</h2>
         <div class="score row">
           <div class="live-match-image column">
+          <a href="/team/${match.match_hometeam_id}">
             <img id="home-team-badge"
               src="${match.team_home_badge} "
               alt="${match.match_hometeam_name} "
             />
-            <small>${match.match_hometeam_name} </small>
+            <small>${match.match_hometeam_name} </small></a>
           </div>
           <div class="time-score column">
             <p>${match.match_status}</p>
             <p>${match.score}</p>
           </div>
           <div class="live-match-image column">
+          <a href="/team/${match.match_awayteam_id}">
             <img id="away-team-badge"
               src="${match.team_away_badge} "
               alt="${match.match_awayteam_name} "
             />
-            <small>${match.match_awayteam_name} </small>
+            <small>${match.match_awayteam_name} </small></a>
           </div>
         </div>
         <form
@@ -248,6 +250,7 @@ function setValues() {
   });
 }
 
+
 // Check the Basic Infromation form validation
 function basicInfoValidation() {
   // Get the values of inputes
@@ -337,7 +340,7 @@ function checkphoneNumber(element) {
     element.addClass('error');
   }
   return str;
-}
+
 
 // Events
 

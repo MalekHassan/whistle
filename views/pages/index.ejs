@@ -59,6 +59,7 @@
             <option value="playersInfo">Search for your player</option>
             <option value="matchesDate">Search due to Date</option>
             <option value="bestPlayer">Top scored player</option>
+            <option value="leagues">Leagues Standings</option>
           </select>
         </div>
 
@@ -105,6 +106,22 @@
           <form action="/bestOf" class="hidden-form" id="bestPlayer">
             <select name="leagueName" id="leagueName">
               <option selected="selected" value="leagueName">
+                League Name
+              </option>
+              <!-- <option value="589">Champions league</option> -->
+              <option value="148">Premier League</option>
+              <option value="262">Serie A</option>
+              <option value="468">LaLiga</option>
+              <option value="195">Bundesliga</option>
+              <option value="176">Ligue 1</option>
+            </select>
+            <input class="submitt" type="submit" value="submit" />
+          </form>
+        </div>
+        <div id="hideMe">
+          <form action="/leagues" class="hidden-form" id="leagues">
+            <select name="leaguesName" id="leaguesName">
+              <option selected="selected" value="leaguesName">
                 League Name
               </option>
               <!-- <option value="589">Champions league</option> -->
@@ -220,6 +237,7 @@
         'playersInfo',
         'matchesDate',
         'bestPlayer',
+        'leagues'
       ];
       selectArray.forEach((element) => {
         $(`#${element}`).hide();
@@ -238,6 +256,7 @@
       $('#hideSign').hide();
       function showSignin() {
         $('#hideSign').toggle();
+        document.location.reload(true)
       }
     </script>
   </body>

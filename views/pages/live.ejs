@@ -28,22 +28,24 @@
         <p>Match time: <%= match.match_time%></p>
         <div class="score row">
           <div class="live-match-image column">
-            <img
+            <a href="/team/<%= match.match_hometeam_id %> " class="column">
+            <img class="row"
               src="<%= match.team_home_badge %> "
               alt="<%= match.match_hometeam_name %> "
             />
-            <a href="/team/<%= match.match_hometeam_id %>"><small><%= match.match_hometeam_name %> </small></a>
+            <small class="row"><%= match.match_hometeam_name %> </small></a>
           </div>
           <div class="time-score column">
             <p><%=match.match_status%>`</p>
             <p><%= match.score %></p>
           </div>
           <div class="live-match-image column">
-            <img
+            <a href="/team/<%= match.match_awayteam_id %>" class="column" > 
+            <img class="row"
               src="<%= match.team_away_badge %> "
               alt="<%= match.match_awayteam_name %> "
             />
-             <a href="/team/<%= match.match_awayteam_id %>"><small><%= match.match_awayteam_name %> </small></a>
+            <small class="row"><%= match.match_awayteam_name %> </small></a>
           </div>
         </div>
         <form
