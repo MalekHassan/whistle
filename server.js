@@ -540,12 +540,12 @@ function updateUserPassword(req, res) {
 }
 
 // Deelte Match
-
 function deleteMatch(req, res) {
   let safeValue = [req.params.matchID];
   const SQL = 'DELETE FROM matches WHERE match_id=$1';
-  client.query(SQL, safeValue).then(() => {
-    res.redirect('/');
+  client.query(SQL, safeValue).then(() => {});
+  res.send({
+    message: 'Match Has Been Deleted',
   });
 }
 

@@ -94,7 +94,6 @@ function changeUserPassword() {
 
 // Render Matches
 function renderMatches(match) {
-  console.log(match);
   let content = `
             <div class="fav-match live-match-content column">
         <h2>${match.league_name}</h2>
@@ -127,9 +126,9 @@ function renderMatches(match) {
         </form>
         <form
           class="row"
-          action="/match_delete/${match.match_id}?_method=delete"
-          method="POST"
+          onsubmit="deleteFavMatchFormDB(event)"
         >
+          <input type="hidden" name="match_id" value="${match.match_id}"/>
           <input type="submit" value="Delete Match" />
         </form>
       </div>            
@@ -215,6 +214,23 @@ function updateUserPassword(event) {
   }
 }
 
+// Delete Fav Match
+
+function deleteFavMatchFormDB(event) {
+  event.preventDefault();
+  let matchID = $('input[name="match_id"]').val();
+  $.ajax({
+    type: 'DELETE',
+    url: `/match_delete/${matchID}`,
+    dataType: 'json',
+  }).then((result) => {
+    getFavMatches();
+    $('#fav-match-container').prepend(
+      `<h3 class='message'>${result.message}</h3>`
+    );
+  });
+}
+
 // Set Male or Female checked
 function setCheckedAttribut() {
   let radios = [...$('input[type=radio]')];
@@ -230,24 +246,6 @@ function setValues() {
   inputText.forEach((item, index) => {
     item.value = userIfnoArr[index];
   });
-}
-
-// Constructor
-function liveMatches(matchData) {
-  this.match_id = matchData.match_id;
-  this.match_status = matchData.match_status;
-  this.league_logo = matchData.league_logo;
-  this.league_name = matchData.league_name;
-  this.match_time = matchData.match_time;
-  this.match_hometeam_name = matchData.match_hometeam_name;
-  this.match_awayteam_name = matchData.match_awayteam_name;
-  this.team_home_badge = matchData.team_home_badge
-    ? matchData.team_home_badge
-    : 'https://apiv2.apifootball.com/badges/17691_hafnarfjordur-w.png';
-  this.team_away_badge = matchData.team_away_badge
-    ? matchData.team_away_badge
-    : 'https://apiv2.apifootball.com/badges/17691_hafnarfjordur-w.png';
-  this.score = `${matchData.match_hometeam_score} : ${matchData.match_awayteam_score}`;
 }
 
 // Check the Basic Infromation form validation
