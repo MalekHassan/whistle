@@ -145,24 +145,28 @@ function renderMatches(match) {
             `;
   $('#fav-match-container').append(content);
 }
-// Get matches from API
+
+// Get Matchs From DB
 function getFavMatches() {
   asaid.html('');
-
-  let ids = $('#ids').val();
-  console.log(ids);
-  if (ids) {
-    asaid.append(`<div id="fav-match-container" class="row">
+  asaid.append(`<div id="fav-match-container" class="row">
   <h2 class='user-title'>Favorite Matchs</h2>
   </div>`);
-    let matchResultUrl = `https://apiv2.apifootball.com/?action=get_events&match_id=${ids}&APIkey=b2fec2eb69e6174d9c6a0c3d5187b0661eb4e4b4a708387c3b1e8d9c7ed3951a`;
-    $.ajax(matchResultUrl).then((result) => {
-      result.forEach((match) => {
-        renderMatches(new liveMatches(match));
+  let ids = $('#ids').val();
+  if (ids) {
+    $.ajax({
+      type: 'GET',
+      url: '/getmatches',
+      dataType: 'json',
+    }).then((data) => {
+      data.forEach((match) => {
+        renderMatches(match);
       });
     });
   } else {
-    asaid.append(`<h2>There Is No Favorite Matches<h2>`);
+    $('#fav-match-container').append(
+      `<h2 class="fav_error">There Is No Favorite Matches<h2>`
+    );
   }
 }
 // Set Male or Female checked
@@ -301,4 +305,5 @@ function checkphoneNumber(element) {
 
 $('#user-info').click(renderPersonalInfoForm);
 $('#password').click(changeUserPassword);
+// $('#favMatchesForm').click(getFavMatches);
 $('#favMatchesForm').click(getFavMatches);

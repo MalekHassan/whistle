@@ -971,6 +971,13 @@ table tbody tr {
   font-weight: bold;
 }
 
+.fav_error {
+  margin: 1rem auto;
+  font-size: 1.4rem;
+  color: red;
+  text-decoration: underline;
+}
+
 .user-instuctions {
   padding: 0.5rem 0;
   margin: 0.5rem 0;

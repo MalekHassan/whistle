@@ -47,8 +47,27 @@ app.post('/addNewUser', addNewUserToDB);
 app.get('/signout', signOutUser);
 app.put('/changePersonalInfo/:userID', updatePersonalInfo);
 app.put('/changeUserPass/:userID', updateUserPassword);
+app.get('/getmatches', getMatchesForUser);
 
 // Functions
+
+// get Matches in DB fro the user
+
+async function getMatchesForUser(req, res) {
+  const SOCCER_API_KEY = process.env.SOCCER_API_KEY;
+  const userID = JSON.parse(localStorage.getItem('userID'));
+  let matchesIds = await getMatchesInDB(userID);
+  if (matchesIds.length > 0) {
+    const URL = `https://apiv2.apifootball.com/?action=get_events&match_id=${matchesIds}&APIkey=${SOCCER_API_KEY}`;
+    let matchesAPI = await superagent.get(URL).then((data) => data.body);
+    let userMatches = matchesAPI.map((data) => {
+      return new liveMatches(data);
+    });
+    res.send(userMatches);
+  } else {
+    res.send("You Don't have any mathces in You Favorite");
+  }
+}
 
 // Get Today date
 
@@ -339,7 +358,6 @@ async function addFavToDataBase(req, res) {
   } else {
     let matchesIds = await getMatchesInDB(userID);
     if (matchesIds.includes(matchID)) {
-      // it should be a message to the user
       console.log('you already have this match');
       res.redirect('/');
     } else {
