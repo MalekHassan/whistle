@@ -78,12 +78,12 @@ function changeUserPassword() {
       >
         <div class="form-content row">
           <label for="password">Password</label>
-          <input type="password" name="newpass" min="5" max="15" required  />
+          <input type="password" name="newpass" minlength="5" maxlength="15" required  />
           <i class="fas fa-exclamation-circle"></i>
         </div>
         <div class="form-content row">
           <label for="password">Comform New Password</label>
-          <input type="password" name="compass" min="5" max="15" required  />
+          <input type="password" name="compass" minlength="5" maxlength="15" required  />
           <i class="fas fa-exclamation-circle"></i>
         </div>
         <input onclick="showMessage()" type="submit" value="Change Password" />
@@ -183,10 +183,14 @@ function updateUserInfo(event) {
         }).value,
       },
     }).then((data) => {
+      $('h3').remove();
       asaid.append(`<h3 class='message'>${data.message}</h3>`);
+      $('h3').eq(1).remove();
     });
   } else {
+    $('h3').remove();
     asaid.append(`<h3 class='message'>Please Fix The Errors</h3>`);
+    $('h3').eq(1).remove();
   }
 }
 // Change user Password
@@ -202,11 +206,11 @@ function updateUserPassword(event) {
         newpass: $('input[name="newpass"]').val(),
       },
     }).then((data) => {
-      console.log(data.message);
+      $('h3').remove();
       asaid.append(`<h3 class='message'>${data.message}</h3>`);
-      $('.message').eq(1).remove();
     });
   } else {
+    $('h3').remove();
     asaid.append(`<h3 class='message'>Please Fix The Errors</h3>`);
   }
 }
