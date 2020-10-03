@@ -518,21 +518,6 @@
 </head>
 
 <body>
-    <!-- <header class="nav">
-        <article class="headerContainer">
-            <div id="item1Header">
-                <a href="/">Whistle <i class="fas fa-flag-checkered"></i></a>
-            </div>
-            <div id="item2Header">
-                <a id="tm" href="/live">Todays Matches</a>
-                <a id="ch" href="#challenge">Challenge</a>
-                <a id="nw" href="#newsSection">News</a>
-                <a id="fi" href="#footballInfo">Football Info</a>
-                <a id="en" href="#eng" data-reload>eng</a>
-                <a id="ar" href="#ar" data-reload>Ar</a>
-                <a href="/signin"><i onclick="showSignin()" style='font-size:24px' class='fas'>&#xf406;</i><br></a>
-            </div>
-        </article> -->
     <header class="nav">
         <article class="headerContainer">
             <div id="item1Header">
@@ -543,15 +528,11 @@
                 <a id="ch" href="#challenge">Challenge</a>
                 <a id="nw" href="#newsSection">News</a>
                 <a id="fi" href="#footballInfo">Football Info</a>
-                <div class="langWrap">
-                    <a href="#" language='english' class="active">EN</a>
-                    <a href="#" language='arabic'>Ar</a>
-                </div>
                 <a href="/signin"><i onclick="showSignin()" style='font-size:24px' class='fas'>&#xf406;</i><br></a>
             </div>
+           
         </article>
-
-    </header>
+        <div id="google_translate_element"></div>
     <main>
         <section id="firstSection">
             <!-- <div id="testDiv"></div> -->
@@ -710,7 +691,7 @@
                 </div>
             </div>
             <% }) %> <% }else{ %>
-            <p id="noMatches">There is No Mathces today for this league</p>
+            <p id="noMatches">There is No Matches today for this league</p>
             <% } %>
             <div id="line"></div>
         </div>
@@ -765,108 +746,16 @@
             document.location.reload(true)
         }
     </script>
-    <script>
-        const langEl = document.querySelector('.langWrap');
-        const link = document.querySelectorAll('a');
-        const tmEl = document.querySelector('.tm');
-        const chEl = document.querySelector('.ch');
-        const nwEl = document.querySelector('.nw');
-        const fiEl = document.querySelector('.fi');
 
-        link.forEach(el=>{
-            console.log('link',link);
-            el.addEventListener('click',()=>{
-                langEl.querySelector('.active').classList.remove('active');
-                el.classList.add('active');
-
-                const attr = el.getAttribute('');
-                tmEl.textContent = langData[attr].e1;
-            });
-        });
-
-        var langData = {
-            eng: {
-                e1:"Todays Matches",
-                e2:"Challenge",
-                e3:"News",
-                e4:"Football Info",
-                e5:"Eng",
-                e6:"Ar",
-            },
-            ar: {
-                e1:"مباريات اليوم",
-                e2:"اختبر معلوماتك",
-                e3:"اخبار اليوم",
-                e4:"بحث ",
-                e5:"انجليزي",
-                e6:"عربي",
-            }
-        }
-         
-       
-        // //define language reload anchors
-        // console.log('hiii');
-        // // console.log('[data-reload]',[data-reload]);
-        
-
-        // const dataReload = document.querySelectorAll("[data-reload]")
-
-        // //language translations
-        // var language = {
-        //     eng: {
-        //         e1:"Todays Matches",
-        //         e2:"Challenge",
-        //         e3:"News",
-        //         e4:"Football Info",
-        //         e5:"Eng",
-        //         e6:"Ar",
-        //     },
-        //     ar: {
-        //         e1:"مباريات اليوم",
-        //         e2:"اختبر معلوماتك",
-        //         e3:"اخبار اليوم",
-        //         e4:"بحث ",
-        //         e5:"انجليزي",
-        //         e6:"عربي",
-        //     }
-        // }
-        
-        // //Define language via window hash
-        // console.log('window.location.hash]',window.location.hash);
-        // if (window.location.hash){
-        //     if (window.location.hash === "#eng"){
-        //         console.log('inside eng');
-
-        //         tm.textcontent = language.eng.e1;
-        //         ch.textcontent = language.eng.e2;
-        //         nw.textcontent = language.eng.e3;
-        //         fi.textcontent = language.eng.e4;
-        //         en.textcontent = language.eng.e5;
-        //         ar.textcontent = language.eng.e6;
-        //     }
-        //     if (window.location.hash === "#ar"){
-        //         console.log('inside ar');
-        //         console.log('tm',tm.textcontent=language.ar.e1);
-        //         tm.textcontent = language.ar.e1;
-        //         ch.textcontent = language.ar.e2;
-        //         nw.textcontent = language.ar.e3;
-        //         fi.textcontent = language.ar.e4;
-        //         en.textcontent = language.ar.e5;
-        //         ar.textcontent = language.ar.e6;
-        //     }
-        // }
-
-        // //Define language reload on click illiteration
-        // console.log('dataReload',dataReload);
-        // for (let index = 0; index <= dataReload.length; index++) {
-        //     dataReload[index].onclick = function () {
-        //         location.reload(true);
-        //         console.log('reload',location.reload());
-        //     }
-            
-        // }
-
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    }
     </script>
+    
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+   
 </body>
 
 </html>
