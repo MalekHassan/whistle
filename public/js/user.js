@@ -1,5 +1,4 @@
 // Values of the hidden from
-$('.message').hide();
 let asaid = $('#aside');
 let userID = $('#userID').val().trim();
 let userFName = $('#fName').val().trim();
@@ -18,14 +17,11 @@ function renderPersonalInfoForm() {
   asaid.html('');
   asaid.html(`
   <h2 class='user-title'>Basic Information</h2>
-  <h3 class="message">Updated</h3>
   <div class="update-form-container row">
   <form
       id="personalInfoFrom"
-      action="/changePersonalInfo/${userID}?_method=put "
       class="column"
-       method="post"
-       onsubmit="return basicInfoValidation()"
+       onsubmit="updateUserInfo(event)"
    >
     <div class="form-content row">
       <label for="name">First Name</label>
@@ -62,7 +58,6 @@ function renderPersonalInfoForm() {
   </form>
 </div>
   `);
-  $('.message').hide();
   setCheckedAttribut();
   setValues();
 }
@@ -72,17 +67,14 @@ function changeUserPassword() {
   asaid.html('');
   asaid.html(`
       <h2 class='user-title'>Change Password</h2>
-      <h3 class="message">Updated</h3>
       <ul class="user-instuctions">
       <li>Password Min length=5 and Max length=15</li>
       <li>Password and Comform Password should be equal</li>
       </ul>
       <div class="update-form-container row">
       <form 
-      action="/changeUserPass/${userID}?_method=put" 
       class="column" 
-      method="post" 
-      onsubmit="return checkPasswords()"
+      onsubmit="updateUserPassword(event)"
       >
         <div class="form-content row">
           <label for="password">Password</label>
@@ -98,7 +90,6 @@ function changeUserPassword() {
       </form>
     </div>
       `);
-  $('.message').hide();
 }
 
 // Render Matches
@@ -169,6 +160,57 @@ function getFavMatches() {
     );
   }
 }
+
+// Update User Info in DB
+function updateUserInfo(event) {
+  event.preventDefault();
+  if (basicInfoValidation()) {
+    $.ajax({
+      type: 'PUT',
+      url: `/changePersonalInfo/${userID}`,
+      dataType: 'json',
+      data: {
+        first_name: $('input[name="first_name"]').val(),
+        last_name: $('input[name="last_name"]').val(),
+        email: $('input[name="email"]').val(),
+        phone_number: $('input[name="phone_number"]').val(),
+        gender: [...$('input[type=radio]')].reduce((wanted, item) => {
+          if (item.checked) {
+            console.log();
+            wanted = item;
+          }
+          return wanted;
+        }).value,
+      },
+    }).then((data) => {
+      asaid.append(`<h3 class='message'>${data.message}</h3>`);
+    });
+  } else {
+    asaid.append(`<h3 class='message'>Please Fix The Errors</h3>`);
+  }
+}
+// Change user Password
+
+function updateUserPassword(event) {
+  event.preventDefault();
+  if (checkPasswords()) {
+    $.ajax({
+      type: 'PUT',
+      url: `/changeUserPass/${userID}`,
+      dataType: 'json',
+      data: {
+        newpass: $('input[name="newpass"]').val(),
+      },
+    }).then((data) => {
+      console.log(data.message);
+      asaid.append(`<h3 class='message'>${data.message}</h3>`);
+      $('.message').eq(1).remove();
+    });
+  } else {
+    asaid.append(`<h3 class='message'>Please Fix The Errors</h3>`);
+  }
+}
+
 // Set Male or Female checked
 function setCheckedAttribut() {
   let radios = [...$('input[type=radio]')];
@@ -204,10 +246,6 @@ function liveMatches(matchData) {
   this.score = `${matchData.match_hometeam_score} : ${matchData.match_awayteam_score}`;
 }
 
-function showMessage() {
-  $('.message').show();
-}
-
 // Check the Basic Infromation form validation
 function basicInfoValidation() {
   // Get the values of inputes
@@ -222,7 +260,6 @@ function basicInfoValidation() {
     phoneNumberEle,
   ]);
   checkArray.push(checkphoneNumber(phoneNumberEle));
-  console.log(checkArray);
   return !checkArray.includes(false);
 }
 
@@ -289,7 +326,6 @@ function checkphoneNumber(element) {
   let regix = /^\d{10}$/g;
   let str = false;
   if (regix.test(element.val())) {
-    console.log(element.val());
     $('.fa-exclamation-circle').eq(3).hide();
     element.removeClass('error');
     element.addClass('sucsses');
@@ -307,3 +343,4 @@ $('#user-info').click(renderPersonalInfoForm);
 $('#password').click(changeUserPassword);
 // $('#favMatchesForm').click(getFavMatches);
 $('#favMatchesForm').click(getFavMatches);
+$('#personalInfoFrom').submit(updateUserInfo);

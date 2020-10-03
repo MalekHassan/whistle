@@ -64,8 +64,6 @@ async function getMatchesForUser(req, res) {
       return new liveMatches(data);
     });
     res.send(userMatches);
-  } else {
-    res.send("You Don't have any mathces in You Favorite");
   }
 }
 
@@ -498,6 +496,7 @@ function signOutUser(req, res) {
 // Update User Personal Information
 
 async function updatePersonalInfo(req, res) {
+  console.log(req.body);
   const selectURL = 'SELECT * FROM users WHERE u_id=$1';
   const userId = [req.params.userID];
   let userInfo = await client
@@ -525,9 +524,8 @@ async function updatePersonalInfo(req, res) {
     phone_number,
     req.params.userID,
   ];
-  client.query(updateSQL, values).then(() => {
-    res.redirect('/userPage');
-  });
+  client.query(updateSQL, values).then(() => {});
+  res.send({ message: 'Updated successfully' });
 }
 
 // Update user Password
@@ -537,9 +535,8 @@ function updateUserPassword(req, res) {
   const newpass = req.body.newpass;
   const updateSQL = 'UPDATE users set password=$1 WHERE u_id=$2';
   const safeValues = [newpass, userId];
-  client.query(updateSQL, safeValues).then(() => {
-    res.redirect('/userPage');
-  });
+  client.query(updateSQL, safeValues).then(() => {});
+  res.send({ message: 'Updated successfully' });
 }
 
 // Deelte Match
