@@ -50,7 +50,7 @@
         <div class="substitutions column">
           <h4>Substitutions</h4>
           <% match.substitutions.home.forEach(item =>{%>
-              <h5><%=item.substitution%> // time: <%=item.time%>`</h5>
+              <h5>OUT:<%=item.substitution%>:IN // time: <%=item.time%>`</h5>
           <%})%>
         </div>
         <div class="line-up column">
@@ -64,8 +64,9 @@
         </div>
       </div>
       <div class="live-match-content column">
+        <a href="/leaguematches/<%=match.league_id%>">
         <h2><%= match.league_name %></h2>
-        <img src="<%= match.league_logo %> " alt="<%- match.league_name %> " />
+        <img src="<%= match.league_logo %> " alt="<%- match.league_name %> " /></a>
         <p>Match time: <%= match.match_time%></p>
         <div class="score row">
           <div class="live-match-image column">
@@ -172,7 +173,7 @@
         <div class="substitutions column">
           <h4>Substitutions</h4>
           <% match.substitutions.away.forEach(item =>{%>
-              <h5><%=item.substitution%> // time: <%=item.time%>`</h5>
+              <h5> OUT: <%=item.substitution%>:IN // time: <%=item.time%>`</h5>
           <%})%>
         </div>
         <div class="line-up column">

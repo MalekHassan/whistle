@@ -95,6 +95,9 @@ function changeUserPassword() {
 // Render Matches
 function renderMatches(match) {
   let content = `
+
+            <div id="fav-match" class="live-match-content column">
+            <h2><a href="/leaguematches/${match.league_id}">${match.league_name}</a></h2>
             <div class="fav-match live-match-content column">
         <h2>${match.league_name}</h2>
         <div class="score row">
@@ -249,6 +252,7 @@ function setValues() {
     item.value = userIfnoArr[index];
   });
 }
+
 
 // Check the Basic Infromation form validation
 function basicInfoValidation() {

@@ -22,8 +22,8 @@
     <div class="container row">
       <% matchArray.forEach(match => { %>
       <div id="live-match" class="live-match-content column">
-        <h2><%= match.league_name %></h2>
-        <img src="<%= match.league_logo %> " alt="<%- match.league_name %> " />
+        <a href="/leaguematches/<%=match.league_id%>"><h2><%= match.league_name %></h2>
+          <img src="<%= match.league_logo %> " alt="<%- match.league_name %> " /></a>
         <p>Match time: <%= match.match_time%></p>
         <div class="score row">
           <div class="live-match-image column">

@@ -19,13 +19,15 @@
 
     <div class="container row">
       <div class="cente-tilte">
-        <h2  id="afterRun">Todays Matches</h2>
+        <h2  id="afterRun"><%=matchArray[0].league_name%> Upcomming Matches</h2>
       </div>
       <% matchArray.forEach(match => { %>
       <div id="live-match" class="live-match-content column">
         <a href="/leaguematches/<%=match.league_id%>"><h2><%= match.league_name %></h2>
-          <img src="<%= match.league_logo %> " alt="<%- match.league_name %> " /></a>
+        <img src="<%= match.league_logo %> " alt="<%- match.league_name %> " /></a>
+        <p>Match Round :<%=match.match_round%></p>
         <p>Match time: <%= match.match_time%></p>
+        <p>Match date: <%= match.match_date%></p>
         <div class="score row">
           <div class="live-match-image column">
             <a href="/team/<%= match.match_hometeam_id %> " class="column">
@@ -55,6 +57,10 @@
         >
           <input type="submit" value="Get Match Details" />
         </form>
+        <div class="match-ref row" style="margin-bottom: 20px;">
+            <p class="column" style="margin:10px 10px;">Match Referee : <%= match.match_referee%></p>
+            <p class="column" style="margin:10px 10px;">Stadum: <%=match.match_stadium%></p>
+        </div>
       </div>
       <% }); %>
     </div>
