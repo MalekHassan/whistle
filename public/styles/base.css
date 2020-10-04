@@ -303,7 +303,7 @@ header a:hover {
   margin-bottom: 10px;
 }
 
-.live-match-content a{
+.live-match-content a {
   text-align: center;
   text-decoration: none;
   color: rgb(30, 30, 85);
@@ -402,32 +402,32 @@ header a:hover {
   justify-content: space-between;
   margin: 5px 0;
 }
-.getmatches{
+.getmatches {
   margin: 10px 0;
-    background-color: #2f3061;
-    color: rgb(223, 223, 223);
-    width: 100%;
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 14px;
-    font-weight: bold;
+  background-color: #2f3061;
+  color: rgb(223, 223, 223);
+  width: 100%;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: bold;
 }
 .line-up .live-match-image {
   justify-content: space-around;
   text-align: center;
   padding: 5px 0;
 }
-.team-name a{
+.team-name a {
   text-align: center;
   text-decoration: none;
   color: rgb(30, 30, 85);
   align-items: inherit;
 }
 
-.tema-name a :hover{
+.tema-name a :hover {
   color: #2f3061;
   border-bottom: 1px solid #2f3061;
-  padding-bottom: 1px ;
+  padding-bottom: 1px;
 }
 .line-up .team-name {
   justify-content: space-around;
@@ -741,11 +741,10 @@ table tbody tr td a {
   color: rgb(52, 52, 52);
 }
 
-table tbody tr td a:hover{
-  
+table tbody tr td a:hover {
   color: #2f3061;
   border-bottom: 1px solid #2f3061;
-  padding-bottom: 1px ; 
+  padding-bottom: 1px;
 }
 
 /* Player info table end */
@@ -901,7 +900,7 @@ table tbody tr td a:hover{
 }
 
 .fav-match {
-  width: 40%;
+  width: 63%;
   margin: 1rem;
 }
 

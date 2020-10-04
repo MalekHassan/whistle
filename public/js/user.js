@@ -96,10 +96,8 @@ function changeUserPassword() {
 function renderMatches(match) {
   let content = `
 
-            <div id="fav-match" class="live-match-content column">
+            <div class="live-match-content fav-match column">
             <h2><a href="/leaguematches/${match.league_id}">${match.league_name}</a></h2>
-            <div class="fav-match live-match-content column">
-        <h2>${match.league_name}</h2>
         <div class="score row">
           <div class="live-match-image column">
           <a href="/team/${match.match_hometeam_id}">
@@ -136,6 +134,10 @@ function renderMatches(match) {
           <input type="hidden" name="match_id" value="${match.match_id}"/>
           <input type="submit" value="Delete Match" />
         </form>
+        <div class="match-ref row" style="margin-bottom: 20px;">
+            <p class="column" style="margin:10px 10px;">Match Referee :${match.match_referee}</p>
+            <p class="column" style="margin:10px 10px;">Stadum:${match.match_stadium}</p>
+        </div>
       </div>            
             `;
   $('#fav-match-container').append(content);
@@ -252,7 +254,6 @@ function setValues() {
     item.value = userIfnoArr[index];
   });
 }
-
 
 // Check the Basic Infromation form validation
 function basicInfoValidation() {

@@ -67,7 +67,9 @@
         <a href="/leaguematches/<%=match.league_id%>">
         <h2><%= match.league_name %></h2>
         <img src="<%= match.league_logo %> " alt="<%- match.league_name %> " /></a>
-        <p>Match time: <%= match.match_time%></p>
+          <p>Match Round :<%=match.match_round%></p>
+          <p>Match time: <%= match.match_time%></p>
+          <p>Match date: <%= match.match_date%></p>
         <div class="score row">
           <div class="live-match-image column">
             <a href="/team/<%= match.match_hometeam_id %>"  class="column">
