@@ -16,10 +16,10 @@ function checkSignInForm() {
 
 function checkSignUpForm() {
   // Get the values of inputes
-  let passwordEle = $('input[name="password"]');
+  let passwordEle = $('input[name="uppassword"]');
   let firstNameEle = $('input[name="firstname"]');
   let lastNameEle = $('input[name="lastname"]');
-  let email = $('input[name="email"]');
+  let email = $('input[name="upemail"]');
   let checkArray = checkEmpty([email, passwordEle, firstNameEle, lastNameEle]);
   checkArray.push(emailIsValid(email));
   console.log(checkArray);
