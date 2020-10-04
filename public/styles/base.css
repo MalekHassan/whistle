@@ -907,6 +907,16 @@ table tbody tr td a:hover {
 .fav-match input[type='submit'] {
   width: 75%;
 }
+.fav-match button {
+  width: 75%;
+  margin: 10px auto;
+  background-color: #2f3061;
+  color: rgb(223, 223, 223);
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
 #fav-match-container {
   width: 100%;
   justify-content: space-around;

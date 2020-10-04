@@ -127,13 +127,7 @@ function renderMatches(match) {
         >
           <input type="submit" value="Get Match Details" />
         </form>
-        <form
-          class="row"
-          onsubmit="deleteFavMatchFormDB(event)"
-        >
-          <input type="hidden" name="match_id" value="${match.match_id}"/>
-          <input type="submit" value="Delete Match" />
-        </form>
+        <button onclick="deleteFavMatchFormDB(event)" name="${match.match_id}">Delete Match</button>
         <div class="match-ref row" style="margin-bottom: 20px;">
             <p class="column" style="margin:10px 10px;">Match Referee :${match.match_referee}</p>
             <p class="column" style="margin:10px 10px;">Stadum:${match.match_stadium}</p>
@@ -224,8 +218,7 @@ function updateUserPassword(event) {
 // Delete Fav Match
 
 function deleteFavMatchFormDB(event) {
-  event.preventDefault();
-  let matchID = $('input[name="match_id"]').val();
+  let matchID = event.target.name;
   $.ajax({
     type: 'DELETE',
     url: `/match_delete/${matchID}`,
