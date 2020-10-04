@@ -45,7 +45,7 @@
         <div class="matchs-details column">
           <%matchArray.forEach(match=>{ %>
               <div class="match-detail row">
-                <p><%=match.league_name%></p>
+                <a href="/leaguematches/<%=match.league_id%>"><p><%=match.league_name%></p></a>
                 <p><%=match.match_date%></p>
                 <a href="/team/<%= match.match_hometeam_id %>"><p><%=match.match_hometeam_name%></p></a>
                 <p><%=match.score%></p>

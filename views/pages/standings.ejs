@@ -21,7 +21,13 @@
 
       <h2  id="afterRun"><%= StandingsData[0].league_name%> Standings(<%= StandingsData[0].country_name%> league)</h2>
     </div>
+    <div class="table-container column">
+      <form action="/leaguematches/<%=StandingsData[0].league_id%>">
+        <input class="getmatches" type="submit" value='Check <%= StandingsData[0].league_name %>s upcoming matches' >
+      </form>
+    </div>
     <div class="table-standings-container column">
+      
       <div class="table-details">
         <table>
             <thead>
@@ -60,6 +66,11 @@
         </table>
       </div>
     </div>
+    <div class="table-container column" style="margin-bottom: 20px;">
+    <form action="/leaguematches/<%=StandingsData[0].league_id%>">
+      <input class="getmatches" type="submit" value='Check <%= StandingsData[0].league_name %>s upcoming matches' >
+    </form>
+  </div>
     <script src="https://code.jquery.com/jquery-2.5.1.js"></script>
     
   </body>

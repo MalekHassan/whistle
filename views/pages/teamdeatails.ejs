@@ -22,7 +22,10 @@
 
             <h2  id="afterRun"><%= element.team_name %>'s Details</h2>
         </div>
-        <div class="table-container column">
+      <div class="table-container column">
+        <form action="/getteammathes/<%=element.team_key%>">
+          <input class="getmatches" type="submit" value='Check <%= element.team_name %>s upcoming matches' >
+        </form>
             <img src="<%= element.team_badge%>"/>
         <h2 id="afterRun"><%= element.team_name %>'s Coache Details</h2>
       <div class="table-details1 ">
@@ -77,10 +80,13 @@
              
             </tr>
             <%})%>
-            <% })%>
           </tbody>
         </table>
       </div>
+      <form action="/getteammathes/<%=element.team_key%>">
+        <input class="getmatches" type="submit" value='Check <%= element.team_name %>s upcoming matches' >
+      </form>
+      <% })%>
       </div>
     </div>
 
