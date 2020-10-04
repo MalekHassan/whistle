@@ -25,9 +25,17 @@
   <body>
     <%- include('../layout/header') %>
     <div class="signContainer">
+      <h2 class="error-message">
+        <% if(errorMessage){ %> <%= errorMessage %> <%}else{ %> <%} %>
+      </h2>
       <!-- Box number 1 -->
       <div id="signinform" class="box">
-        <form class="loginForm form--login" action="/signin" method="post">
+        <form
+          class="loginForm form--login"
+          action="/signin"
+          method="post"
+          onsubmit="return checkSignInForm()"
+        >
           <img
             src="../../images/logo.png"
             alt="log"
@@ -42,6 +50,7 @@
               id="email"
               placeholder="User"
               class="form__input"
+              required
             />
             <label class="form__label" for="user">User</label>
           </div>
@@ -53,6 +62,9 @@
               id="password"
               placeholder="Password"
               class="form__input"
+              required
+              minlength="5"
+              maxlength="15"
             />
             <label class="form__label" for="password">Password</label>
           </div>
@@ -65,7 +77,12 @@
       </div>
       <!-- Box number 2 -->
       <div id="signupform" class="box">
-        <form class="loginForm form--login" action="/addNewUser" method="post">
+        <form
+          class="loginForm form--login"
+          action="/addNewUser"
+          method="post"
+          onsubmit="return checkSignUpForm()"
+        >
           <img
             src="../../images/logo.png"
             alt="log"
@@ -80,6 +97,7 @@
               id="firstname"
               placeholder="First Name"
               class="form__input"
+              required
             />
             <label class="form__label" for="user">First Name</label>
           </div>
@@ -91,6 +109,7 @@
               id="lastname"
               placeholder="Last Name"
               class="form__input"
+              required
             />
             <label class="form__label" for="user">Last Name</label>
           </div>
@@ -102,6 +121,7 @@
               id="email"
               placeholder="Email"
               class="form__input"
+              required
             />
             <label class="form__label" for="user">Email</label>
           </div>
@@ -113,6 +133,9 @@
               id="password"
               placeholder="Password"
               class="form__input"
+              required
+              minlength="5"
+              maxlength="15"
             />
             <label class="form__label" for="password">Password</label>
           </div>
@@ -127,16 +150,6 @@
       </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script>
-      $('#signin').click(() => {
-        $('#signupform').toggle();
-        $('#signinform').toggle();
-      });
-
-      $('#signup').click(() => {
-        $('#signupform').toggle();
-        $('#signinform').toggle();
-      });
-    </script>
+    <script src="../../js/sing.js"></script>
   </body>
 </html>

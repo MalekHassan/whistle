@@ -303,21 +303,19 @@ header a:hover {
   margin-bottom: 10px;
 }
 
-
 .live-match-content a{
   text-align: center;
   text-decoration: none;
   color: rgb(30, 30, 85);
   align-items: inherit;
 }
-.live-match-content a :hover{
+.live-match-content a :hover {
   color: #2f3061;
   border-bottom: 1px solid #2f3061;
-  padding-bottom: 1px ;
-
+  padding-bottom: 1px;
 }
 
-.live-match-content input[type="submit"] {
+.live-match-content input[type='submit'] {
   margin: 10px 0;
   background-color: #2f3061;
   color: rgb(223, 223, 223);
@@ -658,10 +656,10 @@ header a:hover {
   text-decoration: none;
   color: rgb(52, 52, 52);
 }
-.match-detail a :hover{
+.match-detail a :hover {
   color: #2f3061;
   border-bottom: 1px solid #2f3061;
-  padding-bottom: 1px ;
+  padding-bottom: 1px;
 }
 
 .matchs-details input[type='submit'] {
@@ -881,7 +879,7 @@ table tbody tr td a:hover{
   margin: 1rem 0;
   border: none;
   cursor: pointer;
-  text-align: start;
+  text-align: center;
 }
 #main button:hover,
 #main input[type='submit']:hover {
@@ -902,9 +900,13 @@ table tbody tr td a:hover{
   background-color: rgba(95, 89, 128, 0.2);
 }
 
-#fav-match {
-  width: 45%;
+.fav-match {
+  width: 40%;
   margin: 1rem;
+}
+
+.fav-match input[type='submit'] {
+  width: 75%;
 }
 #fav-match-container {
   width: 100%;
@@ -918,6 +920,7 @@ table tbody tr td a:hover{
 #home-team-badge,
 #away-team-badge {
   width: 100%;
+  height: 100px;
 }
 
 .update-form-container {
@@ -929,6 +932,20 @@ table tbody tr td a:hover{
   justify-content: space-evenly;
   min-height: 300px;
   padding: 1rem;
+}
+
+.form-content {
+  position: relative;
+}
+
+.fa-exclamation-circle {
+  color: red;
+}
+
+.form-content .fa-exclamation-circle {
+  position: absolute;
+  right: 5px;
+  display: none;
 }
 
 .form-content,
@@ -957,7 +974,33 @@ table tbody tr td a:hover{
   padding: 0.5rem;
   font-size: 1rem;
 }
+.form-content input[type='password'] {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
 
+.sucsses {
+  border: 2px solid green;
+  border-radius: 7px;
+}
+
+.sucsses:focus {
+  outline: none;
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
+}
+
+.error {
+  border: 2px solid red;
+  border-radius: 7px;
+}
+
+.error:focus {
+  outline: none;
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
+}
 .update-form-container input[type='submit'] {
   width: 50%;
   margin: 1rem auto;
@@ -975,9 +1018,35 @@ table tbody tr td a:hover{
   font-weight: bold;
 }
 
+.fav_error {
+  margin: 1rem auto;
+  font-size: 1.4rem;
+  color: red;
+  text-decoration: underline;
+}
+
+.user-instuctions {
+  padding: 0.5rem 0;
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.user-instuctions li {
+  margin: 1rem 0;
+}
+
+.message {
+  color: rgb(52, 52, 52);
+  font-size: 1.5rem;
+  border-bottom: 1px solid black;
+  margin: 1rem 0;
+  padding-bottom: 0.5rem 0;
+}
+
 @media (max-width: 1024px) {
   #main {
     width: 100%;
+    min-width: 100%;
     display: flex;
     flex-direction: column;
     margin: 1rem 0;
@@ -985,11 +1054,13 @@ table tbody tr td a:hover{
 
   #aside {
     width: 100%;
+    min-width: 100%;
     display: flex;
     flex-direction: column;
   }
   .main-aside-container {
     width: 95%;
+    min-width: 95%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -1006,21 +1077,62 @@ table tbody tr td a:hover{
 
   #aside {
     width: 100%;
+    min-width: 100%;
     display: flex;
     flex-direction: column;
   }
   .main-aside-container {
     width: 95%;
+    min-width: 95%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
   #fav-match-container {
     width: 100%;
+    min-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+  }
+}
+
+@media (min-width: 320px) AND (max-width: 500px) {
+  #main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
+  }
+
+  #aside {
+    width: 100%;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .main-aside-container {
+    width: 95%;
+    min-width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  #fav-match-container {
+    width: 100%;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .fav-match {
+    width: 90%;
+  }
+  #fav-match-container {
+    align-items: flex-start;
   }
 }
 
