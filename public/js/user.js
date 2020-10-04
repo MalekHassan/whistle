@@ -250,7 +250,6 @@ function setValues() {
   });
 }
 
-
 // Check the Basic Infromation form validation
 function basicInfoValidation() {
   // Get the values of inputes
@@ -340,8 +339,7 @@ function checkphoneNumber(element) {
     element.addClass('error');
   }
   return str;
-
-
+}
 // Events
 
 $('#user-info').click(renderPersonalInfoForm);
