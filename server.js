@@ -49,8 +49,25 @@ app.post('/addNewUser', addNewUserToDB);
 app.get('/signout', signOutUser);
 app.put('/changePersonalInfo/:userID', updatePersonalInfo);
 app.put('/changeUserPass/:userID', updateUserPassword);
+app.get('/getmatches', getMatchesForUser);
 
 // Functions
+
+// get Matches in DB fro the user
+
+async function getMatchesForUser(req, res) {
+  const SOCCER_API_KEY = process.env.SOCCER_API_KEY;
+  const userID = JSON.parse(localStorage.getItem('userID'));
+  let matchesIds = await getMatchesInDB(userID);
+  if (matchesIds.length > 0) {
+    const URL = `https://apiv2.apifootball.com/?action=get_events&match_id=${matchesIds}&APIkey=${SOCCER_API_KEY}`;
+    let matchesAPI = await superagent.get(URL).then((data) => data.body);
+    let userMatches = matchesAPI.map((data) => {
+      return new liveMatches(data);
+    });
+    res.send(userMatches);
+  }
+}
 
 // Get Today date
 
@@ -61,7 +78,7 @@ function getTodayDate() {
 // render sign in page
 
 function renderSignin(req, res) {
-  res.render('pages/sign');
+  res.render('pages/sign', { errorMessage: '' });
 }
 
 // Home page function
@@ -278,8 +295,8 @@ async function signinFun(req, res) {
         matches: liveMatches,
       });
     } else {
-      console.log('username does NOT exist');
-      res.redirect('/signin');
+      let errorMessage = 'invalid email or password';
+      res.render('pages/sign', { errorMessage });
     }
   });
 }
@@ -316,7 +333,11 @@ async function userPage(req, res) {
       // res.render('pages/user', { matchArray: matchDetail });
       res.render('pages/user');
     } else {
-      res.render('pages/user', { matchesIds: '', userID, userInfo });
+      res.render('pages/user', {
+        matchesIds: '',
+        userID,
+        userInfo,
+      });
     }
   } else {
     res.redirect('/');
@@ -343,8 +364,7 @@ async function getQuesResult(req, res) {
 }
 
 // Add match id to dataBase
-
-function addFavToDataBase(req, res) {
+async function addFavToDataBase(req, res) {
   const { matchID } = req.params;
   let userID = JSON.parse(localStorage.getItem('userID'))
     ? JSON.parse(localStorage.getItem('userID'))
@@ -353,12 +373,28 @@ function addFavToDataBase(req, res) {
   if (!userID) {
     res.redirect('/');
   } else {
-    const SQL = `INSERT INTO matches (match_id,u_id) VALUES ($1,$2)`;
-    const safeValues = [matchID, userID];
-    client.query(SQL, safeValues).then((result) => {
-      res.redirect('/userPage');
-    });
+    let matchesIds = await getMatchesInDB(userID);
+    if (matchesIds.includes(matchID)) {
+      console.log('you already have this match');
+      res.redirect('/');
+    } else {
+      const SQL = `INSERT INTO matches (match_id,u_id) VALUES ($1,$2)`;
+      const safeValues = [matchID, userID];
+      client.query(SQL, safeValues).then((result) => {
+        res.redirect('/userPage');
+      });
+    }
   }
+}
+
+// get matches ids from data base for each user
+
+async function getMatchesInDB(userID) {
+  const selectSQL = 'SELECT match_id FROM matches WHERE u_id=$1;';
+  const safeValues = [userID];
+  return await client
+    .query(selectSQL, safeValues)
+    .then((data) => data.rows.map((item) => item.match_id));
 }
 
 // Add New User To Data Base
@@ -480,6 +516,7 @@ function signOutUser(req, res) {
 // Update User Personal Information
 
 async function updatePersonalInfo(req, res) {
+  console.log(req.body);
   const selectURL = 'SELECT * FROM users WHERE u_id=$1';
   const userId = [req.params.userID];
   let userInfo = await client
@@ -507,9 +544,8 @@ async function updatePersonalInfo(req, res) {
     phone_number,
     req.params.userID,
   ];
-  client.query(updateSQL, values).then(() => {
-    res.redirect('/userPage');
-  });
+  client.query(updateSQL, values).then(() => {});
+  res.send({ message: 'Updated successfully' });
 }
 
 // Update user Password
@@ -519,18 +555,17 @@ function updateUserPassword(req, res) {
   const newpass = req.body.newpass;
   const updateSQL = 'UPDATE users set password=$1 WHERE u_id=$2';
   const safeValues = [newpass, userId];
-  client.query(updateSQL, safeValues).then(() => {
-    res.redirect('/userPage');
-  });
+  client.query(updateSQL, safeValues).then(() => {});
+  res.send({ message: 'Updated successfully' });
 }
 
 // Deelte Match
-
 function deleteMatch(req, res) {
   let safeValue = [req.params.matchID];
   const SQL = 'DELETE FROM matches WHERE match_id=$1';
-  client.query(SQL, safeValue).then(() => {
-    res.redirect('/');
+  client.query(SQL, safeValue).then(() => {});
+  res.send({
+    message: 'Match Has Been Deleted',
   });
 }
 

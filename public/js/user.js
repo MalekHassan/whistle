@@ -1,3 +1,4 @@
+// Values of the hidden from
 let asaid = $('#aside');
 let userID = $('#userID').val().trim();
 let userFName = $('#fName').val().trim();
@@ -8,7 +9,9 @@ let userPhone = $('#phone_number').val().trim();
 let userIfnoArr = [userFName, userLName, userEmail, userPhone];
 setCheckedAttribut();
 setValues();
-// functions
+// Functions
+
+// Render Pesonal Into Form
 function renderPersonalInfoForm() {
   // Empty the inside of asaid section
   asaid.html('');
@@ -16,21 +19,24 @@ function renderPersonalInfoForm() {
   <h2 class='user-title'>Basic Information</h2>
   <div class="update-form-container row">
   <form
-      action="/changePersonalInfo/${userID}?_method=put "
+      id="personalInfoFrom"
       class="column"
-       method="post"
+       onsubmit="updateUserInfo(event)"
    >
     <div class="form-content row">
       <label for="name">First Name</label>
-      <input type="text" name="first_name" value="${userFName}" />
+      <input  type="text" name="first_name" value="${userFName}"   />
+      <i class="fas fa-exclamation-circle"></i>
     </div>
     <div class="form-content row">
       <label for="name">Last Name</label>
-      <input type="text" name="last_name" value="${userLName}" />
+      <input  type="text" name="last_name" value="${userLName}"   />
+      <i class="fas fa-exclamation-circle"></i>
     </div>
     <div class="form-content row">
       <label for="email">Email</label>
-      <input type="text" name="email" value="${userEmail}" />
+      <input readonly type="text" name="email" value="${userEmail}" />
+      <i class="fas fa-exclamation-circle"></i>
     </div>
     <div class="form-content row">
       <label for="gender">Gender</label>
@@ -46,8 +52,9 @@ function renderPersonalInfoForm() {
     <div class="form-content row">
       <label for="phone">Phone Number</label>
       <input type="text" name="phone_number" ${userPhone} />
+      <i class="fas fa-exclamation-circle"></i>
     </div>
-    <input type="submit" value="Update" />
+    <input onclick="showMessage()" type="submit" value="Update" />
   </form>
 </div>
   `);
@@ -55,30 +62,40 @@ function renderPersonalInfoForm() {
   setValues();
 }
 
+// Render Change Password Form
 function changeUserPassword() {
   asaid.html('');
   asaid.html(`
       <h2 class='user-title'>Change Password</h2>
+      <ul class="user-instuctions">
+      <li>Password Min length=5 and Max length=15</li>
+      <li>Password and Comform Password should be equal</li>
+      </ul>
       <div class="update-form-container row">
-      <form action="/changeUserPass/${userID}?_method=put" class="column" method="post">
+      <form 
+      class="column" 
+      onsubmit="updateUserPassword(event)"
+      >
         <div class="form-content row">
           <label for="password">Password</label>
-          <input type="text" name="newpass" />
+          <input type="password" name="newpass" minlength="5" maxlength="15" required  />
+          <i class="fas fa-exclamation-circle"></i>
         </div>
         <div class="form-content row">
           <label for="password">Comform New Password</label>
-          <input type="text" name="compass" />
+          <input type="password" name="compass" minlength="5" maxlength="15" required  />
+          <i class="fas fa-exclamation-circle"></i>
         </div>
-        <input type="submit" value="Change Password" />
+        <input onclick="showMessage()" type="submit" value="Change Password" />
       </form>
     </div>
       `);
 }
 
+// Render Matches
 function renderMatches(match) {
-  console.log(match);
   let content = `
-            <div id="fav-match" class="live-match-content column">
+            <div class="fav-match live-match-content column">
         <h2>${match.league_name}</h2>
         <div class="score row">
           <div class="live-match-image column">
@@ -111,9 +128,9 @@ function renderMatches(match) {
         </form>
         <form
           class="row"
-          action="/match_delete/${match.match_id}?_method=delete"
-          method="POST"
+          onsubmit="deleteFavMatchFormDB(event)"
         >
+          <input type="hidden" name="match_id" value="${match.match_id}"/>
           <input type="submit" value="Delete Match" />
         </form>
       </div>            
@@ -121,26 +138,102 @@ function renderMatches(match) {
   $('#fav-match-container').append(content);
 }
 
+// Get Matchs From DB
 function getFavMatches() {
   asaid.html('');
-
-  let ids = $('#ids').val();
-  console.log(ids);
-  if (ids) {
-    asaid.append(`<div id="fav-match-container" class="row">
+  asaid.append(`<div id="fav-match-container" class="row">
   <h2 class='user-title'>Favorite Matchs</h2>
   </div>`);
-    let matchResultUrl = `https://apiv2.apifootball.com/?action=get_events&match_id=${ids}&APIkey=b2fec2eb69e6174d9c6a0c3d5187b0661eb4e4b4a708387c3b1e8d9c7ed3951a`;
-    $.ajax(matchResultUrl).then((result) => {
-      result.forEach((match) => {
-        renderMatches(new liveMatches(match));
+  let ids = $('#ids').val();
+  if (ids) {
+    $.ajax({
+      type: 'GET',
+      url: '/getmatches',
+      dataType: 'json',
+    }).then((data) => {
+      data.forEach((match) => {
+        renderMatches(match);
       });
     });
   } else {
-    asaid.append(`<h2>There Is No Favorite Matches<h2>`);
+    $('#fav-match-container').append(
+      `<h2 class="fav_error">There Is No Favorite Matches<h2>`
+    );
   }
 }
 
+// Update User Info in DB
+function updateUserInfo(event) {
+  event.preventDefault();
+  if (basicInfoValidation()) {
+    $.ajax({
+      type: 'PUT',
+      url: `/changePersonalInfo/${userID}`,
+      dataType: 'json',
+      data: {
+        first_name: $('input[name="first_name"]').val(),
+        last_name: $('input[name="last_name"]').val(),
+        email: $('input[name="email"]').val(),
+        phone_number: $('input[name="phone_number"]').val(),
+        gender: [...$('input[type=radio]')].reduce((wanted, item) => {
+          if (item.checked) {
+            console.log();
+            wanted = item;
+          }
+          return wanted;
+        }).value,
+      },
+    }).then((data) => {
+      $('h3').remove();
+      asaid.append(`<h3 class='message'>${data.message}</h3>`);
+      $('h3').eq(1).remove();
+    });
+  } else {
+    $('h3').remove();
+    asaid.append(`<h3 class='message'>Please Fix The Errors</h3>`);
+    $('h3').eq(1).remove();
+  }
+}
+// Change user Password
+
+function updateUserPassword(event) {
+  event.preventDefault();
+  if (checkPasswords()) {
+    $.ajax({
+      type: 'PUT',
+      url: `/changeUserPass/${userID}`,
+      dataType: 'json',
+      data: {
+        newpass: $('input[name="newpass"]').val(),
+      },
+    }).then((data) => {
+      $('h3').remove();
+      asaid.append(`<h3 class='message'>${data.message}</h3>`);
+    });
+  } else {
+    $('h3').remove();
+    asaid.append(`<h3 class='message'>Please Fix The Errors</h3>`);
+  }
+}
+
+// Delete Fav Match
+
+function deleteFavMatchFormDB(event) {
+  event.preventDefault();
+  let matchID = $('input[name="match_id"]').val();
+  $.ajax({
+    type: 'DELETE',
+    url: `/match_delete/${matchID}`,
+    dataType: 'json',
+  }).then((result) => {
+    getFavMatches();
+    $('#fav-match-container').prepend(
+      `<h3 class='message'>${result.message}</h3>`
+    );
+  });
+}
+
+// Set Male or Female checked
 function setCheckedAttribut() {
   let radios = [...$('input[type=radio]')];
   radios.forEach((item) => {
@@ -149,7 +242,7 @@ function setCheckedAttribut() {
     }
   });
 }
-
+// Set from backend into front end
 function setValues() {
   let inputText = [...$('input[type=text]')];
   inputText.forEach((item, index) => {
@@ -157,28 +250,102 @@ function setValues() {
   });
 }
 
-// Constructor
 
-function liveMatches(matchData) {
-  this.match_id = matchData.match_id;
-  this.match_status = matchData.match_status;
-  this.league_logo = matchData.league_logo;
-  this.league_name = matchData.league_name;
-  this.match_time = matchData.match_time;
-  this.match_hometeam_id = matchData.match_hometeam_id;
-  this.match_hometeam_name = matchData.match_hometeam_name;
-  this.match_awayteam_id = matchData.match_awayteam_id;
-  this.match_awayteam_name = matchData.match_awayteam_name;
-  this.team_home_badge = matchData.team_home_badge
-    ? matchData.team_home_badge
-    : 'https://apiv2.apifootball.com/badges/17691_hafnarfjordur-w.png';
-  this.team_away_badge = matchData.team_away_badge
-    ? matchData.team_away_badge
-    : 'https://apiv2.apifootball.com/badges/17691_hafnarfjordur-w.png';
-  this.score = `${matchData.match_hometeam_score} : ${matchData.match_awayteam_score}`;
+// Check the Basic Infromation form validation
+function basicInfoValidation() {
+  // Get the values of inputes
+  let firstNameEle = $('input[name="first_name"]');
+  let lastNameEle = $('input[name="last_name"]');
+  let email = $('input[name="email"]');
+  let phoneNumberEle = $('input[name="phone_number"]');
+  let checkArray = checkEmpty([
+    firstNameEle,
+    lastNameEle,
+    email,
+    phoneNumberEle,
+  ]);
+  checkArray.push(checkphoneNumber(phoneNumberEle));
+  return !checkArray.includes(false);
 }
+
+// Check password and comform password
+
+function checkPasswords() {
+  // Get the Values of passwords
+  let passwordsArray = [...$('input[type="password"]')];
+  let checkArray = checkEmptyPass(passwordsArray);
+  checkArray.push(checkPassAndComPass(passwordsArray));
+  console.log(checkArray);
+  return !checkArray.includes(false);
+}
+
+// Check inputs if empty
+function checkEmpty(elements) {
+  let checkArray = [];
+  elements.forEach((element, index) => {
+    if (element.val().trim() === '') {
+      $('.fa-exclamation-circle').eq(index).show();
+      element.addClass('error');
+      checkArray.push(false);
+    } else {
+      $('.fa-exclamation-circle').eq(index).hide();
+      element.removeClass('error');
+      element.addClass('sucsses');
+      checkArray.push(true);
+    }
+  });
+  return checkArray;
+}
+
+// Check passwords if empty
+function checkEmptyPass(elements) {
+  let checkArray = [];
+  elements.forEach((element, index) => {
+    if (element.value.trim() === '') {
+      $('.fa-exclamation-circle').eq(index).show();
+      element.classList.add('error');
+      checkArray.push(false);
+    } else {
+      $('.fa-exclamation-circle').eq(index).hide();
+      element.classList.remove('error');
+      element.classList.add('sucsses');
+      checkArray.push(true);
+    }
+  });
+  return checkArray;
+}
+// check if password and comform password are equal
+function checkPassAndComPass(elements) {
+  let str = true;
+  if (elements[0].value !== elements[1].value) {
+    $('.fa-exclamation-circle').eq(1).show();
+    elements[1].classList.add('error');
+    str = false;
+  }
+  return str;
+}
+
+// Check Phone Number length and if it is number
+
+function checkphoneNumber(element) {
+  let regix = /^\d{10}$/g;
+  let str = false;
+  if (regix.test(element.val())) {
+    $('.fa-exclamation-circle').eq(3).hide();
+    element.removeClass('error');
+    element.addClass('sucsses');
+    str = true;
+  } else {
+    $('.fa-exclamation-circle').eq(3).show();
+    element.addClass('error');
+  }
+  return str;
+
+
 // Events
 
 $('#user-info').click(renderPersonalInfoForm);
 $('#password').click(changeUserPassword);
+// $('#favMatchesForm').click(getFavMatches);
 $('#favMatchesForm').click(getFavMatches);
+$('#personalInfoFrom').submit(updateUserInfo);
