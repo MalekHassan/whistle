@@ -16,7 +16,8 @@ const cors = require('cors');
 const pg = require('pg');
 const methodOverride = require('method-override');
 const httpMsgs = require('http-msgs');
-const hash = require('js-hash-code');
+const bcrypt = require('bcrypt');
+const SALT_ROUNDS = 10;
 
 app.set('view engine', 'ejs');
 app.use(cors());
@@ -441,19 +442,37 @@ async function getMatchesInDB(userID) {
 
 // Add New User To Data Base
 // select * from books_table ORDER BY id DESC LIMIT 1
-function addNewUserToDB(req, res) {
+async function addNewUserToDB(req, res) {
   console.log(req.body);
-  const { firstname, lastname, email, password } = req.body;
-  const inserSQL =
-    'INSERT INTO users (first_name,last_name,email,password) VALUES ($1,$2,$3,$4);';
-  const safeValues = [firstname, lastname, email, password];
-  client.query(inserSQL, safeValues).then(() => {
-    console.log('user has been added');
-    let selectSQL = 'select * from users ORDER BY u_id DESC LIMIT 1';
-    client.query(selectSQL).then((result) => {
-      storeInLocalStorage('userID', result.rows[0].u_id);
-      res.redirect('/');
+  const { firstname, lastname, upemail, uppassword } = req.body;
+  let emailArrays = (await getAllEmailInDB()).map((item) => item.email);
+  console.log(emailArrays);
+  if (emailArrays.includes(upemail)) {
+    let errorMessage = `This Email ${upemail} Already registerd`;
+    res.render('pages/sign', { errorMessage });
+  } else {
+    let hashedPass = bcrypt.hashSync(uppassword, SALT_ROUNDS);
+    // console.log(hashedPass);
+    // console.log(bcrypt.compareSync(uppassword, hashedPass));
+    const inserSQL =
+      'INSERT INTO users (first_name,last_name,email,password) VALUES ($1,$2,$3,$4);';
+    const safeValues = [firstname, lastname, upemail, hashedPass];
+    client.query(inserSQL, safeValues).then(() => {
+      let selectSQL = 'select * from users ORDER BY u_id DESC LIMIT 1';
+      client.query(selectSQL).then((result) => {
+        storeInLocalStorage('userID', result.rows[0].u_id);
+        res.redirect('/');
+      });
     });
+  }
+}
+
+// Get All Email in DB
+
+async function getAllEmailInDB() {
+  const SQL = 'SELECT email from users';
+  return await client.query(SQL).then((result) => {
+    return result.rows;
   });
 }
 
