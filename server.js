@@ -619,8 +619,9 @@ async function updatePersonalInfo(req, res) {
 function updateUserPassword(req, res) {
   const userId = req.params.userID;
   const newpass = req.body.newpass;
+  let hashedPass = bcrypt.hashSync(newpass, SALT_ROUNDS);
   const updateSQL = 'UPDATE users set password=$1 WHERE u_id=$2';
-  const safeValues = [newpass, userId];
+  const safeValues = [hashedPass, userId];
   client.query(updateSQL, safeValues).then(() => {});
   res.send({ message: 'Updated successfully' });
 }
