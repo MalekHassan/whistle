@@ -324,24 +324,29 @@ var usernamedata = '';
 async function signinFun(req, res) {
   usernamedata = '';
   let { email, password } = req.body;
-  let SQL = 'SELECT * FROM  users WHERE email= $1 AND password=$2;';
-  let values = [email, password];
-  let liveMatches = await getUpCommingMatches(req, res);
-  let newsArray = await getNewsData();
-  client.query(SQL, values).then((results) => {
-    if (results.rows.length) {
-      storeInLocalStorage('userID', JSON.stringify(results.rows[0].u_id));
-      usernamedata = results.rows[0];
-      res.render('pages/index', {
-        user: usernamedata,
-        news: newsArray,
-        matches: liveMatches,
-      });
-    } else {
-      let errorMessage = 'invalid email or password';
-      res.render('pages/sign', { errorMessage });
+  let SQL = 'SELECT * FROM users WHERE email=$1';
+  let safeValues = [email];
+  let user = await (await client.query(SQL, safeValues)).rows[0];
+  try {
+    if (Object.keys(user).length > 0) {
+      if (bcrypt.compareSync(password, user.password)) {
+        let liveMatches = await getUpCommingMatches(req, res);
+        let newsArray = await getNewsData();
+        storeInLocalStorage('userID', JSON.stringify(user.u_id));
+        res.render('pages/index', {
+          user,
+          news: newsArray,
+          matches: liveMatches,
+        });
+      } else {
+        let errorMessage = 'Invalid Email Or Password';
+        res.render('pages/sign', { errorMessage });
+      }
     }
-  });
+  } catch (e) {
+    let errorMessage = 'Invalid Email Or Password';
+    res.render('pages/sign', { errorMessage });
+  }
 }
 
 // User Page Funtcion
@@ -452,8 +457,6 @@ async function addNewUserToDB(req, res) {
     res.render('pages/sign', { errorMessage });
   } else {
     let hashedPass = bcrypt.hashSync(uppassword, SALT_ROUNDS);
-    // console.log(hashedPass);
-    // console.log(bcrypt.compareSync(uppassword, hashedPass));
     const inserSQL =
       'INSERT INTO users (first_name,last_name,email,password) VALUES ($1,$2,$3,$4);';
     const safeValues = [firstname, lastname, upemail, hashedPass];
@@ -792,7 +795,6 @@ function challengeQuestion(question) {
 
 function storeInLocalStorage(key, wantedData) {
   localStorage.setItem(key, JSON.stringify(wantedData));
-  console.log('data was saved');
 }
 
 // Listen To Server
