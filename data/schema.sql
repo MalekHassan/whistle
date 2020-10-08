@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS matches;
+-- DROP TABLE IF EXISTS users;
+-- DROP TABLE IF EXISTS matches;
 
 CREATE TABLE
 IF NOT EXISTS users
@@ -29,10 +29,14 @@ IF NOT EXISTS matches
 (u_id)
 );
 
-INSERT INTO users
-  (first_name,last_name,email,password)
-VALUES
-  ('malek', 'hassan', 'malek@hotmail.com', '0000');
+CREATE TABLE
+IF NOT EXISTS live
+(
+  id SERIAL PRIMARY KEY,
+  match_id VARCHAR
+(255)
+);
+
 
 
   

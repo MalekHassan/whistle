@@ -41,6 +41,7 @@ app.get('/bestOf', bestPlayerInfo);
 app.get('/leagues', leaguesStandings);
 app.get('/team/:teamId', getTeamInfo);
 app.get('/live', getLiveMatches);
+app.get('/live/:page', getLiveMatchesPages);
 app.get('/match_detail/:matchID', getLiveMatchDetails);
 app.delete('/match_delete/:matchID', deleteMatch);
 app.get('/question', getQuestionsChall);
@@ -172,6 +173,26 @@ async function getNewsData() {
   return newsArray;
 }
 
+// Get Live Matches according to page number
+
+async function getLiveMatchesPages(req, res) {
+  const pageNumber = req.params.page;
+  let numberOfResults = pageNumber * 20;
+  let selectSQL = 'select match_id  from live limit 20 offset $1';
+  let safeValues = [numberOfResults];
+  let liveMatchesArray = (
+    await client
+      .query(selectSQL, safeValues)
+      .then((result) => result.rows)
+      .catch(() => {
+        console.log('fix the query');
+      })
+  )
+    .map((item) => item.match_id)
+    .join(',');
+  console.log(liveMatchesArray);
+}
+
 // Get Live Soccer Matches From API
 async function getLiveMatches(req, res) {
   const SOCCER_API_KEY = process.env.SOCCER_API_KEY;
@@ -190,13 +211,31 @@ async function getLiveMatches(req, res) {
         .map((match) => {
           return new liveMatches(match);
         });
-      res.render('pages/live', { matchArray: liveMatchesArray });
+      insertAllMatchesIds(liveMatchesArray);
+      let numberOfMatches = liveMatchesArray.length;
+      let numberOfPages = numberOfMatches / 20;
+      res.render('pages/live', {
+        matchArray: liveMatchesArray,
+        numberOfPages,
+      });
     })
     .catch((err) => {
       res.status(500).json({
         error: 'Somthing went bad',
       });
     });
+}
+
+// insert all Matches Ids in DB
+
+function insertAllMatchesIds(matchesArray) {
+  const deleteSQL = 'DELETE FROM live';
+  client.query(deleteSQL);
+  matchesArray.forEach((item) => {
+    const SQL = 'insert into live (match_id) values ($1)';
+    const safeValues = [item.match_id];
+    client.query(SQL, safeValues);
+  });
 }
 
 // get head to head information from API

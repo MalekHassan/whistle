@@ -23,6 +23,7 @@
     <%- include('../layout/header') %>
 
     <div class="container row">
+      <input type="hidden" name="numberOfPages" value="<%= numberOfPages %> " />
       <div class="cente-tilte">
         <h2 id="afterRun">Todays Matches</h2>
       </div>
@@ -77,5 +78,10 @@
       </div>
       <% }); %>
     </div>
+    <div class="pagination column">
+      <ul id="pagination" class="row"></ul>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../../js/live.js"></script>
   </body>
 </html>
