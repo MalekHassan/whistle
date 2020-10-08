@@ -26,6 +26,7 @@
     "express": "^4.17.1",
     "find-config": "^1.0.0",
     "http-msgs": "^1.0.9",
+    "js-hash-code": "^1.0.0",
     "method-override": "^3.0.0",
     "node-localstorage": "^2.1.6",
     "password-hash": "^1.2.2",

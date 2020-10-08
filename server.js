@@ -16,6 +16,7 @@ const cors = require('cors');
 const pg = require('pg');
 const methodOverride = require('method-override');
 const httpMsgs = require('http-msgs');
+const hash = require('js-hash-code');
 
 app.set('view engine', 'ejs');
 app.use(cors());
@@ -33,10 +34,10 @@ app.get('/', homePage);
 app.get('/h2h', h2hFunction);
 app.get('/player', playerInfo);
 app.get('/events', eventsInfo);
-app.get('/getteammathes/:team_key',getteammathes)
-app.get('/leaguematches/:league_id',getleaguematches)
+app.get('/getteammathes/:team_key', getteammathes);
+app.get('/leaguematches/:league_id', getleaguematches);
 app.get('/bestOf', bestPlayerInfo);
-app.get('/leagues',leaguesStandings)
+app.get('/leagues', leaguesStandings);
 app.get('/team/:teamId', getTeamInfo);
 app.get('/live', getLiveMatches);
 app.get('/match_detail/:matchID', getLiveMatchDetails);
@@ -83,45 +84,44 @@ function renderSignin(req, res) {
   res.render('pages/sign', { errorMessage: '' });
 }
 
-// get team matches 
-async function getteammathes(req,res){
-  let teamMatches =[];
+// get team matches
+async function getteammathes(req, res) {
+  let teamMatches = [];
   let teamId = req.params.team_key;
-  let todayDate =  getTodayDate();
+  let todayDate = getTodayDate();
   // console.log(todayDate);
-  let comingData = '2022-01-01'
+  let comingData = '2022-01-01';
   let SOCCER_API_KEY = process.env.SOCCER_API_KEY;
-  let url =  `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${comingData}&team_id=${teamId}&APIkey=${SOCCER_API_KEY}`;
+  let url = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${comingData}&team_id=${teamId}&APIkey=${SOCCER_API_KEY}`;
   // console.log(url);
-   await superagent.get(url).then(item=>{
+  await superagent.get(url).then((item) => {
     // console.log(item.body);
-    item.body.map(e=>{
-    teamMatches.push(new liveMatches(e))
-    })
-  })
+    item.body.map((e) => {
+      teamMatches.push(new liveMatches(e));
+    });
+  });
   console.log(teamMatches);
-  res.render('pages/teammatches', {matchArray:teamMatches})
+  res.render('pages/teammatches', { matchArray: teamMatches });
 }
 // get league matches
-async function getleaguematches(req,res){
-  let teamMatches =[];
+async function getleaguematches(req, res) {
+  let teamMatches = [];
   let leagueId = req.params.league_id;
-  let todayDate =  getTodayDate();
+  let todayDate = getTodayDate();
   // console.log(todayDate);
-  let comingData = '2021-12-30'
+  let comingData = '2021-12-30';
   let SOCCER_API_KEY = process.env.SOCCER_API_KEY;
-  let url =  `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${comingData}&league_id=${leagueId}&APIkey=${SOCCER_API_KEY}`;
+  let url = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${comingData}&league_id=${leagueId}&APIkey=${SOCCER_API_KEY}`;
   console.log(url);
   // console.log(url);
-   await superagent.get(url).then(item=>{
+  await superagent.get(url).then((item) => {
     // console.log(item.body);
-    item.body.map(e=>{
-    teamMatches.push(new liveMatches(e))
-    })
-  })
+    item.body.map((e) => {
+      teamMatches.push(new liveMatches(e));
+    });
+  });
   console.log(teamMatches);
-  res.render('pages/teammatches', {matchArray:teamMatches})
-
+  res.render('pages/teammatches', { matchArray: teamMatches });
 }
 // Home page function
 
@@ -230,21 +230,21 @@ async function getBadge(id) {
   return team_badge;
 }
 // get league standings
-function leaguesStandings(req,res){
+function leaguesStandings(req, res) {
   let data = [];
-  let {leaguesName} = req.query
+  let { leaguesName } = req.query;
   let key = process.env.SOCCER_API_KEY;
-  let url = `https://apiv2.apifootball.com/?action=get_standings&league_id=${leaguesName}&APIkey=${key}`
+  let url = `https://apiv2.apifootball.com/?action=get_standings&league_id=${leaguesName}&APIkey=${key}`;
   // console.log(url);
-  superagent.get(url).then(items =>{
+  superagent.get(url).then((items) => {
     // console.log(items.body)
-    items.body.forEach((k)=>{
+    items.body.forEach((k) => {
       // console.log(k);
-     let standings = new LeaguesStandings(k);
-      data.push(standings);     
-    })
-    res.render('pages/standings',{ StandingsData :data })
-  })
+      let standings = new LeaguesStandings(k);
+      data.push(standings);
+    });
+    res.render('pages/standings', { StandingsData: data });
+  });
 }
 
 // get team information function
@@ -648,7 +648,7 @@ async function getQuestionsChall(req, res) {
 //Constructors
 
 // LeaguesStandings Constructor
-function LeaguesStandings(standings){
+function LeaguesStandings(standings) {
   this.league_id = standings.league_id;
   this.country_name = standings.country_name;
   this.league_name = standings.league_name;
@@ -666,7 +666,7 @@ function LeaguesStandings(standings){
   this.home_league_payed = standings.home_league_payed;
   this.home_league_W = standings.home_league_W;
   this.home_league_D = standings.home_league_D;
-  this.home_league_L= standings.home_league_L;
+  this.home_league_L = standings.home_league_L;
   this.home_league_GF = standings.home_league_GF;
   this.home_league_GA = standings.home_league_GA;
   this.home_league_PTS = standings.home_league_PTS;
@@ -728,11 +728,12 @@ function liveMatches(matchData) {
     ? matchData.team_away_badge
     : 'https://apiv2.apifootball.com/badges/17691_hafnarfjordur-w.png';
   this.score = `${matchData.match_hometeam_score} : ${matchData.match_awayteam_score}`;
-  this.match_referee = matchData.match_referee? matchData.match_referee
-  : 'Undetermined Yet';
-  this.match_stadium = matchData.match_stadium? matchData.match_stadium
-  : 'Undetermined Yet';
-
+  this.match_referee = matchData.match_referee
+    ? matchData.match_referee
+    : 'Undetermined Yet';
+  this.match_stadium = matchData.match_stadium
+    ? matchData.match_stadium
+    : 'Undetermined Yet';
 }
 
 // get live match deatail
