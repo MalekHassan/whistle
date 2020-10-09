@@ -173,14 +173,12 @@ async function getNewsData() {
   return newsArray;
 }
 
-// Get Live Matches according to page number
-
-async function getLiveMatchesPages(req, res) {
-  const pageNumber = req.params.page;
+async function getMatchesFromDB(pageNumber = 0) {
+  pageNumber === 1 ? (pageNumber = 0) : (pageNumber = pageNumber);
   let numberOfResults = pageNumber * 20;
   let selectSQL = 'select match_id  from live limit 20 offset $1';
   let safeValues = [numberOfResults];
-  let liveMatchesArray = (
+  let matchesIds = (
     await client
       .query(selectSQL, safeValues)
       .then((result) => result.rows)
@@ -190,7 +188,20 @@ async function getLiveMatchesPages(req, res) {
   )
     .map((item) => item.match_id)
     .join(',');
-  console.log(liveMatchesArray);
+  const SOCCER_API_KEY = process.env.SOCCER_API_KEY;
+  const URL = `https://apiv2.apifootball.com/?action=get_events&match_id=${matchesIds}&APIkey=${SOCCER_API_KEY}`;
+  let liveMatchesArray = await superagent.get(URL).then((result) => {
+    return result.body.map((item) => new liveMatches(item));
+  });
+  return liveMatchesArray;
+}
+
+// Get Live Matches according to page number
+
+async function getLiveMatchesPages(req, res) {
+  const pageNumber = req.params.page;
+  let liveMatchesArray = await getMatchesFromDB(pageNumber);
+  res.send({ matchArray: liveMatchesArray });
 }
 
 // Get Live Soccer Matches From API
@@ -200,13 +211,10 @@ async function getLiveMatches(req, res) {
   const liveURL = `https://apiv2.apifootball.com/?action=get_events&from=${todayDate}&to=${todayDate}&APIkey=${SOCCER_API_KEY}`;
   await superagent
     .get(liveURL)
-    .then((data) => {
+    .then(async (data) => {
       let liveMatchesArray = data.body
         .filter((item) => {
-          //item.match_status !== 'Finished'
-          // if (item.match_live === '1') {
           return item;
-          // }
         })
         .map((match) => {
           return new liveMatches(match);
@@ -214,8 +222,9 @@ async function getLiveMatches(req, res) {
       insertAllMatchesIds(liveMatchesArray);
       let numberOfMatches = liveMatchesArray.length;
       let numberOfPages = numberOfMatches / 20;
+      let pageOneMatches = await getMatchesFromDB();
       res.render('pages/live', {
-        matchArray: liveMatchesArray,
+        matchArray: pageOneMatches,
         numberOfPages,
       });
     })
