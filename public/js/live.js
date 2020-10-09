@@ -21,7 +21,6 @@ function renderMatches(array) {
             <h2 id="afterRun">Todays Matches</h2>
       </div>
       `);
-
   array.forEach((match) => {
     let element = `
             <div id="live-match" class="live-match-content column">
