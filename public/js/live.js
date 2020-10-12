@@ -6,12 +6,13 @@ insertPaginationToPage(numberOfPages);
 // functions
 
 function insertPaginationToPage(numberOfPages) {
-  for (i = 1; i < numberOfPages; i++) {
-    let ele = `
-                  <li><a href="" class="pages">${i}</a></li>
-            `;
-    paginationEle.append(ele);
-  }
+  numberOfPages = Math.floor(parseInt(numberOfPages));
+  let ele = `
+    <button class="hidden" id='previous'><i class="fas fa-chevron-left"></i></button>
+    <p>Page Number <span id='page_number'>1</span> // <span id="number_of_pages">${numberOfPages}</span></p>
+    <button id='next'><i class="fas fa-chevron-right"></i></button>
+  `;
+  paginationEle.append(ele);
 }
 
 function renderMatches(array) {
@@ -75,25 +76,53 @@ function renderMatches(array) {
 
     liveMatchContEle.append(element);
   });
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
 
 function getMatchesPage(event) {
-  event.preventDefault();
-  let element = event.target;
-  if ([[...element.classList].includes('pages')]) {
-    let pageNumber = parseInt(element.innerText);
-    $.ajax({
-      type: 'GET',
-      url: `/live/${pageNumber}`,
-      dataType: 'json',
-    }).then((data) => {
-      renderMatches(data.matchArray);
-    });
+  let id = event.target.id;
+  let pageNumber = $('#page_number').html();
+  if (id === 'next') {
+    pageNumber++;
+    $('#page_number').html(pageNumber);
+    callingRouts(pageNumber);
+    visibleOrHidden(pageNumber);
+  } else if (id === 'previous') {
+    pageNumber--;
+    $('#page_number').html(pageNumber);
+    callingRouts(pageNumber);
+    visibleOrHidden(pageNumber);
+  }
+}
+
+function callingRouts(pageNumber) {
+  $.ajax({
+    type: 'GET',
+    url: `/live/${pageNumber}`,
+    dataType: 'json',
+  }).then((data) => {
+    renderMatches(data.matchArray);
+  });
+}
+
+function visibleOrHidden(pageNumber) {
+  if (pageNumber >= 1) {
+    $('#previous').removeClass('hidden');
+  }
+  if (pageNumber == Math.floor(numberOfPages)) {
+    $('#next').addClass('hidden');
   } else {
-    console.log('wow');
+    $('#next').removeClass('hidden');
+  }
+
+  if (pageNumber === 1) {
+    $('#previous').addClass('hidden');
   }
 }
 
 // Events
 
-paginationEle.click(getMatchesPage);
+// paginationEle.click(getMatchesPage);
+$('#next').click(getMatchesPage);
+$('#previous').click(getMatchesPage);

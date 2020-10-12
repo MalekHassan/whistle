@@ -482,6 +482,26 @@ header a:hover {
 .underline {
   border-bottom: solid 1px white;
 }
+
+#pagination {
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 0 auto;
+  width: 15%;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+#next,
+#previous {
+  padding: 15px;
+  font-size: 25px;
+  border: none;
+  background: white;
+  cursor: pointer;
+}
 /* Live Matches live.ejs End */
 
 /*match details start*/
